@@ -83,7 +83,7 @@ namespace NeoCortexApiSample
 
             var sp = RunExperiment(cfg, encoder, inputValues);
 
-            //RunRustructuringExperiment(sp, encoder, inputValues);
+            RunRustructuringExperiment(sp, encoder, inputValues);
         }
 
        
@@ -167,7 +167,7 @@ namespace NeoCortexApiSample
             }
 
             // Learning process will take 1000 iterations (cycles)
-            int maxSPLearningCycles = 1000;
+            int maxSPLearningCycles = 100;
 
             int numStableCycles = 0;
 
