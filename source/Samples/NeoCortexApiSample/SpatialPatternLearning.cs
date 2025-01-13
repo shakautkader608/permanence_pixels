@@ -28,7 +28,7 @@ namespace NeoCortexApiSample
             double maxBoost = 5.0;
 
             // We will use 200 bits to represent an input vector (pattern).
-            int inputBits = 200;
+            int inputBits = 250;
 
             // We will build a slice of the cortex with the given number of mini-columns
             int numColumns = 1024;
@@ -167,7 +167,7 @@ namespace NeoCortexApiSample
             }
 
             // Learning process will take 1000 iterations (cycles)
-            int maxSPLearningCycles = 1000;
+            int maxSPLearningCycles = 100;
 
             int numStableCycles = 0;
 

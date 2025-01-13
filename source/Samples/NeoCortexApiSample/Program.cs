@@ -24,8 +24,13 @@ namespace NeoCortexApiSample
             experiment.Run();
 
             // Starts experiment For the Image Inputs how to learn spatial patterns.
+<<<<<<< HEAD
             ImageBinarizerSpatialPattern experiment = new ImageBinarizerSpatialPattern();
             experiment.Run();
+=======
+            // ImageBinarizerSpatialPattern experiment = new ImageBinarizerSpatialPattern();
+            // experiment.Run();
+>>>>>>> 84b757c10b0d129e7b5fe5d9f6141384a5af228c
 
 
             //
