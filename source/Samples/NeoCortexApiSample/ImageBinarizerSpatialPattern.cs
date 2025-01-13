@@ -76,7 +76,7 @@ namespace NeoCortexApiSample
             //Accessing the Image Folder form the Cureent Directory Foldfer
             var trainingImages = Directory.GetFiles(trainingFolder, $"{inputPrefix}*.png");
             //Image Size
-            int imageSize = 32;
+            int imageSize = 28;
             //Folder Name in the Directorty 
             string testName = "test_image";
 
@@ -104,7 +104,7 @@ namespace NeoCortexApiSample
             sp.Init(mem, new DistributedMemory() { ColumnDictionary = new InMemoryDistributedDictionary<int, NeoCortexApi.Entities.Column>(1) });
 
             //Image Size
-            int imgSize = 32;
+            int imgSize = 28;
             int[] activeArray = new int[numColumns];
 
             int numStableCycles = 0;
