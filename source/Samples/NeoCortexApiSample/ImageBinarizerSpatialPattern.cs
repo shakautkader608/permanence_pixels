@@ -109,7 +109,7 @@ namespace NeoCortexApiSample
 
             int numStableCycles = 0;
             // Runnig the Traning Cycle for 5 times
-            int maxCycles = 60;
+            int maxCycles = 5;
             int currentCycle = 0;
 
             while (!isInStableState && currentCycle < maxCycles)
@@ -228,7 +228,7 @@ namespace NeoCortexApiSample
                 BinarizedencodedInputs.Add(inputVector);
 
                 //Normalizing Permanence Threshold
-                var ThresholdValue = 30.5;
+                var ThresholdValue = 20.5;
 
                 // Normalize permanences (0 and 1) based on the threshold value and convert them to a list of integers.
                 List<int> normalizePermanenceList = Helpers.ThresholdingProbabilities(permanenceValuesList, ThresholdValue);
