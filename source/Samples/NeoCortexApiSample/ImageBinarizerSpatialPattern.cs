@@ -38,7 +38,7 @@ namespace NeoCortexApiSample
                 NumInputs = imageSize * imageSize,
                 ColumnDimensions = colDims,
                 MaxBoost = maxBoost,
-                DutyCyclePeriod = 150,
+                DutyCyclePeriod = 100,
                 MinPctOverlapDutyCycles = minOctOverlapCycles,
                 GlobalInhibition = false,
                 NumActiveColumnsPerInhArea = 0.02 * numColumns,
@@ -109,7 +109,7 @@ namespace NeoCortexApiSample
 
             int numStableCycles = 0;
             // Runnig the Traning Cycle for 5 times
-            int maxCycles = 5;
+            int maxCycles = 60;
             int currentCycle = 0;
 
             while (!isInStableState && currentCycle < maxCycles)
