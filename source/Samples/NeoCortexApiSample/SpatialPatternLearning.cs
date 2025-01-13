@@ -83,7 +83,7 @@ namespace NeoCortexApiSample
 
             var sp = RunExperiment(cfg, encoder, inputValues);
 
-            RunRustructuringExperiment(sp, encoder, inputValues);
+            //RunRustructuringExperiment(sp, encoder, inputValues);
         }
 
        
@@ -303,7 +303,7 @@ namespace NeoCortexApiSample
                 Debug.WriteLine($"Input: {input} SDR: {Helpers.StringifyVector(actCols)}");
 
                 // Define a threshold value for normalizing permanences, this value provides best Reconstructed Input
-                var ThresholdValue = 8.5;
+                var ThresholdValue = 8.3;
 
                 // Normalize permanences (0 and 1) based on the threshold value and convert them to a list of integers.
                 List<int> normalizePermanenceList = Helpers.ThresholdingProbabilities(permanenceValuesList, ThresholdValue);

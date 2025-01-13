@@ -33,7 +33,7 @@ namespace NeoCortexApiSample
             // This is a set of configuration parameters used in the experiment.
             HtmConfig cfg = new HtmConfig(new int[] { imageSize, imageSize }, new int[] { numColumns })
             {
-                CellsPerColumn = 15,
+                CellsPerColumn = 10,
                 InputDimensions = new int[] { imageSize, imageSize },
                 NumInputs = imageSize * imageSize,
                 ColumnDimensions = colDims,
@@ -109,7 +109,7 @@ namespace NeoCortexApiSample
 
             int numStableCycles = 0;
             // Runnig the Traning Cycle for 5 times
-            int maxCycles = 10;
+            int maxCycles = 5;
             int currentCycle = 0;
 
             while (!isInStableState && currentCycle < maxCycles)
