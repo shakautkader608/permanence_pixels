@@ -43,7 +43,7 @@ namespace NeoCortexApiSample
                 MinPctOverlapDutyCycles = minOctOverlapCycles,
 
                 GlobalInhibition = false,
-                NumActiveColumnsPerInhArea = 0.02 * numColumns,
+                NumActiveColumnsPerInhArea = 0.03 * numColumns,
                 PotentialRadius = (int)(0.15 * inputBits),
                 LocalAreaDensity = -1,
                 ActivationThreshold = 10,
