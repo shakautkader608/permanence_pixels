@@ -66,7 +66,7 @@ namespace NeoCortexApiSample
                 { "Periodic", false},
                 { "Name", "scalar"},
                 { "ClipInput", false},
-                { "MaxVal", max}
+                { "MaxVal", max},
                 // Adding a new parameter
                 { "ScaleFactor", 1.5 } // New parameter added
             };
