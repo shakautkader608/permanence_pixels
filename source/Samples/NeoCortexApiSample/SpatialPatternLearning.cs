@@ -59,7 +59,7 @@ namespace NeoCortexApiSample
             // This dictionary defines a set of typical encoder parameters.
             Dictionary<string, object> settings = new Dictionary<string, object>()
             {
-                { "W", 20},
+                { "W", 19},
                 { "N", inputBits},
                 { "Radius", -1.0},
                 { "MinVal", 0.0},
