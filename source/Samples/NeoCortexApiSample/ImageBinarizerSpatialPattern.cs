@@ -109,7 +109,7 @@ namespace NeoCortexApiSample
 
             int numStableCycles = 0;
             // Runnig the Traning Cycle for 5 times
-            int maxCycles = 60;
+            int maxCycles = 100;
             int currentCycle = 0;
 
             while (!isInStableState && currentCycle < maxCycles)
