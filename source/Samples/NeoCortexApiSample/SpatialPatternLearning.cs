@@ -28,7 +28,7 @@ namespace NeoCortexApiSample
             double maxBoost = 5.0;
 
             // We will use 200 bits to represent an input vector (pattern).
-            int inputBits = 260;
+            int inputBits = 200;
 
             // We will build a slice of the cortex with the given number of mini-columns
             int numColumns = 1024;
@@ -59,14 +59,14 @@ namespace NeoCortexApiSample
             // This dictionary defines a set of typical encoder parameters.
             Dictionary<string, object> settings = new Dictionary<string, object>()
             {
-                { "W", 15},
+                { "W", 19},
                 { "N", inputBits},
                 { "Radius", -1.0},
                 { "MinVal", 0.0},
                 { "Periodic", false},
                 { "Name", "scalar"},
                 { "ClipInput", false},
-                { "MaxVal", max}
+                { "MaxVal", max},
                 // Adding a new parameter
                 { "ScaleFactor", 1.5 } // New parameter added
             };
