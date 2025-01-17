@@ -55,14 +55,16 @@ namespace NeoCortexApiSample
 
             Dictionary<string, object> settings = new Dictionary<string, object>()
             {
-                { "W", 15},
-                { "N", inputBits},
-                { "Radius", -1.0},
-                { "MinVal", 0.0},
-                { "Periodic", false},
-                { "Name", "scalar"},
-                { "ClipInput", false},
-                { "MaxVal", max}
+                { "W", 15 },
+                { "N", inputBits },
+                { "Radius", -1.0 },
+                { "MinVal", 0.0 },
+                { "Periodic", false },
+                { "Name", "scalar" },
+                { "ClipInput", false },
+                { "MaxVal", max },
+                { "NewSetting", 100 },  // Adding a new entry.
+                { "AdditionalSetting", true }  // Example of another addition.
             };
 
             EncoderBase encoder = new ScalarEncoder(settings);
