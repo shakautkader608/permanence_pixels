@@ -50,7 +50,7 @@ namespace NeoCortexApiSample
 
                 MaxSynapsesPerSegment = (int)(0.01 * numColumns),
                 Random = new ThreadSafeRandom(42),
-                StimulusThreshold= 11, // Added a space after `StimulusThreshold`
+                StimulusThreshold= 15, // Added a space after `StimulusThreshold`
             };
 
             double max = 100;
@@ -66,7 +66,7 @@ namespace NeoCortexApiSample
                 { "Periodic", false},
                 { "Name", "scalar"},
                 { "ClipInput", false},
-                { "MaxVal", max}
+                { "MaxVal", max},
                 // Adding a new parameter
                 { "ScaleFactor", 1.5 } // New parameter added
             };
