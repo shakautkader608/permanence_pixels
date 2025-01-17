@@ -20,23 +20,18 @@ namespace NeoCortexApiSample
         {
             //
             // Starts experiment that demonstrates how to learn spatial patterns.
-            //SpatialPatternLearning experiment = new SpatialPatternLearning();
-            //experiment.Run();
+            SpatialPatternLearning experiment = new SpatialPatternLearning();
+            experiment.Run();
 
             // Starts experiment For the Image Inputs how to learn spatial patterns.
-<<<<<<< HEAD
-            ImageBinarizerSpatialPattern experiment = new ImageBinarizerSpatialPattern();
-            experiment.Run();
-=======
             // ImageBinarizerSpatialPattern experiment = new ImageBinarizerSpatialPattern();
             // experiment.Run();
->>>>>>> 84b757c10b0d129e7b5fe5d9f6141384a5af228c
 
 
-            ////
-            //// Starts experiment that demonstrates how to learn spatial patterns.
-            ////SequenceLearning experiment = new SequenceLearning();
-            ////experiment.Run();
+            //
+            // Starts experiment that demonstrates how to learn spatial patterns.
+            //SequenceLearning experiment = new SequenceLearning();
+            //experiment.Run();
 
             //GridCellSamples gridCells = new GridCellSamples();
             //gridCells.Run();
@@ -71,7 +66,7 @@ namespace NeoCortexApiSample
         {
             Dictionary<string, List<double>> sequences = new Dictionary<string, List<double>>();
 
-            //sequences.Add("S1", new List<double>(new double[] { 0.0, 1.0, 0.0, 2.0, 3.0, 4.0, 5.0, 6.0, 5.0, 4.0, 3.0, 7.0, 1.0, 9.0, 12.0, 11.0, 12.0, 13.0, 14.0, 11.0, 12.0, 14.0, 5.0, 7.0, 6.0, 9.0, 3.0, 4.0, 3.0, 4.0, 3.0, 4.0, 5.0 }));// added one value 5.0
+            //sequences.Add("S1", new List<double>(new double[] { 0.0, 1.0, 0.0, 2.0, 3.0, 4.0, 5.0, 6.0, 5.0, 4.0, 3.0, 7.0, 1.0, 9.0, 12.0, 11.0, 12.0, 13.0, 14.0, 11.0, 12.0, 14.0, 5.0, 7.0, 6.0, 9.0, 3.0, 4.0, 3.0, 4.0, 3.0, 4.0 }));
             //sequences.Add("S2", new List<double>(new double[] { 0.8, 2.0, 0.0, 3.0, 3.0, 4.0, 5.0, 6.0, 5.0, 7.0, 2.0, 7.0, 1.0, 9.0, 11.0, 11.0, 10.0, 13.0, 14.0, 11.0, 7.0, 6.0, 5.0, 7.0, 6.0, 5.0, 3.0, 2.0, 3.0, 4.0, 3.0, 4.0 }));
 
             // sequences.Add("S1", new List<double>(new double[] { 0.0, 1.0, 2.0, 3.0, 4.0, 2.0, 5.0, }));
@@ -92,8 +87,8 @@ namespace NeoCortexApiSample
 
             //
             // Prototype for building the prediction engine.
-            //MultiSequenceLearning experiment = new MultiSequenceLearning();
-            //var predictor = experiment.Run(sequences);
+            MultiSequenceLearning experiment = new MultiSequenceLearning();
+            var predictor = experiment.Run(sequences);
 
             //
             // These list are used to see how the prediction works.

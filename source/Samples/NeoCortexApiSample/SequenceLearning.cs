@@ -35,7 +35,7 @@ namespace NeoCortexApiSample
                 PotentialRadius = (int)(0.15 * inputBits),
                 StimulusThreshold = 5.0,
                 
-                MaxBoost = 10.0,
+                MaxBoost = 9.0,
                 DutyCyclePeriod = 25,
                 MinPctOverlapDutyCycles = 0.75,
                 MaxSynapsesPerSegment = (int)(0.02 * numColumns),
@@ -44,7 +44,7 @@ namespace NeoCortexApiSample
                 ConnectedPermanence = 0.5,
 
                 // Learning is slower than forgetting in this case.
-                PermanenceDecrement = 0.25,
+                PermanenceDecrement = 0.50,
                 PermanenceIncrement = 0.15,
 
                 // Used by punishing of segments.
@@ -55,14 +55,16 @@ namespace NeoCortexApiSample
 
             Dictionary<string, object> settings = new Dictionary<string, object>()
             {
-                { "W", 15},
-                { "N", inputBits},
-                { "Radius", -1.0},
-                { "MinVal", 0.0},
-                { "Periodic", false},
-                { "Name", "scalar"},
-                { "ClipInput", false},
-                { "MaxVal", max}
+                { "W", 15 },
+                { "N", inputBits },
+                { "Radius", -1.0 },
+                { "MinVal", 0.0 },
+                { "Periodic", false },
+                { "Name", "scalar" },
+                { "ClipInput", false },
+                { "MaxVal", max },
+                { "NewSetting", 100 },  // Adding a new entry.
+                { "AdditionalSetting", true }  // Example of another addition.
             };
 
             EncoderBase encoder = new ScalarEncoder(settings);

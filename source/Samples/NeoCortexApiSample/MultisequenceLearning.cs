@@ -44,7 +44,7 @@ namespace NeoCortexApiSample
                 MinPctOverlapDutyCycles = 0.75,
                 MaxSynapsesPerSegment = (int)(0.02 * numColumns),
 
-                ActivationThreshold = 15,
+                ActivationThreshold = 20,
                 ConnectedPermanence = 0.5,
 
                 // Learning is slower than forgetting in this case.
