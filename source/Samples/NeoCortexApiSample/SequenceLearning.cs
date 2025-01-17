@@ -44,7 +44,7 @@ namespace NeoCortexApiSample
                 ConnectedPermanence = 0.5,
 
                 // Learning is slower than forgetting in this case.
-                PermanenceDecrement = 0.25,
+                PermanenceDecrement = 0.50,
                 PermanenceIncrement = 0.15,
 
                 // Used by punishing of segments.
