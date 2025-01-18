@@ -206,7 +206,7 @@ namespace NeoCortexApiSample
                     numStableCycles++;
                 }
 
-                if (numStableCycles > 5)
+                if (numStableCycles > 6)
                     break;
             }
 
