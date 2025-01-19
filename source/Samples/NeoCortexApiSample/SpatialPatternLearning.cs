@@ -53,7 +53,7 @@ namespace NeoCortexApiSample
                 StimulusThreshold= 15, // Added a space after `StimulusThreshold`
             };
 
-            double max = 150;
+            double max = 100;
 
             //
             // This dictionary defines a set of typical encoder parameters.
