@@ -226,7 +226,43 @@ namespace NeoCortex
             // Iterate over the heatmap data
             for (int idx = 0; idx < heatmapData.Count; idx++)
             {
-                
+                var permanenceValues = heatmapData[idx];
+
+                for (int i = 0; i < permanenceValues.Count; i++)
+                {
+                    double permanence = permanenceValues[i];
+
+                    // Color intensity based on permanence value
+                    int red = Math.Min(255, (int)(255 * (permanence / permanenceValues.Max()))); // Scale red based on permanence (hotter)
+                    int blue = Math.Min(255, (int)(255 * (1 - permanence / permanenceValues.Max()))); // Inverse scaling for blue (colder)
+                    int green = 0; // Green stays constant
+
+                    // Construct the color based on the permanence value
+                    Color pixelColor = Color.FromArgb(red, green, blue);
+
+                    // Convert 1D index to 2D grid coordinates (using gridSize)
+                    int x = i % gridSize;
+                    int y = i / gridSize;
+
+                    // Calculate pixel position with scaling factor (for each grid cell)
+                    int scaleX = bmpWidth / gridSize;  // Scaling for the width
+                    int scaleY = bmpHeight / gridSize; // Scaling for the height
+
+                    // Plot the pixel in the bitmap, scaling it according to the grid size
+                    for (int j = 0; j < scaleX; j++)
+                    {
+                        for (int k = 0; k < scaleY; k++)
+                        {
+                            // Set the pixel at the correct location on the bitmap
+                            myBitmap.SetPixel(x * scaleX + j, y * scaleY + k, pixelColor);
+                        }
+                    }
+
+                    // Draw the permanence value and input name (index) on top of the grid cell
+                    string label = $"{inputNames[idx]}: {permanence:F2}"; // Format to 2 decimal places
+                    graphics.DrawString(label, font, textBrush, x * scaleX + 2, y * scaleY + 2); // Offset the text slightly to avoid overlap with the grid lines
+                }
+
             }
 
             
