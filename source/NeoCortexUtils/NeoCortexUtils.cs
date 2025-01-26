@@ -205,6 +205,28 @@ namespace NeoCortex
             myBitmap.Save(filePath, ImageFormat.Png);
         }
 
+        ///Permanence Bitmap with text value.
+        public static void DrawPermanenceBitmapWithText(List<List<double>> heatmapData, List<string> inputNames, string filePath, int bmpWidth = 2048, int bmpHeight = 2048, int gridSize = 64)
+        {
+            // Initialize a Bitmap object with the specified size (2048x2048 for better readability)
+            Bitmap myBitmap = new Bitmap(bmpWidth, bmpHeight);
+
+            // Create a Graphics object to draw text on the bitmap
+            Graphics graphics = Graphics.FromImage(myBitmap);
+            graphics.Clear(Color.White); // Set background to white
+
+            // Set font and brush for drawing text
+            Font font = new Font("Arial", 8, FontStyle.Bold);
+            Brush textBrush = Brushes.Black;
+
+            // Calculate scale factor to fit data into the bitmap
+            int gridWidth = bmpWidth / gridSize;
+            int gridHeight = bmpHeight / gridSize;
+
+            
+        }
+
+
         /// <summary>
         /// Combines heatmap and normalized permanence representations into a single image with title.
         /// This Drwaitng Function is used to Visulalization of the Permanence Values.
