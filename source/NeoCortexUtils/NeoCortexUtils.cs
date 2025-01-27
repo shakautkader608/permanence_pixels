@@ -240,9 +240,18 @@ namespace NeoCortex
             int gridWidth = bmpWidth / gridSize;
             int gridHeight = bmpHeight / gridSize;
 
+            // Iterate over the heatmap data
+            for (int idx = 0; idx < heatmapData.Count; idx++)
+            {
+                var permanenceValues = heatmapData[idx];
+
+                for (int i = 0; i < permanenceValues.Count; i++)
+                {
+                    double permanence = permanenceValues[i];
 
 
-        }
+
+                }
 
         ///Permanence Bitmap with text value.
         public static void DrawPermanenceBitmapWithText(List<List<double>> heatmapData, List<string> inputNames, string filePath, int bmpWidth = 2048, int bmpHeight = 2048, int gridSize = 64)
