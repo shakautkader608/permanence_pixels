@@ -262,6 +262,11 @@ namespace NeoCortex
                     int y = i / gridSize;
 
 
+                    // Calculate pixel position with scaling factor (for each grid cell)
+                    int scaleX = gridWidth;
+                    int scaleY = gridHeight;
+
+
                 }
 
         ///Permanence Bitmap with text value.
