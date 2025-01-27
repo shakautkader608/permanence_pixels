@@ -225,6 +225,9 @@ namespace NeoCortex
             bmpWidth *= enlargementFactor;
             bmpHeight *= enlargementFactor;
 
+            // Initialize a Bitmap object with the adjusted size
+            Bitmap myBitmap = new Bitmap(bmpWidth, bmpHeight);
+
 
         }
 
