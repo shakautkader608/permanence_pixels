@@ -141,6 +141,75 @@ namespace NeoCortex
         }
 
 
+        public static void DrawPermanenceBitmapWithText(List<List<double>> heatmapData, List<string> inputNames, string filePath,
+                                         int bmpWidth = 2048, int bmpHeight = 2048, int gridSize = 64,
+                                         int enlargementFactor = 2)
+        {
+            // Adjust the bitmap size based on the enlargement factor for better zooming
+            bmpWidth *= enlargementFactor;
+            bmpHeight *= enlargementFactor;
+
+            // Initialize a Bitmap object with the adjusted size
+            Bitmap myBitmap = new Bitmap(bmpWidth, bmpHeight);
+
+            // Create a Graphics object to draw text on the bitmap
+            Graphics graphics = Graphics.FromImage(myBitmap);
+            graphics.Clear(Color.White); // Set background to white
+
+            // Set font and brush for drawing text with a scaled font size
+            Font font = new Font("Arial", 5 * enlargementFactor, FontStyle.Regular);
+            Brush textBrush = Brushes.White;
+
+            // Calculate scale factor to fit data into the enlarged bitmap
+            int gridWidth = bmpWidth / gridSize;
+            int gridHeight = bmpHeight / gridSize;
+
+            // Iterate over the heatmap data
+            for (int idx = 0; idx < heatmapData.Count; idx++)
+            {
+                var permanenceValues = heatmapData[idx];
+
+                for (int i = 0; i < permanenceValues.Count; i++)
+                {
+                    double permanence = permanenceValues[i];
+
+                    // Color intensity based on permanence value
+                    int red = Math.Min(255, (int)(255 * (permanence / permanenceValues.Max()))); // Scale red based on permanence (hotter)
+                    int blue = Math.Min(255, (int)(255 * (1 - permanence / permanenceValues.Max()))); // Inverse scaling for blue (colder)
+                    int green = 0; // Green stays constant
+
+                    // Construct the color based on the permanence value
+                    Color pixelColor = Color.FromArgb(red, green, blue);
+
+                    // Convert 1D index to 2D grid coordinates (using gridSize)
+                    int x = i % gridSize;
+                    int y = i / gridSize;
+
+                    // Calculate pixel position with scaling factor (for each grid cell)
+                    int scaleX = gridWidth;
+                    int scaleY = gridHeight;
+
+                    // Plot the pixel in the bitmap, scaling it according to the grid size and enlargement factor
+                    for (int j = 0; j < scaleX; j++)
+                    {
+                        for (int k = 0; k < scaleY; k++)
+                        {
+                            // Set the pixel at the correct location on the bitmap
+                            myBitmap.SetPixel(x * scaleX + j, y * scaleY + k, pixelColor);
+                        }
+                    }
+
+                    // Draw the permanence value and input name (index) on top of the grid cell
+                    string label = $"{inputNames[idx]}: {permanence:F2}"; // Format to 2 decimal places
+                    graphics.DrawString(label, font, textBrush, x * scaleX + 5, y * scaleY + 5); // Offset the text for better visibility
+                }
+            }
+
+           
+        }
+
+
+
         /// <summary>
         /// Drawas bitmaps from list of arrays.
         /// </summary>
@@ -152,57 +221,11 @@ namespace NeoCortex
         /// <param name="bmpHeight">The height of the bitmap.</param>
         public static void DrawBitmaps(List<int[,]> twoDimArrays, String filePath, Color inactiveCellColor, Color activeCellColor, int bmpWidth = 1024, int bmpHeight = 1024)
         {
-            int widthOfAll = 0, heightOfAll = 0;
+            // Adjust the bitmap size based on the enlargement factor for better zooming
+            bmpWidth *= enlargementFactor;
+            bmpHeight *= enlargementFactor;
 
-            foreach (var arr in twoDimArrays)
-            {
-                widthOfAll += arr.GetLength(0);
-                heightOfAll += arr.GetLength(1);
-            }
 
-            if (widthOfAll > bmpWidth || heightOfAll > bmpHeight)
-                throw new ArgumentException("Size of all included arrays must be less than specified 'bmpWidth' and 'bmpHeight'");
-
-            System.Drawing.Bitmap myBitmap = new System.Drawing.Bitmap(bmpWidth, bmpHeight);
-            int k = 0;
-
-            for (int n = 0; n < twoDimArrays.Count; n++)
-            {
-                var arr = twoDimArrays[n];
-
-                int w = arr.GetLength(0);
-                int h = arr.GetLength(1);
-
-                var scale = ((bmpWidth) / twoDimArrays.Count) / (w + 1);// +1 is for offset between pictures in X dim.
-
-                //if (scale * (w + 1) < (bmpWidth))
-                //    scale++;
-
-                for (int Xcount = 0; Xcount < w; Xcount++)
-                {
-                    for (int Ycount = 0; Ycount < h; Ycount++)
-                    {
-                        for (int padX = 0; padX < scale; padX++)
-                        {
-                            for (int padY = 0; padY < scale; padY++)
-                            {
-                                if (arr[Xcount, Ycount] == 1)
-                                {
-                                    myBitmap.SetPixel(n * (bmpWidth / twoDimArrays.Count) + Xcount * scale + padX, Ycount * scale + padY, activeCellColor); // HERE IS YOUR LOGIC
-                                    k++;
-                                }
-                                else
-                                {
-                                    myBitmap.SetPixel(n * (bmpWidth / twoDimArrays.Count) + Xcount * scale + padX, Ycount * scale + padY, inactiveCellColor); // HERE IS YOUR LOGIC
-                                    k++;
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-
-            myBitmap.Save(filePath, ImageFormat.Png);
         }
 
         ///Permanence Bitmap with text value.
