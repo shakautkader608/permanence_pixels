@@ -317,17 +317,28 @@ namespace NeoCortex
                     Console.WriteLine($"Warning: Empty permanence values at index {idx}");
                     continue;
                 }
+                for (int i = 0; i < permanenceValues.Count; i++)
+                {
+                    double permanence = permanenceValues[i];
+
+                    // Calculate color intensity based on permanence value
+                    int red = Math.Min(255, (int)(255 * (permanence / permanenceValues.Max()))); // Hotter values in red
+                    int blue = Math.Min(255, (int)(255 * (1 - permanence / permanenceValues.Max()))); // Cooler values in blue
+                    int green = 0; // No green
+
+                    
 
 
-            }
+                }
 
 
 
 
 
 
-            ///Permanence Bitmap with text value.
-            public static void DrawPermanenceBitmapWithText(List<List<double>> heatmapData, List<string> inputNames, string filePath, int bmpWidth = 2048, int bmpHeight = 2048, int gridSize = 64)
+
+                ///Permanence Bitmap with text value.
+                public static void DrawPermanenceBitmapWithText(List<List<double>> heatmapData, List<string> inputNames, string filePath, int bmpWidth = 2048, int bmpHeight = 2048, int gridSize = 64)
         {
             // Initialize a Bitmap object with the specified size (2048x2048 for better readability)
             Bitmap myBitmap = new Bitmap(bmpWidth, bmpHeight);
