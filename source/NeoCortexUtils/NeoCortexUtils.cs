@@ -289,6 +289,16 @@ namespace NeoCortex
             Console.WriteLine($"Permanence heatmap with enlargement factor {enlargementFactor} saved to {filePath}");
         }
 
+        public static void DrawPermanenceBitmap(List<List<double>> heatmapData, string filePath, int bmpWidth = 2048, int bmpHeight = 2048, int gridSize = 64, int enlargementFactor = 1)
+        {
+
+        }
+
+
+
+
+
+
         ///Permanence Bitmap with text value.
         public static void DrawPermanenceBitmapWithText(List<List<double>> heatmapData, List<string> inputNames, string filePath, int bmpWidth = 2048, int bmpHeight = 2048, int gridSize = 64)
         {
