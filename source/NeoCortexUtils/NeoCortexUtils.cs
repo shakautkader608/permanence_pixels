@@ -228,6 +228,14 @@ namespace NeoCortex
             // Initialize a Bitmap object with the adjusted size
             Bitmap myBitmap = new Bitmap(bmpWidth, bmpHeight);
 
+            // Create a Graphics object to draw text on the bitmap
+            Graphics graphics = Graphics.FromImage(myBitmap);
+            graphics.Clear(Color.White); // Set background to white
+
+            // Set font and brush for drawing text with a scaled font size
+            Font font = new Font("Arial", 5 * enlargementFactor, FontStyle.Regular);
+            Brush textBrush = Brushes.White;
+
 
         }
 
