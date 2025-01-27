@@ -236,6 +236,11 @@ namespace NeoCortex
             Font font = new Font("Arial", 5 * enlargementFactor, FontStyle.Regular);
             Brush textBrush = Brushes.White;
 
+            // Calculate scale factor to fit data into the enlarged bitmap
+            int gridWidth = bmpWidth / gridSize;
+            int gridHeight = bmpHeight / gridSize;
+
+
 
         }
 
