@@ -219,7 +219,10 @@ namespace NeoCortex
         /// <param name="activeCellColor">Color of active bit.</param>
         /// <param name="bmpWidth">The width of the bitmap.</param>
         /// <param name="bmpHeight">The height of the bitmap.</param>
-        public static void DrawBitmaps(List<int[,]> twoDimArrays, String filePath, Color inactiveCellColor, Color activeCellColor, int bmpWidth = 1024, int bmpHeight = 1024)
+
+        public static void DrawPermanenceBitmapWithText2(List<List<double>> heatmapData, List<string> inputNames, string filePath,
+                                         int bmpWidth = 2048, int bmpHeight = 2048, int gridSize = 64,
+                                         int enlargementFactor = 2)
         {
             // Adjust the bitmap size based on the enlargement factor for better zooming
             bmpWidth *= enlargementFactor;
@@ -261,7 +264,6 @@ namespace NeoCortex
                     int x = i % gridSize;
                     int y = i / gridSize;
 
-
                     // Calculate pixel position with scaling factor (for each grid cell)
                     int scaleX = gridWidth;
                     int scaleY = gridHeight;
@@ -275,16 +277,16 @@ namespace NeoCortex
                             myBitmap.SetPixel(x * scaleX + j, y * scaleY + k, pixelColor);
                         }
                     }
+
                     // Draw the permanence value and input name (index) on top of the grid cell
                     string label = $"{inputNames[idx]}: {permanence:F2}"; // Format to 2 decimal places
                     graphics.DrawString(label, font, textBrush, x * scaleX + 5, y * scaleY + 5); // Offset the text for better visibility
                 }
             }
+
             // Save the enlarged bitmap to a file
             myBitmap.Save(filePath, ImageFormat.Png);
             Console.WriteLine($"Permanence heatmap with enlargement factor {enlargementFactor} saved to {filePath}");
-        }
-
         }
 
         ///Permanence Bitmap with text value.

@@ -322,6 +322,20 @@ namespace NeoCortexApiSample
                 // Add the Similarity Arrays to the list.
                 similarityList.Add(similarityArray);
 
+                // Define the folder and file path for saving the heatmap
+                string folderPath = Path.Combine(Environment.CurrentDirectory, "PermanenceHeatmaps");
+                if (!Directory.Exists(folderPath))
+                {
+                    Directory.CreateDirectory(folderPath);
+                }
+
+                // Use input name and index to generate a unique file name for each heatmap
+                string filePath = Path.Combine(folderPath, $"{Path.GetFileNameWithoutExtension(Image)}_permanence_heatmap.png");
+
+                // Call the method to draw and save the heatmap using the heatmapData
+                NeoCortexUtils.DrawPermanenceBitmapWithText(heatmapData, inputNames, filePath);
+
+                Console.WriteLine($"Permanence heatmap saved to {filePath}");
             }
             // Generate 1D heatmaps using the heatmap data and the normalized permanences To plot Heatmap, Encoded Inputs and Normalize Image combined.
             Generate1DHeatmaps(heatmapData, normalizedPermanence, encodedInputs);
