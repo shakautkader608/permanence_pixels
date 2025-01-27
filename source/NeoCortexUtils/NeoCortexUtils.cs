@@ -298,6 +298,9 @@ namespace NeoCortex
             // Initialize a Bitmap object with the specified size
             Bitmap myBitmap = new Bitmap(bmpWidth, bmpHeight);
 
+            // Calculate scale factor to fit data into the enlarged bitmap
+            int scaleX = bmpWidth / gridSize;
+            int scaleY = bmpHeight / gridSize;
 
         }
 
