@@ -308,16 +308,26 @@ namespace NeoCortex
                 throw new ArgumentException("Heatmap data is empty or null.");
             }
 
+            for (int idx = 0; idx < heatmapData.Count; idx++)
+            {
+                var permanenceValues = heatmapData[idx];
 
-        }
+                if (permanenceValues == null || permanenceValues.Count == 0)
+                {
+                    Console.WriteLine($"Warning: Empty permanence values at index {idx}");
+                    continue;
+                }
+
+
+            }
 
 
 
 
 
 
-        ///Permanence Bitmap with text value.
-        public static void DrawPermanenceBitmapWithText(List<List<double>> heatmapData, List<string> inputNames, string filePath, int bmpWidth = 2048, int bmpHeight = 2048, int gridSize = 64)
+            ///Permanence Bitmap with text value.
+            public static void DrawPermanenceBitmapWithText(List<List<double>> heatmapData, List<string> inputNames, string filePath, int bmpWidth = 2048, int bmpHeight = 2048, int gridSize = 64)
         {
             // Initialize a Bitmap object with the specified size (2048x2048 for better readability)
             Bitmap myBitmap = new Bitmap(bmpWidth, bmpHeight);
