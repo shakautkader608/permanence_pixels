@@ -326,7 +326,8 @@ namespace NeoCortex
                     int blue = Math.Min(255, (int)(255 * (1 - permanence / permanenceValues.Max()))); // Cooler values in blue
                     int green = 0; // No green
 
-                    
+                    // Set color based on permanence value
+                    Color pixelColor = Color.FromArgb(red, green, blue);
 
 
                 }
