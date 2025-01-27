@@ -331,6 +331,20 @@ namespace NeoCortex
 
 
                 }
+                // Convert 1D index to 2D grid coordinates
+                int x = i % gridSize;
+                int y = i / gridSize;
+
+                // Plot enlarged pixels
+                for (int j = 0; j < scaleX; j++)
+                {
+                    for (int k = 0; k < scaleY; k++)
+                    {
+                        myBitmap.SetPixel(x * scaleX + j, y * scaleY + k, pixelColor);
+                    }
+                }
+            }
+        }
 
 
 
@@ -338,8 +352,9 @@ namespace NeoCortex
 
 
 
-                ///Permanence Bitmap with text value.
-                public static void DrawPermanenceBitmapWithText(List<List<double>> heatmapData, List<string> inputNames, string filePath, int bmpWidth = 2048, int bmpHeight = 2048, int gridSize = 64)
+
+        ///Permanence Bitmap with text value.
+        public static void DrawPermanenceBitmapWithText(List<List<double>> heatmapData, List<string> inputNames, string filePath, int bmpWidth = 2048, int bmpHeight = 2048, int gridSize = 64)
         {
             // Initialize a Bitmap object with the specified size (2048x2048 for better readability)
             Bitmap myBitmap = new Bitmap(bmpWidth, bmpHeight);
