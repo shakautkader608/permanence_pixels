@@ -291,6 +291,9 @@ namespace NeoCortex
 
         public static void DrawPermanenceBitmap(List<List<double>> heatmapData, string filePath, int bmpWidth = 2048, int bmpHeight = 2048, int gridSize = 64, int enlargementFactor = 1)
         {
+            // Adjust bitmap size based on enlargement factor
+            bmpWidth *= enlargementFactor;
+            bmpHeight *= enlargementFactor;
 
         }
 
