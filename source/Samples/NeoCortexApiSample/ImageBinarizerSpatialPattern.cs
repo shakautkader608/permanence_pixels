@@ -170,6 +170,8 @@ namespace NeoCortexApiSample
             List<List<double>> heatmapData = new List<List<double>>();
             // Initialize a list to get normalized permanence values.
             List<int[]> BinarizedencodedInputs = new List<int[]>();
+
+            List<string> inputNames = trainingImages.Select(Path.GetFileNameWithoutExtension).ToList();
             // List to store normalized permanence values
             List<int[]> normalizedPermanence = new List<int[]>();
             // List to store similarity values
@@ -255,7 +257,7 @@ namespace NeoCortexApiSample
                 string filePath = Path.Combine(folderPath, $"{Path.GetFileNameWithoutExtension(Image)}_permanence_heatmap.png");
 
                 // Call the method to draw and save the heatmap using the heatmapData
-                NeoCortexUtils.DrawPermanenceBitmapWithText(heatmapData, inputNames, filePath);
+                NeoCortexUtils.DrawPermanenceBitmapWithText2(heatmapData, inputNames, filePath);
 
                 Console.WriteLine($"Permanence heatmap saved to {filePath}");
             }
