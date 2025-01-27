@@ -275,8 +275,14 @@ namespace NeoCortex
                             myBitmap.SetPixel(x * scaleX + j, y * scaleY + k, pixelColor);
                         }
                     }
-
+                    // Draw the permanence value and input name (index) on top of the grid cell
+                    string label = $"{inputNames[idx]}: {permanence:F2}"; // Format to 2 decimal places
+                    graphics.DrawString(label, font, textBrush, x * scaleX + 5, y * scaleY + 5); // Offset the text for better visibility
                 }
+            }
+
+
+        }
 
         ///Permanence Bitmap with text value.
         public static void DrawPermanenceBitmapWithText(List<List<double>> heatmapData, List<string> inputNames, string filePath, int bmpWidth = 2048, int bmpHeight = 2048, int gridSize = 64)
