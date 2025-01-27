@@ -302,6 +302,13 @@ namespace NeoCortex
             int scaleX = bmpWidth / gridSize;
             int scaleY = bmpHeight / gridSize;
 
+            // Ensure heatmap data is valid before processing
+            if (heatmapData == null || heatmapData.Count == 0)
+            {
+                throw new ArgumentException("Heatmap data is empty or null.");
+            }
+
+
         }
 
 
