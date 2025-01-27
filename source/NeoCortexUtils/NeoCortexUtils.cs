@@ -266,6 +266,15 @@ namespace NeoCortex
                     int scaleX = gridWidth;
                     int scaleY = gridHeight;
 
+                    // Plot the pixel in the bitmap, scaling it according to the grid size and enlargement factor
+                    for (int j = 0; j < scaleX; j++)
+                    {
+                        for (int k = 0; k < scaleY; k++)
+                        {
+                            // Set the pixel at the correct location on the bitmap
+                            myBitmap.SetPixel(x * scaleX + j, y * scaleY + k, pixelColor);
+                        }
+                    }
 
                 }
 
