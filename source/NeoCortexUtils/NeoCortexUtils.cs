@@ -317,6 +317,7 @@ namespace NeoCortex
                     Console.WriteLine($"Warning: Empty permanence values at index {idx}");
                     continue;
                 }
+
                 for (int i = 0; i < permanenceValues.Count; i++)
                 {
                     double permanence = permanenceValues[i];
@@ -329,26 +330,25 @@ namespace NeoCortex
                     // Set color based on permanence value
                     Color pixelColor = Color.FromArgb(red, green, blue);
 
+                    // Convert 1D index to 2D grid coordinates
+                    int x = i % gridSize;
+                    int y = i / gridSize;
 
-                }
-                // Convert 1D index to 2D grid coordinates
-                int x = i % gridSize;
-                int y = i / gridSize;
-
-                // Plot enlarged pixels
-                for (int j = 0; j < scaleX; j++)
-                {
-                    for (int k = 0; k < scaleY; k++)
+                    // Plot enlarged pixels
+                    for (int j = 0; j < scaleX; j++)
                     {
-                        myBitmap.SetPixel(x * scaleX + j, y * scaleY + k, pixelColor);
+                        for (int k = 0; k < scaleY; k++)
+                        {
+                            myBitmap.SetPixel(x * scaleX + j, y * scaleY + k, pixelColor);
+                        }
                     }
                 }
             }
+
             // Save the bitmap to a file
             myBitmap.Save(filePath, ImageFormat.Png);
             Console.WriteLine($"Permanence heatmap saved to {filePath}");
         }
-    }
 
 
 
