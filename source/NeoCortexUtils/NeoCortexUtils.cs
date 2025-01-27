@@ -344,7 +344,12 @@ namespace NeoCortex
                     }
                 }
             }
+            // Save the bitmap to a file
+            myBitmap.Save(filePath, ImageFormat.Png);
+            Console.WriteLine($"Permanence heatmap saved to {filePath}");
         }
+    }
+
 
 
 
