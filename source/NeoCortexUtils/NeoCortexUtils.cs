@@ -257,6 +257,10 @@ namespace NeoCortex
                     // Construct the color based on the permanence value
                     Color pixelColor = Color.FromArgb(red, green, blue);
 
+                    // Convert 1D index to 2D grid coordinates (using gridSize)
+                    int x = i % gridSize;
+                    int y = i / gridSize;
+
 
                 }
 
