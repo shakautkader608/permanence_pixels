@@ -280,7 +280,10 @@ namespace NeoCortex
                     graphics.DrawString(label, font, textBrush, x * scaleX + 5, y * scaleY + 5); // Offset the text for better visibility
                 }
             }
-
+            // Save the enlarged bitmap to a file
+            myBitmap.Save(filePath, ImageFormat.Png);
+            Console.WriteLine($"Permanence heatmap with enlargement factor {enlargementFactor} saved to {filePath}");
+        }
 
         }
 
