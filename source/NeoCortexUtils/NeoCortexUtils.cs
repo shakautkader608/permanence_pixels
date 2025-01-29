@@ -402,18 +402,29 @@ namespace NeoCortex
                         }
                     }
 
-
-
-
-
-
-
-
-
-
-
-
+            // Update cropping boundaries
+                    if (permanence > 0)
+                    {
+                        if (x < minX) minX = x;
+                        if (y < minY) minY = y;
+                        if (x > maxX) maxX = x + enlargementFactor;
+                        if (y > maxY) maxY = y + enlargementFactor;
+                    }
                 }
+            }
+
+
+
+
+
+
+
+
+
+
+
+
+        }
 
 
 
