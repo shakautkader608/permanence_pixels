@@ -364,6 +364,10 @@ namespace NeoCortex
             Graphics graphics = Graphics.FromImage(tempBitmap);
             graphics.Clear(Color.White);
 
+            // Track colored pixel bounds for cropping
+            int minX = scaledWidth, minY = scaledHeight, maxX = 0, maxY = 0;
+
+
 
 
 
