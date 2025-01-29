@@ -427,11 +427,10 @@ namespace NeoCortex
             Bitmap croppedBitmap = tempBitmap.Clone(cropArea, tempBitmap.PixelFormat);
 
 
-
-
-
-
-
+            // Save the cropped bitmap
+            croppedBitmap.Save(filePath, ImageFormat.Png);
+            Console.WriteLine($"Cropped permanence heatmap saved to {filePath}");
+        }
 
 
 
