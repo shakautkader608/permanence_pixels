@@ -422,7 +422,9 @@ namespace NeoCortex
                 return;
             }
 
-
+            // Crop the heatmap to remove white space
+            Rectangle cropArea = new Rectangle(minX, minY, maxX - minX, maxY - minY);
+            Bitmap croppedBitmap = tempBitmap.Clone(cropArea, tempBitmap.PixelFormat);
 
 
 
@@ -435,6 +437,10 @@ namespace NeoCortex
 
 
         }
+
+
+
+
 
 
 
