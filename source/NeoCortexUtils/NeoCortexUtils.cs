@@ -367,6 +367,19 @@ namespace NeoCortex
             // Track colored pixel bounds for cropping
             int minX = scaledWidth, minY = scaledHeight, maxX = 0, maxY = 0;
 
+            // Iterate over the heatmap data
+            for (int row = 0; row < heatmapData.Count; row++)
+            {
+                var permanenceValues = heatmapData[row];
+
+                if (permanenceValues == null || permanenceValues.Count == 0)
+                {
+                    continue; // Skip empty rows
+                }
+
+                for (int i = 0; i < permanenceValues.Count; i++)
+                {
+                    double permanence = permanenceValues[i];
 
 
 
@@ -378,7 +391,8 @@ namespace NeoCortex
 
 
 
-        }
+
+                }
 
 
 
