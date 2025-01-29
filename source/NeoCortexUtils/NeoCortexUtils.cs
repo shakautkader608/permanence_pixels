@@ -381,6 +381,17 @@ namespace NeoCortex
                 {
                     double permanence = permanenceValues[i];
 
+            // Compute color intensity based on permanence value
+                    int red = Math.Min(255, (int)(255 * (permanence / permanenceValues.Max()))); // Hot values red
+                    int blue = Math.Min(255, (int)(255 * (1 - permanence / permanenceValues.Max()))); // Cold values blue
+                    int green = 0;
+
+                    Color pixelColor = Color.FromArgb(red, green, blue);
+
+                    int x = (i % gridSize) * enlargementFactor;
+                    int y = (i / gridSize) * enlargementFactor;
+
+
 
 
 
