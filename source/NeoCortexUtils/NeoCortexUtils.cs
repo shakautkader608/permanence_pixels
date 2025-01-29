@@ -350,6 +350,20 @@ namespace NeoCortex
             Console.WriteLine($"Permanence heatmap saved to {filePath}");
         }
 
+        public static void DrawAndCropPermanenceHeatmap(List<List<double>> heatmapData, string filePath, int gridSize = 64, int enlargementFactor = 1)
+        { 
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        }
 
 
 
