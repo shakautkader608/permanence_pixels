@@ -356,6 +356,11 @@ namespace NeoCortex
             int originalWidth = gridSize;
             int originalHeight = heatmapData.Count > 0 ? heatmapData[0].Count / gridSize : 0;
 
+            // Scale up for better visualization
+            int scaledWidth = originalWidth * enlargementFactor;
+            int scaledHeight = originalHeight * enlargementFactor;
+
+
 
 
 
