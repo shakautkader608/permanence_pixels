@@ -414,6 +414,16 @@ namespace NeoCortex
             }
 
 
+            // If no data was found, save the blank white image
+            if (minX >= maxX || minY >= maxY)
+            {
+                tempBitmap.Save(filePath, ImageFormat.Png);
+                Console.WriteLine($"No data found, saved blank heatmap to {filePath}");
+                return;
+            }
+
+
+
 
 
 
