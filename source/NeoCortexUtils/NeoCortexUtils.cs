@@ -393,6 +393,16 @@ namespace NeoCortex
 
 
 
+            // Draw scaled pixels
+                    for (int dx = 0; dx < enlargementFactor; dx++)
+                    {
+                        for (int dy = 0; dy < enlargementFactor; dy++)
+                        {
+                            tempBitmap.SetPixel(x + dx, y + dy, pixelColor);
+                        }
+                    }
+
+
 
 
 
