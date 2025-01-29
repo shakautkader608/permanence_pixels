@@ -360,6 +360,10 @@ namespace NeoCortex
             int scaledWidth = originalWidth * enlargementFactor;
             int scaledHeight = originalHeight * enlargementFactor;
 
+            Bitmap tempBitmap = new Bitmap(scaledWidth, scaledHeight);
+            Graphics graphics = Graphics.FromImage(tempBitmap);
+            graphics.Clear(Color.White);
+
 
 
 
