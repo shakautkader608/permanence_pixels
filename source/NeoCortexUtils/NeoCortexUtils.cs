@@ -351,18 +351,20 @@ namespace NeoCortex
         }
 
         public static void DrawAndCropPermanenceHeatmap(List<List<double>> heatmapData, string filePath, int gridSize = 64, int enlargementFactor = 1)
-        { 
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
+        {
+            // Determine the original grid dimensions
+            int originalWidth = gridSize;
+            int originalHeight = heatmapData.Count > 0 ? heatmapData[0].Count / gridSize : 0;
+
+
+
+
+
+
+
+
+
+
         }
 
 
