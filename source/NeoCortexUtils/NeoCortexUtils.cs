@@ -350,8 +350,17 @@ namespace NeoCortex
             Console.WriteLine($"Permanence heatmap saved to {filePath}");
         }
 
+
+
+
         public static void DrawAndCropPermanenceHeatmap(List<List<double>> heatmapData, string filePath, int gridSize = 64, int enlargementFactor = 1)
         {
+            //  Added guard clause for invalid input
+            if (heatmapData == null || heatmapData.Count == 0)
+            {
+                Console.WriteLine("Heatmap data is null or empty. No image generated.");
+                return;
+            }
             // Determine the original grid dimensions
             int originalWidth = gridSize;
             int originalHeight = heatmapData.Count > 0 ? heatmapData[0].Count / gridSize : 0;
