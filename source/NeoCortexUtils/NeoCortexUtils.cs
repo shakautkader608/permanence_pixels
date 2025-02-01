@@ -386,6 +386,13 @@ namespace NeoCortex
                     continue; // Skip empty rows
                 }
 
+                //  Skip rows with no valid data (all zeros or empty)
+                double maxPermanence = permanenceValues.Max();
+                if (maxPermanence == 0)
+                {
+                    continue;
+                }
+
                 for (int i = 0; i < permanenceValues.Count; i++)
                 {
                     double permanence = permanenceValues[i];
