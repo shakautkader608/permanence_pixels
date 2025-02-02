@@ -583,7 +583,7 @@ namespace NeoCortex
                 var scaleY = (double)(targetHeight - 40) / bmpHeight;
 
                 // Leave a gap between sections
-                float labelY = 30;
+                float labelY = 20;
 
                 // Draw heatmap
                 for (int i = 0; i < height; i++)
