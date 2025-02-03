@@ -230,7 +230,7 @@ namespace NeoCortexApiSample
                 BinarizedencodedInputs.Add(inputVector);
 
                 //Normalizing Permanence Threshold
-                var ThresholdValue = 25;
+                var ThresholdValue = 10;
 
                 // Normalize permanences (0 and 1) based on the threshold value and convert them to a list of integers.
                 List<int> normalizePermanenceList = Helpers.ThresholdingProbabilities(permanenceValuesList, ThresholdValue);
