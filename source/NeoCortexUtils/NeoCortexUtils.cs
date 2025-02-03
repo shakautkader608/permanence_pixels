@@ -572,6 +572,7 @@ namespace NeoCortex
 
 
 
+
         /// <summary>
         /// Drawas bitmaps from list of arrays.
         /// </summary>
@@ -630,6 +631,8 @@ namespace NeoCortex
 
             myBitmap.Save(filePath, ImageFormat.Png);
         }
+
+
 
         /// <summary>
         /// Draws a combined similarity plot based on the given list of similarity values.
@@ -765,7 +768,7 @@ namespace NeoCortex
         {
             // Define the color range
             // Light gray
-            int minColorValue = 100;
+            int minColorValue = 200;
             // Dark orange
             int maxColorValue = 255;
 

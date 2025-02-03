@@ -267,6 +267,8 @@ namespace NeoCortexApiSample
             DrawSimilarityPlots(similarityList);
         }
 
+
+
         /// <summary>
         /// Generates 1D heatmaps based on the provided heatmap data and normalized permanence values.
         /// </summary>
