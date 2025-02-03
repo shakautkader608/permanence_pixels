@@ -353,6 +353,107 @@ namespace NeoCortex
 
 
 
+        public static void DrawAndCropPermanenceHeatmap(List<List<double>> heatmapData, string filePath, int gridSize = 64, int enlargementFactor = 1)
+        {
+            //  Added guard clause for invalid input
+            if (heatmapData == null || heatmapData.Count == 0)
+            {
+                Console.WriteLine("Heatmap data is null or empty. No image generated.");
+                return;
+            }
+            // Determine the original grid dimensions
+            int originalWidth = gridSize;
+            int originalHeight = heatmapData.Count > 0 ? heatmapData[0].Count / gridSize : 0;
+
+            // Scale up for better visualization
+            int scaledWidth = originalWidth * enlargementFactor;
+            int scaledHeight = originalHeight * enlargementFactor;
+
+            Bitmap tempBitmap = new Bitmap(scaledWidth, scaledHeight);
+            Graphics graphics = Graphics.FromImage(tempBitmap);
+            graphics.Clear(Color.White);
+
+            // Track colored pixel bounds for cropping
+            int minX = scaledWidth, minY = scaledHeight, maxX = 0, maxY = 0;
+
+            // Iterate over the heatmap data
+            for (int row = 0; row < heatmapData.Count; row++)
+            {
+                var permanenceValues = heatmapData[row];
+
+                if (permanenceValues == null || permanenceValues.Count == 0)
+                {
+                    continue; // Skip empty rows
+                }
+
+                //  Skip rows with no valid data (all zeros or empty)
+                double maxPermanence = permanenceValues.Max();
+                if (maxPermanence == 0)
+                {
+                    continue;
+                }
+
+                for (int i = 0; i < permanenceValues.Count; i++)
+                {
+                    double permanence = permanenceValues[i];
+
+            // Compute color intensity based on permanence value
+                    int red = Math.Min(255, (int)(255 * (permanence / permanenceValues.Max()))); // Hot values red
+                    int blue = Math.Min(255, (int)(255 * (1 - permanence / permanenceValues.Max()))); // Cold values blue
+                    int green = 0;
+
+                    Color pixelColor = Color.FromArgb(red, green, blue);
+
+                    int x = (i % gridSize) * enlargementFactor;
+                    int y = (i / gridSize) * enlargementFactor;
+
+
+
+            // Draw scaled pixels
+                    for (int dx = 0; dx < enlargementFactor; dx++)
+                    {
+                        for (int dy = 0; dy < enlargementFactor; dy++)
+                        {
+                            tempBitmap.SetPixel(x + dx, y + dy, pixelColor);
+                        }
+                    }
+
+            // Update cropping boundaries
+                    if (permanence > 0)
+                    {
+                        if (x < minX) minX = x;
+                        if (y < minY) minY = y;
+                        if (x > maxX) maxX = x + enlargementFactor;
+                        if (y > maxY) maxY = y + enlargementFactor;
+                    }
+                }
+            }
+
+
+            // If no data was found, save the blank white image
+            if (minX >= maxX || minY >= maxY)
+            {
+                tempBitmap.Save(filePath, ImageFormat.Png);
+                Console.WriteLine($"No data found, saved blank heatmap to {filePath}");
+                return;
+            }
+
+            // Crop the heatmap to remove white space
+            Rectangle cropArea = new Rectangle(minX, minY, maxX - minX, maxY - minY);
+            Bitmap croppedBitmap = tempBitmap.Clone(cropArea, tempBitmap.PixelFormat);
+
+
+            // Save the cropped bitmap
+            croppedBitmap.Save(filePath, ImageFormat.Png);
+            Console.WriteLine($"Cropped permanence heatmap saved to {filePath}");
+        }
+
+
+
+
+
+
+
 
 
 
@@ -504,7 +605,7 @@ namespace NeoCortex
                         SizeF normalizedLabelSize = g.MeasureString(normalizedLabel, normalizedLabelFont);
                         float normalizedLabelX = (targetWidth - normalizedLabelSize.Width) / 2;
                         // Leave a gap before drawing the label
-                        labelY += 130;
+                        labelY += 260;
                         // Adjust the vertical position down by 10 units (you can modify this value)
                         labelY += 70;
                         g.DrawString(normalizedLabel, normalizedLabelFont, Brushes.Black, new PointF(normalizedLabelX, labelY));
