@@ -573,6 +573,7 @@ namespace NeoCortex
 
 
 
+
         /// <summary>
         /// Drawas bitmaps from list of arrays.
         /// </summary>
@@ -999,6 +1000,7 @@ namespace NeoCortex
 
             return corr;
         }
+
 
         /// <summary>
         /// 
