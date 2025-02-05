@@ -759,6 +759,7 @@ namespace NeoCortex
             bitmap.Save(filePath, ImageFormat.Png);
         }
 
+
         /// <summary>
         /// Determines the color based on the given similarity level.
         /// </summary>
@@ -1000,6 +1001,7 @@ namespace NeoCortex
 
             return corr;
         }
+
 
 
         /// <summary>
