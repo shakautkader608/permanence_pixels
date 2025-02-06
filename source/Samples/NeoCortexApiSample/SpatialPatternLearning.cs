@@ -46,11 +46,11 @@ namespace NeoCortexApiSample
                 NumActiveColumnsPerInhArea = 0.03 * numColumns,
                 PotentialRadius = (int)(0.15 * inputBits),
                 LocalAreaDensity = -1,
-                ActivationThreshold = 11, // Added a space after `StimulusThreshold`
+                ActivationThreshold = 11, // Controls the minimum active synapses for a segment to activate
 
-                MaxSynapsesPerSegment = (int)(0.01 * numColumns),
-                Random = new ThreadSafeRandom(42),
-                StimulusThreshold= 11, // Added a space after `StimulusThreshold`
+                MaxSynapsesPerSegment = (int)(0.01 * numColumns), // Limits the number of synapses per segment
+                Random = new ThreadSafeRandom(42), // Seed for reproducibility
+                StimulusThreshold = 11, // Threshold for activating a segment based on stimulus
             };
 
 
