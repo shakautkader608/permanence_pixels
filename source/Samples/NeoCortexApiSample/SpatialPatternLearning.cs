@@ -71,6 +71,7 @@ namespace NeoCortexApiSample
                 { "MaxVal", max},
                 // Adding a new parameter
                 { "ScaleFactor", 1.5 } // New parameter added
+                { "MaxVal", max } // The maximum value of the input range
             };
 
 
