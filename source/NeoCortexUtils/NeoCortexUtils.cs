@@ -291,6 +291,8 @@ namespace NeoCortex
 
         public static void DrawPermanenceBitmap(List<List<double>> heatmapData, string filePath, int bmpWidth = 2048, int bmpHeight = 2048, int gridSize = 64, int enlargementFactor = 1)
         {
+          
+
             // Adjust bitmap size based on enlargement factor
             bmpWidth *= enlargementFactor;
             bmpHeight *= enlargementFactor;
@@ -322,10 +324,14 @@ namespace NeoCortex
                 {
                     double permanence = permanenceValues[i];
 
-                    // Calculate color intensity based on permanence value
-                    int red = Math.Min(255, (int)(255 * (permanence / permanenceValues.Max()))); // Hotter values in red
-                    int blue = Math.Min(255, (int)(255 * (1 - permanence / permanenceValues.Max()))); // Cooler values in blue
-                    int green = 0; // No green
+                    // Normalize permanence value between 0 and 1
+                    double normalizedPermanence = Math.Max(0, Math.Min(1, permanence / permanenceValues.Max()));
+
+                    // Calculate color intensity based on normalized permanence
+                    int red = Convert.ToInt32(255 * normalizedPermanence);  // Higher permanence → More red
+                    int blue = Convert.ToInt32(255 * (1 - normalizedPermanence)); // Lower permanence → More blue
+                    int green = 0; // Green remains constant
+
 
                     // Set color based on permanence value
                     Color pixelColor = Color.FromArgb(red, green, blue);
@@ -567,6 +573,8 @@ namespace NeoCortex
 
             // Save the combined image with heatmap and text row
             myBitmap.Save(filePath, ImageFormat.Png);
+
+
         }
 
 
