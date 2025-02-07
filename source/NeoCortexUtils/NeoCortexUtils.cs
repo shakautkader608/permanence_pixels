@@ -571,6 +571,7 @@ namespace NeoCortex
                 }
             }
 
+
             // Save the combined image with heatmap and text row
             myBitmap.Save(filePath, ImageFormat.Png);
 
