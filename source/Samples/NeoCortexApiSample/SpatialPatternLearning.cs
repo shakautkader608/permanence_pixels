@@ -54,7 +54,7 @@ namespace NeoCortexApiSample
             };
 
 
-            double max = 100;
+            double max = 150;
 
 
             //
