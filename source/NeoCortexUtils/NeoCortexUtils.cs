@@ -80,6 +80,7 @@ namespace NeoCortex
 
         }
 
+
         /// <summary>
         /// Draws the bitmap from array of active columns.
         /// </summary>
@@ -128,6 +129,7 @@ namespace NeoCortex
             myBitmap.Save(filePath, ImageFormat.Png);
         }
 
+
         /// <summary>
         /// TODO: add comment
         /// </summary>
@@ -137,7 +139,8 @@ namespace NeoCortex
         /// <param name="bmpHeight"></param>
         public static void DrawBitmaps(List<int[,]> twoDimArrays, String filePath, int bmpWidth = 1024, int bmpHeight = 1024)
         {
-            DrawBitmaps(twoDimArrays, filePath, Color.DarkGray, Color.Yellow, bmpWidth, bmpHeight);
+            DrawBitmaps(twoDimArrays, filePath, //Color.DarkGray, Color.Yellow,//
+                                                bmpWidth, bmpHeight);
         }
 
 
