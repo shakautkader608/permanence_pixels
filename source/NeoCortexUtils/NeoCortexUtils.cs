@@ -513,7 +513,7 @@ namespace NeoCortex
                         SizeF normalizedLabelSize = g.MeasureString(normalizedLabel, normalizedLabelFont);
                         float normalizedLabelX = (targetWidth - normalizedLabelSize.Width) / 2;
                         // Leave a gap before drawing the label
-                        labelY += 130;
+                        labelY += 230;
                         // Adjust the vertical position down by 10 units (you can modify this value)
                         labelY += 70;
                         g.DrawString(normalizedLabel, normalizedLabelFont, Brushes.Black, new PointF(normalizedLabelX, labelY));
