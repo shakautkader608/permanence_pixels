@@ -955,6 +955,7 @@ namespace NeoCortex
             return inputVector;
         }
 
+
         /// <summary>
         /// Calculate mean value of array of numbers. 
         /// </summary>
@@ -1110,6 +1111,7 @@ namespace NeoCortex
 
             return res;
         }
+
 
 
         /// <summary>
