@@ -366,7 +366,6 @@ namespace NeoCortex
 
 
 
-
         ///Permanence Bitmap with text value.
         public static void DrawPermanenceBitmapWithText(List<List<double>> heatmapData, List<string> inputNames, string filePath, int bmpWidth = 2048, int bmpHeight = 2048, int gridSize = 64)
         {
