@@ -336,9 +336,11 @@ namespace NeoCortexApiSample
             // Define the file name
             string fileName = "combined_similarity_plot_Image_Inputs.png";
 
+
             // Define the file path with the folder path and file name
 
             string filePath = Path.Combine(folderPath, fileName);
+
 
             // Draw the combined similarity plot
             NeoCortexUtils.DrawCombinedSimilarityPlot(combinedSimilarities, filePath, 1000, 850);
