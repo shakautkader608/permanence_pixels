@@ -1147,10 +1147,15 @@ namespace NeoCortex
             return exponentials.Select(x => x / sum).ToArray();
         }
 
+
+        // Function DrawCombinedHeatmaps2
         public static void DrawCombinedHeatmaps2(List<List<double>> heatmapData, string filePath, int bmpWidth = 784, int gridSize = 52, int enlargementFactor = 2)
         {
-            
-            
+            bmpWidth *= enlargementFactor;
+            int titlePadding = 40;
+            int gridHeight = bmpWidth / gridSize;
+            int totalHeatmapHeight = gridHeight * gridSize;
+
         }
 
 
