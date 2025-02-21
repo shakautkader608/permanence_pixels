@@ -1156,6 +1156,9 @@ namespace NeoCortex
             int gridHeight = bmpWidth / gridSize;
             int totalHeatmapHeight = gridHeight * gridSize;
 
+            Bitmap coloredBitmap = new Bitmap(bmpWidth, totalHeatmapHeight + titlePadding);
+            Bitmap transparentBitmap = new Bitmap(bmpWidth, totalHeatmapHeight + titlePadding);
+
         }
 
 
