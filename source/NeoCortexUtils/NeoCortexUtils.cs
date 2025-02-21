@@ -1187,6 +1187,7 @@ namespace NeoCortex
 
             Font font = new Font("Arial", 10, FontStyle.Bold);
             Brush textBrush = Brushes.Black;
+            Pen outlinePen = Pens.Black;
 
 
         }
