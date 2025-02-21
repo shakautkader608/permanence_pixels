@@ -1188,6 +1188,7 @@ namespace NeoCortex
         //Function SaveBinarizedImageWithText
         public static void SaveBinarizedImageWithText(int[] inputVector, string imageName)
         {
+            // Image setup, directory creation, and background setup
             int width = 52, height = 52;
         }
 
