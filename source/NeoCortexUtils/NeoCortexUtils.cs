@@ -1159,6 +1159,9 @@ namespace NeoCortex
             Bitmap coloredBitmap = new Bitmap(bmpWidth, totalHeatmapHeight + titlePadding);
             Bitmap transparentBitmap = new Bitmap(bmpWidth, totalHeatmapHeight + titlePadding);
 
+            Graphics coloredGraphics = Graphics.FromImage(coloredBitmap);
+            Graphics transparentGraphics = Graphics.FromImage(transparentBitmap);
+
         }
 
 
