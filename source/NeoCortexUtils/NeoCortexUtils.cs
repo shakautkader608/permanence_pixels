@@ -11,6 +11,8 @@ using System.IO;
 using System.Linq;
 using static System.Net.Mime.MediaTypeNames.Font;
 using System.Numerics;
+using static System.Net.Mime.MediaTypeNames;
+using System.Drawing.Interop;
 
 namespace NeoCortex
 {
@@ -1181,7 +1183,9 @@ namespace NeoCortex
                 
             }
 
-            // Rendering text and drawing grid rectangles**
+            // Rendering text and drawing grid rectangles
+
+            Font font = new Font("Arial", 10, FontStyle.Bold);
 
 
         }
