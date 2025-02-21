@@ -9,6 +9,8 @@ using System.Drawing;
 using System.Drawing.Imaging;
 using System.IO;
 using System.Linq;
+using static System.Net.Mime.MediaTypeNames.Font;
+using System.Numerics;
 
 namespace NeoCortex
 {
@@ -139,7 +141,7 @@ namespace NeoCortex
         /// <param name="bmpHeight"></param>
         public static void DrawBitmaps(List<int[,]> twoDimArrays, String filePath, int bmpWidth = 1024, int bmpHeight = 1024)
         {
-            DrawBitmaps(twoDimArrays, filePath, //Color.DarkGray, Color.Yellow,//
+            DrawBitmaps(twoDimArrays, filePath, /*Color.DarkGray, Color.Yellow,*/
                                                 bmpWidth, bmpHeight);
         }
 
@@ -358,7 +360,6 @@ namespace NeoCortex
             myBitmap.Save(filePath, ImageFormat.Png);
             Console.WriteLine($"Permanence heatmap saved to {filePath}");
         }
-
 
 
 
@@ -956,6 +957,7 @@ namespace NeoCortex
             return inputVector;
         }
 
+
         /// <summary>
         /// Calculate mean value of array of numbers. 
         /// </summary>
@@ -1113,6 +1115,7 @@ namespace NeoCortex
         }
 
 
+
         /// <summary>
         /// Calculates the softmax function.
         /// </summary>
@@ -1143,5 +1146,44 @@ namespace NeoCortex
 
             return exponentials.Select(x => x / sum).ToArray();
         }
+
+
+        // Function DrawCombinedHeatmaps2
+        
+        public static void DrawCombinedHeatmaps2(List<List<double>> heatmapData, string filePath, int bmpWidth = 784, int gridSize = 52, int enlargementFactor = 2)
+        {
+
+            //Bitmap creation, title drawing, and initial setup
+
+
+            bmpWidth *= enlargementFactor;
+            int titlePadding = 40;
+            int gridHeight = bmpWidth / gridSize;
+            int totalHeatmapHeight = gridHeight * gridSize;
+
+            Bitmap coloredBitmap = new Bitmap(bmpWidth, totalHeatmapHeight + titlePadding);
+            Bitmap transparentBitmap = new Bitmap(bmpWidth, totalHeatmapHeight + titlePadding);
+
+            Graphics coloredGraphics = Graphics.FromImage(coloredBitmap);
+            Graphics transparentGraphics = Graphics.FromImage(transparentBitmap);
+
+            Font titleFont = new Font("Arial", 20, FontStyle.Bold);
+            coloredGraphics.DrawString("Permanence Heatmap (Colored)", titleFont, Brushes.Black, new PointF(bmpWidth / 3, 10));
+            transparentGraphics.DrawString("Permanence Heatmap (Transparent)", titleFont, Brushes.Black, new PointF(bmpWidth / 3, 10));
+
+            int gridWidth = bmpWidth / gridSize;
+
+
+            // **Reaz's Part: Processing heatmap data and applying color mapping**
+        
+        
+        
+        
+        }
+
+
+
+
+
     }
 }

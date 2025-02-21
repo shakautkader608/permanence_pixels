@@ -40,7 +40,7 @@ namespace NeoCortexApiSample
                 //InhibitionRadius = 15,
 
                 MaxBoost = 10.0,
-                DutyCyclePeriod = 20,
+                DutyCyclePeriod = 30,
                 MinPctOverlapDutyCycles = 0.50,
                 MaxSynapsesPerSegment = (int)(0.02 * numColumns),
 
@@ -134,7 +134,7 @@ namespace NeoCortexApiSample
 
             var lastPredictedValues = new List<string>(new string[] { "0"});
             
-            int maxCycles = 3500;
+            int maxCycles = 3000;
 
             //
             // Training SP to get stable. New-born stage.
