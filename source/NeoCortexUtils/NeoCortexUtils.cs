@@ -533,9 +533,9 @@ namespace NeoCortex
                             // Adjusted starting point for the line
                             float lineStartX = textX + 5;
                             // Adjusted starting point for the line
-                            float lineStartY = textY - 40;
+                            float lineStartY = textY - 20;
                             float lineEndX = (float)(i * scaleX) + (float)(Xcount * scaleX) + (float)(scaleX / 2);
-                            float lineEndY = 400;
+                            float lineEndY = 300;
                             g.DrawLine(Pens.Black, lineStartX, lineStartY, lineEndX, lineEndY);
 
                         }
