@@ -1186,10 +1186,14 @@ namespace NeoCortex
         }
 
         //Function SaveBinarizedImageWithText
+        public static void SaveBinarizedImageWithText(int[] inputVector, string imageName)
+        { 
+        
+        }
 
 
 
 
 
-    }
+        }
 }
