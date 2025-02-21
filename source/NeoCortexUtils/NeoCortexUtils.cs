@@ -1186,6 +1186,7 @@ namespace NeoCortex
             // Rendering text and drawing grid rectangles
 
             Font font = new Font("Arial", 10, FontStyle.Bold);
+            Brush textBrush = Brushes.Black;
 
 
         }
