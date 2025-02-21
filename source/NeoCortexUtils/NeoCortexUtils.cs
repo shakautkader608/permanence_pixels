@@ -1191,7 +1191,7 @@ namespace NeoCortex
 
             for (int idx = 0; idx < heatmapData.Count; idx++)
             {
-
+                var permanenceValues = heatmapData[idx];
             }
 
 
