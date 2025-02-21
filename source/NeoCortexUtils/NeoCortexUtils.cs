@@ -1189,6 +1189,11 @@ namespace NeoCortex
             Brush textBrush = Brushes.Black;
             Pen outlinePen = Pens.Black;
 
+            for (int idx = 0; idx < heatmapData.Count; idx++)
+            {
+
+            }
+
 
         }
 
