@@ -1190,6 +1190,7 @@ namespace NeoCortex
         {
             // Image setup, directory creation, and background setup
             int width = 52, height = 52;
+            string folderPath = Path.Combine(Environment.CurrentDirectory, "BinaryImages");
         }
 
 
