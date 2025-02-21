@@ -1149,9 +1149,13 @@ namespace NeoCortex
 
 
         // Function DrawCombinedHeatmaps2
-        //Bitmap creation, title drawing, and initial setup
+        
         public static void DrawCombinedHeatmaps2(List<List<double>> heatmapData, string filePath, int bmpWidth = 784, int gridSize = 52, int enlargementFactor = 2)
         {
+
+            //Bitmap creation, title drawing, and initial setup
+
+
             bmpWidth *= enlargementFactor;
             int titlePadding = 40;
             int gridHeight = bmpWidth / gridSize;
