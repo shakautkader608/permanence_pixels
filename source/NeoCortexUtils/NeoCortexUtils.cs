@@ -1149,6 +1149,7 @@ namespace NeoCortex
 
 
         // Function DrawCombinedHeatmaps2
+        //Bitmap creation, title drawing, and initial setup
         public static void DrawCombinedHeatmaps2(List<List<double>> heatmapData, string filePath, int bmpWidth = 784, int gridSize = 52, int enlargementFactor = 2)
         {
             bmpWidth *= enlargementFactor;
@@ -1166,6 +1167,14 @@ namespace NeoCortex
             coloredGraphics.DrawString("Permanence Heatmap (Colored)", titleFont, Brushes.Black, new PointF(bmpWidth / 3, 10));
             transparentGraphics.DrawString("Permanence Heatmap (Transparent)", titleFont, Brushes.Black, new PointF(bmpWidth / 3, 10));
 
+            int gridWidth = bmpWidth / gridSize;
+
+
+            // **Reaz's Part: Processing heatmap data and applying color mapping**
+        
+        
+        
+        
         }
 
 
