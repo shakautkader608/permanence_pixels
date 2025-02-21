@@ -1175,10 +1175,14 @@ namespace NeoCortex
 
 
             // **Reaz's Part: Processing heatmap data and applying color mapping**
-        
-        
-        
-        
+
+            for (int idx = 0; idx < heatmapData.Count; idx++)
+            {
+                
+            }
+
+
+
         }
 
 
