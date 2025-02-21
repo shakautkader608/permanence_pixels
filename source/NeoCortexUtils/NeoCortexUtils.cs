@@ -1181,6 +1181,7 @@ namespace NeoCortex
                 
             }
 
+            // Rendering text and drawing grid rectangles**
 
 
         }
