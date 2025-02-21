@@ -1181,6 +1181,8 @@ namespace NeoCortex
         
         }
 
+        //Function SaveBinarizedImageWithText
+
 
 
 
