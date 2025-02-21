@@ -9,6 +9,8 @@ using System.Drawing;
 using System.Drawing.Imaging;
 using System.IO;
 using System.Linq;
+using static System.Net.Mime.MediaTypeNames.Font;
+using System.Numerics;
 
 namespace NeoCortex
 {
@@ -1144,5 +1146,11 @@ namespace NeoCortex
 
             return exponentials.Select(x => x / sum).ToArray();
         }
+
+
+
+
+
+
     }
 }
