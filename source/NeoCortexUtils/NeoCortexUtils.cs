@@ -141,7 +141,7 @@ namespace NeoCortex
         /// <param name="bmpHeight"></param>
         public static void DrawBitmaps(List<int[,]> twoDimArrays, String filePath, int bmpWidth = 1024, int bmpHeight = 1024)
         {
-            DrawBitmaps(twoDimArrays, filePath, //Color.DarkGray, Color.Yellow,//
+            DrawBitmaps(twoDimArrays, filePath, /*Color.DarkGray, Color.Yellow,*/
                                                 bmpWidth, bmpHeight);
         }
 
