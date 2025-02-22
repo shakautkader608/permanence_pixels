@@ -1193,7 +1193,8 @@ namespace NeoCortex
                     int scaleY = gridHeight;
                     using (SolidBrush brush = new SolidBrush(coloredPixelColor))
                     {
-
+                        coloredGraphics.FillRectangle(brush, x * scaleX, y * scaleY +
+                        titlePadding, scaleX, scaleY);
                     }
 
                 }
