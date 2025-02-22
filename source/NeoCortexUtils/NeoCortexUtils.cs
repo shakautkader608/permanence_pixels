@@ -1222,7 +1222,10 @@ namespace NeoCortex
             {
 
                 Clear(Color.White);
-    
+                g.
+                using (Font font = new Font("Arial", 10, FontStyle.Bold))
+
+
             }
 
 
