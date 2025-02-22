@@ -1208,6 +1208,7 @@ namespace NeoCortex
                 for (int i = 0; i < permanenceValues.Count; i++)
                 {
                     int x = i % gridSize;
+                    int y = i / gridSize;
 
                 }
             }
