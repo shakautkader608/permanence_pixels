@@ -1221,7 +1221,8 @@ namespace NeoCortex
 
             {
 
-
+                Clear(Color.White);
+    
             }
 
 
