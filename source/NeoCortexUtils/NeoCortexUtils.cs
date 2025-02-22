@@ -1218,6 +1218,8 @@ namespace NeoCortex
                     coloredGraphics.DrawString(valueText, font, textBrush, textX, textY);
                     transparentGraphics.DrawRectangle(outlinePen, x * scaleX, y * scaleY +
                     titlePadding, scaleX, scaleY);
+                    transparentGraphics.DrawString(valueText, font, textBrush, textX,
+textY);
                 }
             }
 
