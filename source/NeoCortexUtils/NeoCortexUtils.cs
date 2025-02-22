@@ -1191,6 +1191,10 @@ namespace NeoCortex
                     int y = i / gridSize;
                     int scaleX = gridWidth;
                     int scaleY = gridHeight;
+                    using (SolidBrush brush = new SolidBrush(coloredPixelColor))
+                    {
+
+                    }
 
                 }
 
