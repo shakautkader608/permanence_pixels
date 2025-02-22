@@ -1215,6 +1215,9 @@ namespace NeoCortex
 
             Directory.CreateDirectory(folderPath);
             string filename = Path.Combine(folderPath, $"{imageName}.png");
+
+            using (Bitmap bmp = new Bitmap(width * 10, height * 10)) ;
+            
         }
 
 
