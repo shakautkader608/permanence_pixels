@@ -1155,7 +1155,6 @@ namespace NeoCortex
 
             //Bitmap creation, title drawing, and initial setup
 
-
             bmpWidth *= enlargementFactor;
             int titlePadding = 40;
             int gridHeight = bmpWidth / gridSize;
@@ -1168,6 +1167,7 @@ namespace NeoCortex
             Graphics transparentGraphics = Graphics.FromImage(transparentBitmap);
 
             Font titleFont = new Font("Arial", 20, FontStyle.Bold);
+
             coloredGraphics.DrawString("Permanence Heatmap (Colored)", titleFont, Brushes.Black, new PointF(bmpWidth / 3, 10));
             transparentGraphics.DrawString("Permanence Heatmap (Transparent)", titleFont, Brushes.Black, new PointF(bmpWidth / 3, 10));
 
