@@ -11,9 +11,6 @@ using System.IO;
 using System.Linq;
 using static System.Net.Mime.MediaTypeNames.Font;
 using System.Numerics;
-using static System.Net.Mime.MediaTypeNames;
-using System.Drawing.Interop;
-using Font = System.Drawing.Font;
 
 namespace NeoCortex
 {
@@ -1156,7 +1153,7 @@ namespace NeoCortex
         public static void DrawCombinedHeatmaps2(List<List<double>> heatmapData, string filePath, int bmpWidth = 784, int gridSize = 52, int enlargementFactor = 2)
         {
 
-            // Bitmap creation, title drawing, and initial setup
+            //Bitmap creation, title drawing, and initial setup
 
 
             bmpWidth *= enlargementFactor;
@@ -1171,36 +1168,19 @@ namespace NeoCortex
             Graphics transparentGraphics = Graphics.FromImage(transparentBitmap);
 
             Font titleFont = new Font("Arial", 20, FontStyle.Bold);
-
             coloredGraphics.DrawString("Permanence Heatmap (Colored)", titleFont, Brushes.Black, new PointF(bmpWidth / 3, 10));
-
             transparentGraphics.DrawString("Permanence Heatmap (Transparent)", titleFont, Brushes.Black, new PointF(bmpWidth / 3, 10));
 
-            int gridwidth= bmpWidth / gridSize;
-            
+            int gridWidth = bmpWidth / gridSize;
 
-            // Processing heatmap data and applying color mapping
 
-            for (int idx = 0; idx < heatmapData.Count; idx++)
-            {
-                
-            }
-
-            // Rendering text and drawing grid rectangles
-
-            Font font = new Font("Arial", 10, FontStyle.Bold);
-            Brush textBrush = Brushes.Black;
-            Pen outlinePen = Pens.Black;
+            // **Reaz's Part: Processing heatmap data and applying color mapping**
 
             for (int idx = 0; idx < heatmapData.Count; idx++)
             {
                 var permanenceValues = heatmapData[idx];
-
-                for (int i = 0; i < permanenceValues.Count; i++)
-                {
-
-                }
             }
+
 
 
         }
@@ -1208,36 +1188,12 @@ namespace NeoCortex
         //Function SaveBinarizedImageWithText
         public static void SaveBinarizedImageWithText(int[] inputVector, string imageName)
         {
-            // Image setup, directory creation, and background setup
             int width = 52, height = 52;
-            string folderPath = Path.Combine(Environment.CurrentDirectory, "BinaryImages");
-
-
-            Directory.CreateDirectory(folderPath);
-            string filename = Path.Combine(folderPath, $"{imageName}.png");
-
-            using (Bitmap bmp = new Bitmap(width * 10, height * 10)) 
-            using (Graphics g = Graphics.FromImage(bmp))
-
-            {
-
-                Clear(Color.White);
-                g.
-                using (Font font = new Font("Arial", 10, FontStyle.Bold))
-                using (Brush brush = new SolidBrush(Color.Black))
-                {
-
-                    // **Reaz's Part .....
-                }
-
-            }
-
-
         }
 
 
 
 
 
-    }
+        }
 }
