@@ -1199,7 +1199,17 @@ namespace NeoCortex
             }
 
 
+            Font font = new Font("Arial", 10, FontStyle.Bold);
+            Brush textBrush = Brushes.Black;
+            Pen outlinePen = Pens.Black;
+            for (int idx = 0; idx < heatmapData.Count; idx++)
+            {
+                var permanenceValues = heatmapData[idx];
+                for (int i = 0; i < permanenceValues.Count; i++)
+                {
 
+                }
+            }
 
         }
 
