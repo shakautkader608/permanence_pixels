@@ -1213,6 +1213,7 @@ namespace NeoCortex
                     int scaleY = gridHeight;
 
                     string valueText = $"{permanenceValues[i]:F1}";
+                    float textX = x * scaleX + (scaleX / 4);
                 }
             }
 
