@@ -1214,6 +1214,7 @@ namespace NeoCortex
 
                     string valueText = $"{permanenceValues[i]:F1}";
                     float textX = x * scaleX + (scaleX / 4);
+                    float textY = y * scaleY + titlePadding + (scaleY / 4);
                 }
             }
 
