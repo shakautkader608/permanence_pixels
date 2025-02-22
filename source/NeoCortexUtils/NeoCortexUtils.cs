@@ -1189,6 +1189,8 @@ namespace NeoCortex
 
                     int x = i % gridSize;
                     int y = i / gridSize;
+                    int scaleX = gridWidth;
+                    int scaleY = gridHeight;
 
                 }
 
