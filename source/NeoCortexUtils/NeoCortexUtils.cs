@@ -1155,7 +1155,7 @@ namespace NeoCortex
         public static void DrawCombinedHeatmaps2(List<List<double>> heatmapData, string filePath, int bmpWidth = 784, int gridSize = 52, int enlargementFactor = 2)
         {
 
-            //Bitmap creation, title drawing, and initial setup
+            // Bitmap creation, title drawing, and initial setup
 
 
             bmpWidth *= enlargementFactor;
@@ -1176,7 +1176,7 @@ namespace NeoCortex
             int gridWidth = bmpWidth / gridSize;
 
 
-            // **Reaz's Part: Processing heatmap data and applying color mapping**
+            // Processing heatmap data and applying color mapping
 
             for (int idx = 0; idx < heatmapData.Count; idx++)
             {
@@ -1214,5 +1214,5 @@ namespace NeoCortex
 
 
 
-        }
+    }
 }
