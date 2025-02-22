@@ -1186,6 +1186,7 @@ namespace NeoCortex
                     int red = Math.Min(255, (int)(255 * (permanence / maxPermanence)));
                     int blue = Math.Min(255, (int)(255 * (1 - permanence / maxPermanence)));
                     Color coloredPixelColor = Color.FromArgb(red, 0, blue);
+                    int x = i % gridSize;
                 }
 
 
