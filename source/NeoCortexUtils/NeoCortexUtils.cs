@@ -1186,7 +1186,6 @@ namespace NeoCortex
                     int red = Math.Min(255, (int)(255 * (permanence / maxPermanence)));
                     int blue = Math.Min(255, (int)(255 * (1 - permanence / maxPermanence)));
                     Color coloredPixelColor = Color.FromArgb(red, 0, blue);
-
                     int x = i % gridSize;
                     int y = i / gridSize;
                     int scaleX = gridWidth;
@@ -1196,11 +1195,9 @@ namespace NeoCortex
                         coloredGraphics.FillRectangle(brush, x * scaleX, y * scaleY +
                         titlePadding, scaleX, scaleY);
                     }
-
                 }
-
-
             }
+
 
 
 
