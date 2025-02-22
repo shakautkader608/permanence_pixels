@@ -1180,6 +1180,11 @@ namespace NeoCortex
             {
                 var permanenceValues = heatmapData[idx];
                 double maxPermanence = permanenceValues.Max();
+                for (int i = 0; i < permanenceValues.Count; i++)
+                {
+
+                }
+
 
             }
 
