@@ -1182,7 +1182,7 @@ namespace NeoCortex
                 double maxPermanence = permanenceValues.Max();
                 for (int i = 0; i < permanenceValues.Count; i++)
                 {
-
+                    double permanence = permanenceValues[i];
                 }
 
 
