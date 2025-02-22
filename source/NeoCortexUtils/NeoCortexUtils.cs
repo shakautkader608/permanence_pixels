@@ -13,6 +13,7 @@ using static System.Net.Mime.MediaTypeNames.Font;
 using System.Numerics;
 using static System.Net.Mime.MediaTypeNames;
 using System.Drawing.Interop;
+using Font = System.Drawing.Font;
 
 namespace NeoCortex
 {
