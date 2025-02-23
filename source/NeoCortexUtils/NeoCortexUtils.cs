@@ -1228,6 +1228,10 @@ namespace NeoCortex
             int width = 52, height = 52;
 
             string folderPath = Path.Combine(Environment.CurrentDirectory, "BinaryImages");
+
+
+            Directory.CreateDirectory(folderPath);
+            string filename = Path.Combine(folderPath, $"{imageName}.png");
         }
 
 
