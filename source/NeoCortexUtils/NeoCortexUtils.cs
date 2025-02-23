@@ -1232,6 +1232,22 @@ namespace NeoCortex
 
             Directory.CreateDirectory(folderPath);
             string filename = Path.Combine(folderPath, $"{imageName}.png");
+
+
+            using (Bitmap bmp = new Bitmap(width * 10, height * 10))
+            using (Graphics g = Graphics.FromImage(bmp))
+
+            {
+
+                Clear(Color.White);
+                g.
+                using (Font font = new Font("Arial", 10, FontStyle.Bold))
+                using (Brush brush = new SolidBrush(Color.Black))
+                {
+
+                    //Reaz vai's part'
+                }
+            }
         }
 
 
