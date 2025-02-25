@@ -1220,6 +1220,8 @@ namespace NeoCortex
                 }
             }
 
+            //Combining the heatmaps and saving the final image
+
         }
 
         //Function SaveBinarizedImageWithText
