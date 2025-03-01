@@ -1166,7 +1166,7 @@ namespace NeoCortex
             Graphics coloredGraphics = Graphics.FromImage(coloredBitmap);
             Graphics transparentGraphics = Graphics.FromImage(transparentBitmap);
 
-            Font titleFont = new Font("Arial", 20, FontStyle.Bold);
+            Font titleFont = new Font("Arial", 22, FontStyle.Bold);
 
             coloredGraphics.DrawString("Permanence Heatmap (Colored)", titleFont, Brushes.Black, new PointF(bmpWidth / 3, 10));
             transparentGraphics.DrawString("Permanence Heatmap (Transparent)", titleFont, Brushes.Black, new PointF(bmpWidth / 3, 10));
