@@ -1169,6 +1169,7 @@ namespace NeoCortex
             Font titleFont = new Font("Arial", 22, FontStyle.Bold);
 
             coloredGraphics.DrawString("Permanence Heatmap (Colored)", titleFont, Brushes.Black, new PointF(bmpWidth / 3, 10));
+
             transparentGraphics.DrawString("Permanence Heatmap (Transparent)", titleFont, Brushes.Black, new PointF(bmpWidth / 3, 10));
 
             int gridWidth = bmpWidth / gridSize;
