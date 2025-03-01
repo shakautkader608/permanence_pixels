@@ -1221,8 +1221,7 @@ namespace NeoCortex
             }
 
             //Combining the heatmaps and saving the final image
-            Bitmap combinedBitmap = new Bitmap(bmpWidth, (totalHeatmapHeight + titlePadding)
-            * 2);
+            Bitmap combinedBitmap = new Bitmap(bmpWidth, (totalHeatmapHeight + titlePadding) * 2);
 
         }
 
@@ -1244,7 +1243,8 @@ namespace NeoCortex
             {
 
                 Clear(Color.White);
-                g.
+                g;
+
                 using (Font font = new Font("Arial", 10, FontStyle.Bold))
                 using (Brush brush = new SolidBrush(Color.Black))
                 {
