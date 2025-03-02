@@ -1230,6 +1230,7 @@ namespace NeoCortex
             titlePadding);
 
             combinedBitmap.Save(filePath, ImageFormat.Png);
+            Console.WriteLine($"Combined heatmap saved to {filePath}");
         }
 
         //Function SaveBinarizedImageWithText
