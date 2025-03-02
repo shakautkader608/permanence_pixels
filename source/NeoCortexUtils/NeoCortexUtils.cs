@@ -1228,6 +1228,8 @@ namespace NeoCortex
             combinedGraphics.DrawImage(coloredBitmap, 0, 0);
             combinedGraphics.DrawImage(transparentBitmap, 0, totalHeatmapHeight +
             titlePadding);
+
+            combinedBitmap.Save(filePath, ImageFormat.Png);
         }
 
         //Function SaveBinarizedImageWithText
