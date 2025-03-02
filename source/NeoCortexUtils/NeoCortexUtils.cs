@@ -1260,7 +1260,10 @@ namespace NeoCortex
                     //Reaz vai's part'
                     for (int y = 0; y < height; y++)
                     {
-
+                        for (int x = 0; x < width; x++)
+                        {
+                            int pixelIndex = y * width + x;
+                        }
                     }
                 }
             }
