@@ -1258,6 +1258,10 @@ namespace NeoCortex
                 {
 
                     //Reaz vai's part'
+                    for (int y = 0; y < height; y++)
+                    {
+
+                    }
                 }
             }
         }
