@@ -1263,6 +1263,8 @@ namespace NeoCortex
                         for (int x = 0; x < width; x++)
                         {
                             int pixelIndex = y * width + x;
+                            string text = inputVector[pixelIndex].ToString();
+
                         }
                     }
                 }
