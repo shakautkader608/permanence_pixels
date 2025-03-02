@@ -1223,6 +1223,7 @@ namespace NeoCortex
 
             //Combining the heatmaps and saving the final image
             Bitmap combinedBitmap = new Bitmap(bmpWidth, (totalHeatmapHeight + titlePadding) * 2);
+            Graphics combinedGraphics = Graphics.FromImage(combinedBitmap);
 
         }
 
