@@ -1225,6 +1225,8 @@ namespace NeoCortex
             Bitmap combinedBitmap = new Bitmap(bmpWidth, (totalHeatmapHeight + titlePadding) * 2);
             Graphics combinedGraphics = Graphics.FromImage(combinedBitmap);
 
+            combinedGraphics.DrawImage(coloredBitmap, 0, 0);
+
         }
 
         //Function SaveBinarizedImageWithText
