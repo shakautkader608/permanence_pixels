@@ -1257,7 +1257,7 @@ namespace NeoCortex
                 using (Brush brush = new SolidBrush(Color.Black))
                 {
 
-                    //Reaz vai's part'
+                    
                     for (int y = 0; y < height; y++)
                     {
                         for (int x = 0; x < width; x++)
