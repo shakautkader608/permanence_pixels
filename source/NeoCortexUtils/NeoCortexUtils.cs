@@ -1175,22 +1175,25 @@ namespace NeoCortex
             int gridWidth = bmpWidth / gridSize;
 
 
-            // **Reaz's Part: Processing heatmap data and applying color mapping**
+            // Processing heatmap data and applying color mapping
 
             for (int idx = 0; idx < heatmapData.Count; idx++)
             {
                 var permanenceValues = heatmapData[idx];
                 double maxPermanence = permanenceValues.Max();
+
                 for (int i = 0; i < permanenceValues.Count; i++)
                 {
                     double permanence = permanenceValues[i];
                     int red = Math.Min(255, (int)(255 * (permanence / maxPermanence)));
                     int blue = Math.Min(255, (int)(255 * (1 - permanence / maxPermanence)));
                     Color coloredPixelColor = Color.FromArgb(red, 0, blue);
+                    
                     int x = i % gridSize;
                     int y = i / gridSize;
                     int scaleX = gridWidth;
                     int scaleY = gridHeight;
+                    
                     using (SolidBrush brush = new SolidBrush(coloredPixelColor))
                     {
                         coloredGraphics.FillRectangle(brush, x * scaleX, y * scaleY +titlePadding, scaleX, scaleY);
