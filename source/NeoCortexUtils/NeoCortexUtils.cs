@@ -11,6 +11,8 @@ using System.IO;
 using System.Linq;
 using static System.Net.Mime.MediaTypeNames.Font;
 using System.Numerics;
+using static System.Runtime.InteropServices.JavaScript.JSType;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace NeoCortex
 {
@@ -1202,12 +1204,15 @@ namespace NeoCortex
             }
 
             //Rendering text and drawing grid rectangles
+
             Font font = new Font("Arial", 10, FontStyle.Bold);
             Brush textBrush = Brushes.Black;
             Pen outlinePen = Pens.Black;
+
             for (int idx = 0; idx < heatmapData.Count; idx++)
             {
                 var permanenceValues = heatmapData[idx];
+
                 for (int i = 0; i < permanenceValues.Count; i++)
                 {
                     int x = i % gridSize;
@@ -1218,6 +1223,7 @@ namespace NeoCortex
                     string valueText = $"{permanenceValues[i]:F1}";
                     float textX = x * scaleX + (scaleX / 4);
                     float textY = y * scaleY + titlePadding + (scaleY / 4);
+                
                     coloredGraphics.DrawString(valueText, font, textBrush, textX, textY);
                     transparentGraphics.DrawRectangle(outlinePen, x * scaleX, y * scaleY +titlePadding, scaleX, scaleY);
                     transparentGraphics.DrawString(valueText, font, textBrush, textX,textY);
@@ -1229,8 +1235,7 @@ namespace NeoCortex
             Graphics combinedGraphics = Graphics.FromImage(combinedBitmap);
 
             combinedGraphics.DrawImage(coloredBitmap, 0, 0);
-            combinedGraphics.DrawImage(transparentBitmap, 0, totalHeatmapHeight +
-            titlePadding);
+            combinedGraphics.DrawImage(transparentBitmap, 0, totalHeatmapHeight + titlePadding);
 
             combinedBitmap.Save(filePath, ImageFormat.Png);
             Console.WriteLine($"Combined heatmap saved to {filePath}");
@@ -1259,19 +1264,25 @@ namespace NeoCortex
                 using (Font font = new Font("Arial", 10, FontStyle.Bold))
                 using (Brush brush = new SolidBrush(Color.Black))
                 {
+                    //Iterating through the binary vector and processing data
 
-                    
+
                     for (int y = 0; y < height; y++)
                     {
                         for (int x = 0; x < width; x++)
                         {
                             int pixelIndex = y * width + x;
                             string text = inputVector[pixelIndex].ToString();
+
+                            //Rendering the binary values as text on the image
+
                             g.DrawString(text, font, brush, x * 10, y * 10);
 
                         }
                     }
                 }
+
+
             }
         }
 
@@ -1279,5 +1290,5 @@ namespace NeoCortex
 
 
 
-        }
+    }
 }
