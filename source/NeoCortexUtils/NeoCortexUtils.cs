@@ -1264,6 +1264,7 @@ namespace NeoCortex
                         {
                             int pixelIndex = y * width + x;
                             string text = inputVector[pixelIndex].ToString();
+                            g.DrawString(text, font, brush, x * 10, y * 10);
 
                         }
                     }
