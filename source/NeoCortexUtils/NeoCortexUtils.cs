@@ -1281,6 +1281,7 @@ namespace NeoCortex
                         }
                     }
                 }
+
                 //Saving the final image and handling output
                 
                 bmp.Save(filename, ImageFormat.Png);
