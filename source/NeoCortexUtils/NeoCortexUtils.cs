@@ -1286,11 +1286,9 @@ namespace NeoCortex
                 bmp.Save(filename, ImageFormat.Png);
 
             }
+
+            Console.WriteLine($"Binary image with text saved to {filename}");
         }
-
-
-
-
 
     }
 }
