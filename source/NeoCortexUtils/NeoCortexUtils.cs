@@ -1204,6 +1204,8 @@ namespace NeoCortex
                 }
             }
 
+
+
             //Rendering text and drawing grid rectangles
 
             Font font = new Font("Arial", 10, FontStyle.Bold);
@@ -1230,6 +1232,7 @@ namespace NeoCortex
                     transparentGraphics.DrawString(valueText, font, textBrush, textX,textY);
                 }
             }
+
 
             //Combining the heatmaps and saving the final image
             Bitmap combinedBitmap = new Bitmap(bmpWidth, (totalHeatmapHeight + titlePadding) * 2);
