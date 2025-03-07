@@ -1152,6 +1152,7 @@ namespace NeoCortex
 
         // Function DrawCombinedHeatmaps2
         
+
         public static void DrawCombinedHeatmaps2(List<List<double>> heatmapData, string filePath, int bmpWidth = 784, int gridSize = 52, int enlargementFactor = 2)
         {
 
@@ -1168,7 +1169,7 @@ namespace NeoCortex
             Graphics coloredGraphics = Graphics.FromImage(coloredBitmap);
             Graphics transparentGraphics = Graphics.FromImage(transparentBitmap);
 
-            Font titleFont = new Font("Arial", 22, FontStyle.Bold);
+            Font titleFont = new Font("Arial", 20, FontStyle.Bold);
 
             coloredGraphics.DrawString("Permanence Heatmap (Colored)", titleFont, Brushes.Black, new PointF(bmpWidth / 3, 10));
 
