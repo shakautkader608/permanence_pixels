@@ -1159,7 +1159,7 @@ namespace NeoCortex
             //Bitmap creation, title drawing, and initial setup
 
             bmpWidth *= enlargementFactor;
-            int titlePadding = 40;
+            int titlePadding = 42;
             int gridHeight = bmpWidth / gridSize;
             int totalHeatmapHeight = gridHeight * gridSize;
 
