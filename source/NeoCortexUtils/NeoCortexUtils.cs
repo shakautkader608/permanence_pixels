@@ -52,7 +52,7 @@ namespace NeoCortex
         /// <param name="height">Output height.</param>
         /// <param name="filePath">The bitmap PNG filename.</param>
         /// <param name="text">Text to be written.</param>
-        public static void DrawBitmap(int[,] twoDimArray, int width, int height, String filePath, string text = null)
+        public static void DrawBitmap(int[,] twoDimArray, int width, int height, System.String filePath, string text = null)
         {
             DrawBitmap(twoDimArray, width, height, filePath, Color.Black, Color.Green, text);
         }
