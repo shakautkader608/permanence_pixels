@@ -1250,6 +1250,12 @@ namespace NeoCortex
         {
             int width = 52, height = 52;
 
+            // Ensure inputVector has the correct size
+            if (inputVector.Length != width * height)
+            {
+                throw new ArgumentException("inputVector must have exactly width * height elements.");
+            }
+
             string folderPath = Path.Combine(Environment.CurrentDirectory, "BinaryImages");
 
 
