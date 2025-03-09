@@ -1262,8 +1262,8 @@ namespace NeoCortex
 
             {
 
-                Clear(Color.White);
-                g;
+                g.Clear(Color.White);
+               
 
                 using (Font font = new Font("Arial", 10, FontStyle.Bold))
                 using (Brush brush = new SolidBrush(Color.Black))
