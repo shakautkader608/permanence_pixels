@@ -1271,7 +1271,7 @@ namespace NeoCortex
                 g.Clear(Color.White);
                
 
-                using (Font font = new Font("Arial", 10, FontStyle.Bold))
+                using (var font = new System.Drawing.Font("Arial", 10, FontStyle.Bold))
                 using (Brush brush = new SolidBrush(Color.Black))
                 {
                     //Iterating through the binary vector and processing data
