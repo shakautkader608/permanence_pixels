@@ -789,7 +789,7 @@ namespace NeoCortex
         {
             // Define the color range
             // Light gray
-            int minColorValue = 100;
+            int minColorValue = 150;
             // Dark orange
             int maxColorValue = 255;
 
