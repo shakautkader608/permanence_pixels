@@ -175,7 +175,8 @@ namespace NeoCortexApi.Experiments
             // Will hold the similarity of SDKk and SDRk-1 fro every input.
             Dictionary<string, double> prevSimilarity = new Dictionary<string, double>();
 
-            //
+            
+
             // Initiaize start similarity to zero.
             for (int i = 0; i < inputValues.Count; i++)
             {
@@ -183,6 +184,7 @@ namespace NeoCortexApi.Experiments
                 prevSimilarity.Add(inputKey, 0.0);
                 prevActiveColIndicies.Add(inputKey, new int[0]);
             }
+
 
             // Learning process will take 1000 iterations (cycles)
             int maxSPLearningCycles = 1000;
