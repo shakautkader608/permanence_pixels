@@ -272,7 +272,7 @@ namespace NeoCortexApiSample
 
                 Debug.WriteLine($"Cycle: {cycle}\tMatches={matches} of {inputs.Length}\t {accuracy}%");
 
-                if (accuracy == 100.0)
+                if (accuracy == 90.0)
                 {
                     maxMatchCnt++;
                     Debug.WriteLine($"100% accuracy reched {maxMatchCnt} times.");

@@ -1113,7 +1113,7 @@ namespace NeoCortex
                 if (array.ContainsKey(i))
                     res[i] = array[i];
                 else
-                    res[i] = 1.0;
+                    res[i] = 0.0;
             }
 
             return res;
