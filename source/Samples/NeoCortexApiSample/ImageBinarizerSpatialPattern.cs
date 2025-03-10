@@ -53,7 +53,7 @@ namespace NeoCortexApiSample
             //Runnig the Experiment
             var sp = RunExperiment(cfg, inputPrefix);
             //Runing the Reconstruction Method Experiment
-            RunRustructuringExperiment (sp);
+            RunRustructuringExperiment(sp);
 
         }
 
@@ -70,7 +70,7 @@ namespace NeoCortexApiSample
 
             bool isInStableState = false;
 
-            int numColumns = 64 * 64;
+            int numColumns = 56 * 56;
             //Accessing the Image Folder form the Cureent Directory
             string trainingFolder = "Sample\\TestFiles";
             //Accessing the Image Folder form the Cureent Directory Foldfer
