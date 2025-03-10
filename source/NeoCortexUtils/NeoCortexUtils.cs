@@ -66,7 +66,8 @@ namespace NeoCortex
         /// <param name="filePath">The bitmap PNG filename.</param>
         /// <param name="inactiveCellColor"></param>
         /// <param name="activeCellColor"></param>
-        /// <param name="text">Text to be written.</param>
+        /// <param name="text"></param>
+        /// <Text to be written.></param>
         public static void DrawBitmap(int[,] twoDimArray, int width, int height, String filePath, Color inactiveCellColor, Color activeCellColor, string text = null)
         {
             int w = twoDimArray.GetLength(0);
