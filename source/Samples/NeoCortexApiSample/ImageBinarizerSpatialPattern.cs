@@ -33,7 +33,7 @@ namespace NeoCortexApiSample
             // This is a set of configuration parameters used in the experiment.
             HtmConfig cfg = new HtmConfig(new int[] { imageSize, imageSize }, new int[] { numColumns })
             {
-                CellsPerColumn = 10,
+                CellsPerColumn = 20,
                 InputDimensions = new int[] { imageSize, imageSize },
                 NumInputs = imageSize * imageSize,
                 ColumnDimensions = colDims,
