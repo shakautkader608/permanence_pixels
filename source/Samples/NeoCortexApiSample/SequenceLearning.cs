@@ -278,7 +278,7 @@ namespace NeoCortexApiSample
                     Debug.WriteLine($"100% accuracy reched {maxMatchCnt} times.");
                     //
                     // Experiment is completed if we are 30 cycles long at the 100% accuracy.
-                    if (maxMatchCnt >= 50)
+                    if (maxMatchCnt >= 30)
                     {
                         sw.Stop();
                         Debug.WriteLine($"Exit experiment in the stable state after 30 repeats with 100% of accuracy. Elapsed time: {sw.ElapsedMilliseconds / 1000 / 60} min.");
