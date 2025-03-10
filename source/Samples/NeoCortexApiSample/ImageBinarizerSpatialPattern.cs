@@ -33,7 +33,7 @@ namespace NeoCortexApiSample
             // This is a set of configuration parameters used in the experiment.
             HtmConfig cfg = new HtmConfig(new int[] { imageSize, imageSize }, new int[] { numColumns })
             {
-                CellsPerColumn = 20,
+                CellsPerColumn = 10,
                 InputDimensions = new int[] { imageSize, imageSize },
                 NumInputs = imageSize * imageSize,
                 ColumnDimensions = colDims,
@@ -53,7 +53,7 @@ namespace NeoCortexApiSample
             //Runnig the Experiment
             var sp = RunExperiment(cfg, inputPrefix);
             //Runing the Reconstruction Method Experiment
-            RunRustructuringExperiment(sp);
+            RunRustructuringExperiment (sp);
 
         }
 
