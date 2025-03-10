@@ -1066,7 +1066,7 @@ namespace NeoCortex
                     if (i > nonzeroBitStart && i < nonZeroBitEnd && j > nonzeroBitStart && j < nonZeroBitEnd)
                         inputVector[i * widthBits + j] = 1;
                     else
-                        inputVector[i * 34 + j] = 0;
+                        inputVector[i * 32 + j] = 0;
                 }
             }
 
@@ -1113,7 +1113,7 @@ namespace NeoCortex
                 if (array.ContainsKey(i))
                     res[i] = array[i];
                 else
-                    res[i] = 0.0;
+                    res[i] = 1.0;
             }
 
             return res;
