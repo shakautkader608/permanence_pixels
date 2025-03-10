@@ -127,6 +127,7 @@ namespace NeoCortex
                 }
             }
 
+
             Graphics g = Graphics.FromImage(myBitmap);
             var fontFamily = new FontFamily(System.Drawing.Text.GenericFontFamilies.SansSerif);
             g.DrawString(text, new Font(fontFamily, 32), SystemBrushes.Control, new PointF(0, 0));
@@ -435,6 +436,7 @@ namespace NeoCortex
             Console.WriteLine($"Permanence heatmap with text saved to {filePath}");
 
         }
+
 
 
         /// <summary>
