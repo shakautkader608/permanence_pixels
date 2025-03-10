@@ -789,7 +789,7 @@ namespace NeoCortex
         {
             // Define the color range
             // Light gray
-            int minColorValue = 100;
+            int minColorValue = 200;
             // Dark orange
             int maxColorValue = 255;
 
@@ -1266,7 +1266,7 @@ namespace NeoCortex
             string filename = Path.Combine(folderPath, $"{imageName}.png");
 
 
-            using (Bitmap bmp = new Bitmap(width * 20, height * 20))
+            using (Bitmap bmp = new Bitmap(width * 10, height * 10))
             using (Graphics g = Graphics.FromImage(bmp))
 
             {
@@ -1274,7 +1274,7 @@ namespace NeoCortex
                 g.Clear(Color.White);
                
 
-                using (var font = new System.Drawing.Font("Arial", 20, FontStyle.Bold))
+                using (var font = new System.Drawing.Font("Arial", 10, FontStyle.Bold))
                 using (Brush brush = new SolidBrush(Color.Black))
                 {
                     //Iterating through the binary vector and processing data
@@ -1289,7 +1289,7 @@ namespace NeoCortex
 
                             //Rendering the binary values as text on the image
 
-                            g.DrawString(text, font, brush, x * 20, y * 20);
+                            g.DrawString(text, font, brush, x * 10, y * 10);
 
                         }
                     }
