@@ -791,7 +791,7 @@ namespace NeoCortex
             // Light gray
             int minColorValue = 100;
             // Dark orange
-            int maxColorValue = 285;
+            int maxColorValue = 255;
 
             // Map the similarity value to the color range
             int colorValue = (int)(minColorValue + (maxColorValue - minColorValue) * similarity);
@@ -905,7 +905,7 @@ namespace NeoCortex
         {
             // Assign color based on similarity level
             // High similarity (90% or higher)
-            if (similarity >= 0.9)
+            if (similarity >= 0.7)
                 return Color.DarkOrange;
             // Medium similarity (70% or higher)
             else if (similarity >= 0.7)
