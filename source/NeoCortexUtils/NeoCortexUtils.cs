@@ -1066,7 +1066,7 @@ namespace NeoCortex
                     if (i > nonzeroBitStart && i < nonZeroBitEnd && j > nonzeroBitStart && j < nonZeroBitEnd)
                         inputVector[i * widthBits + j] = 1;
                     else
-                        inputVector[i * 32 + j] = 0;
+                        inputVector[i * 34 + j] = 0;
                 }
             }
 
@@ -1266,7 +1266,7 @@ namespace NeoCortex
             string filename = Path.Combine(folderPath, $"{imageName}.png");
 
 
-            using (Bitmap bmp = new Bitmap(width * 12, height * 12))
+            using (Bitmap bmp = new Bitmap(width * 10, height * 10))
             using (Graphics g = Graphics.FromImage(bmp))
 
             {
