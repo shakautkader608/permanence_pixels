@@ -1211,7 +1211,7 @@ namespace NeoCortex
 
             //Rendering text and drawing grid rectangles
 
-            Font font = new Font("Arial", 12, FontStyle.Bold);
+            Font font = new Font("Arial", 10, FontStyle.Bold);
             Brush textBrush = Brushes.Black;
             Pen outlinePen = Pens.Black;
 
@@ -1266,7 +1266,7 @@ namespace NeoCortex
             string filename = Path.Combine(folderPath, $"{imageName}.png");
 
 
-            using (Bitmap bmp = new Bitmap(width * 10, height * 10))
+            using (Bitmap bmp = new Bitmap(width * 12, height * 12))
             using (Graphics g = Graphics.FromImage(bmp))
 
             {
