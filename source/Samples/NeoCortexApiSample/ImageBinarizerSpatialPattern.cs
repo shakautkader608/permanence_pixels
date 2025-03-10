@@ -104,12 +104,12 @@ namespace NeoCortexApiSample
             sp.Init(mem, new DistributedMemory() { ColumnDictionary = new InMemoryDistributedDictionary<int, NeoCortexApi.Entities.Column>(1) });
 
             //Image Size
-            int imgSize = 32;
+            int imgSize = 28;
             int[] activeArray = new int[numColumns];
 
             int numStableCycles = 0;
             // Runnig the Traning Cycle for 5 times
-            int maxCycles = 1500;
+            int maxCycles = 1600;
             int currentCycle = 0;
 
             while (!isInStableState && currentCycle < maxCycles)
