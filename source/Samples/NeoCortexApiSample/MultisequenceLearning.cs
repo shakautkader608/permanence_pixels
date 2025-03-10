@@ -40,7 +40,7 @@ namespace NeoCortexApiSample
                 //InhibitionRadius = 15,
 
                 MaxBoost = 10.0,
-                DutyCyclePeriod = 30,
+                DutyCyclePeriod = 35,
                 MinPctOverlapDutyCycles = 0.50,
                 MaxSynapsesPerSegment = (int)(0.02 * numColumns),
 
@@ -54,6 +54,7 @@ namespace NeoCortexApiSample
                 // Used by punishing of segments.
                 PredictedSegmentDecrement = 0.1
             };
+
 
             double max = 255;
 
