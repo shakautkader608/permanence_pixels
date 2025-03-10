@@ -70,7 +70,7 @@ namespace NeoCortexApiSample
 
             bool isInStableState = false;
 
-            int numColumns = 56 * 56;
+            int numColumns = 64 * 64;
             //Accessing the Image Folder form the Cureent Directory
             string trainingFolder = "Sample\\TestFiles";
             //Accessing the Image Folder form the Cureent Directory Foldfer
@@ -104,7 +104,7 @@ namespace NeoCortexApiSample
             sp.Init(mem, new DistributedMemory() { ColumnDictionary = new InMemoryDistributedDictionary<int, NeoCortexApi.Entities.Column>(1) });
 
             //Image Size
-            int imgSize = 28;
+            int imgSize = 30;
             int[] activeArray = new int[numColumns];
 
             int numStableCycles = 0;
