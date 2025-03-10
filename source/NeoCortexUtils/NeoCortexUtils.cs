@@ -789,9 +789,9 @@ namespace NeoCortex
         {
             // Define the color range
             // Light gray
-            int minColorValue = 150;
+            int minColorValue = 100;
             // Dark orange
-            int maxColorValue = 255;
+            int maxColorValue = 285;
 
             // Map the similarity value to the color range
             int colorValue = (int)(minColorValue + (maxColorValue - minColorValue) * similarity);
