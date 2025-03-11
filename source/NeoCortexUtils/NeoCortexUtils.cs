@@ -930,7 +930,7 @@ namespace NeoCortex
             List<int> intList = new List<int>();
             for (int n = 0; n < integerStrings.Length; n++)
             {
-                String s = integerStrings[n];
+                System.String s = integerStrings[n];
                 char[] sub = s.ToCharArray();
                 for (int j = 0; j < sub.Length; j++)
                 {
