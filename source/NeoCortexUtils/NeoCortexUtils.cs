@@ -1250,10 +1250,11 @@ namespace NeoCortex
             Console.WriteLine($"Combined heatmap saved to {filePath}");
         }
 
+
         //Function SaveBinarizedImageWithText
         public static void SaveBinarizedImageWithText(int[] inputVector, string imageName)
         {
-            int width = 52, height = 52;
+            int width = 50, height = 50;
 
             // Ensure inputVector has the correct size
             if (inputVector.Length != width * height)
@@ -1296,6 +1297,7 @@ namespace NeoCortex
                         }
                     }
                 }
+
 
                 //Saving the final image and handling output
                 
