@@ -95,7 +95,7 @@ namespace NeoCortex
         /// <param name="activeCellColor"></param>
         /// <param name="inactiveCellColor"></param>
         /// <param name="text">Text to be written.</param>
-        public static void DrawBitmap(int[,] twoDimArray, int scale, String filePath, Color inactiveCellColor, Color activeCellColor, string text = null)
+        public static void DrawBitmap(int[,] twoDimArray, int scale, System.String filePath, Color inactiveCellColor, Color activeCellColor, string text = null)
         {
             int w = twoDimArray.GetLength(0);
             int h = twoDimArray.GetLength(1);
@@ -130,7 +130,7 @@ namespace NeoCortex
 
             Graphics g = Graphics.FromImage(myBitmap);
             var fontFamily = new FontFamily(System.Drawing.Text.GenericFontFamilies.SansSerif);
-            g.DrawString(text, new Font(fontFamily, 32), SystemBrushes.Control, new PointF(0, 0));
+            g.DrawString(text, new System.Drawing.Font(fontFamily, 32), SystemBrushes.Control, new PointF(0, 0));
 
             myBitmap.Save(filePath, ImageFormat.Png);
         }
@@ -743,17 +743,17 @@ namespace NeoCortex
                     graphics.DrawString($"{i + 1}", font, Brushes.Black, x + (barWidth - labelSize.Width) / 2, imageHeight - 50);
                 }
                 // Add axis labels
-                Font axisFont = new Font(FontFamily.GenericSansSerif, 14, FontStyle.Bold);
+                System.Drawing.Font axisFont = new Font(FontFamily.GenericSansSerif, 14, FontStyle.Bold);
                 graphics.DrawString("X - Axis (Input) Index", axisFont, Brushes.Black, scaleWidth + (imageWidth - scaleWidth) / 2, imageHeight - 20);
                 // Add a title
                 string title = "Similarity Graph";
-                Font titleFont = new Font(FontFamily.GenericSansSerif, 18, FontStyle.Bold);
+                System.Drawing.Font titleFont = new Font(FontFamily.GenericSansSerif, 18, FontStyle.Bold);
                 SizeF titleSize = graphics.MeasureString(title, titleFont);
                 // Adjusted title position
                 graphics.DrawString(title, titleFont, Brushes.Black, (imageWidth - titleSize.Width) / 2, 20);
 
                 // Add a scale indicating values from 0 to 1
-                Font scaleFont = new Font(FontFamily.GenericSansSerif, 12, FontStyle.Bold);
+                System.Drawing.Font scaleFont = new Font(FontFamily.GenericSansSerif, 12, FontStyle.Bold);
                 // Draw 11 tick marks
                 for (int i = 0; i <= 10; i++)
                 {
@@ -1172,7 +1172,7 @@ namespace NeoCortex
             Graphics coloredGraphics = Graphics.FromImage(coloredBitmap);
             Graphics transparentGraphics = Graphics.FromImage(transparentBitmap);
 
-            Font titleFont = new Font("Arial", 20, FontStyle.Bold);
+            System.Drawing.Font titleFont = new Font("Arial", 20, FontStyle.Bold);
 
             coloredGraphics.DrawString("Permanence Heatmap (Colored)", titleFont, Brushes.Black, new PointF(bmpWidth / 3, 10));
 
