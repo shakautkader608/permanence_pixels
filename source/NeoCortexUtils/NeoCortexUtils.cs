@@ -1162,7 +1162,7 @@ namespace NeoCortex
             //Bitmap creation, title drawing, and initial setup
 
             bmpWidth *= enlargementFactor;
-            int titlePadding = 45;
+            int titlePadding = 50;
             int gridHeight = bmpWidth / gridSize;
             int totalHeatmapHeight = gridHeight * gridSize;
 
@@ -1190,6 +1190,7 @@ namespace NeoCortex
 
                 for (int i = 0; i < permanenceValues.Count; i++)
                 {
+
                     double permanence = permanenceValues[i];
                     int red = Math.Min(255, (int)(255 * (permanence / maxPermanence)));
                     int blue = Math.Min(255, (int)(255 * (1 - permanence / maxPermanence)));
