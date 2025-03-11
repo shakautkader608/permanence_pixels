@@ -769,7 +769,7 @@ namespace NeoCortex
                 // Add text indicating the similarity test
                 string similarityText = "Y axis-Similarity Range";
                 // Larger and bold font for similarity text
-                Font similarityFont = new Font(FontFamily.GenericSansSerif, 14, FontStyle.Bold);
+                System.Drawing.Font similarityFont = new System.Drawing.Font(FontFamily.GenericSansSerif, 14, FontStyle.Bold);
                 SizeF similaritySize = graphics.MeasureString(similarityText, similarityFont);
                 graphics.DrawString(similarityText, similarityFont, Brushes.Black, 50, imageHeight / 2 - similaritySize.Height / 2, new StringFormat { FormatFlags = StringFormatFlags.DirectionVertical });
             }
