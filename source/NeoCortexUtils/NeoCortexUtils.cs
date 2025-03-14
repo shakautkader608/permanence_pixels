@@ -1296,8 +1296,11 @@ namespace NeoCortex
 
                             g.DrawString(text, font, brush, x * 10, y * 10);
 
+                     
                         }
                     }
+
+
                 }
 
 
