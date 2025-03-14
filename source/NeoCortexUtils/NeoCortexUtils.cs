@@ -1239,6 +1239,7 @@ namespace NeoCortex
             }
 
 
+
             //Combining the heatmaps and saving the final image
             Bitmap combinedBitmap = new Bitmap(bmpWidth, (totalHeatmapHeight + titlePadding) * 2);
             Graphics combinedGraphics = Graphics.FromImage(combinedBitmap);
@@ -1248,13 +1249,14 @@ namespace NeoCortex
 
             combinedBitmap.Save(filePath, ImageFormat.Png);
             Console.WriteLine($"Combined heatmap saved to {filePath}");
+
         }
 
 
         //Function SaveBinarizedImageWithText
         public static void SaveBinarizedImageWithText(int[] inputVector, string imageName)
         {
-            int width = 50, height = 50;
+            int width = 54, height = 54;
 
             // Ensure inputVector has the correct size
             if (inputVector.Length != width * height)
