@@ -1256,7 +1256,7 @@ namespace NeoCortex
         //Function SaveBinarizedImageWithText
         public static void SaveBinarizedImageWithText(int[] inputVector, string imageName)
         {
-            int width = 62, height = 54;
+            int width = 54, height = 54;
 
             // Ensure inputVector has the correct size
             if (inputVector.Length != width * height)
@@ -1306,7 +1306,7 @@ namespace NeoCortex
 
                 //Saving the final image and handling output
                 
-                bmp.Save(filename, ImageFormat.Png);
+                bmp.Save(filename, ImageFormat.);
 
             }
 
