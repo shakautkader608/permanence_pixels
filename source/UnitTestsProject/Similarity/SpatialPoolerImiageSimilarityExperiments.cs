@@ -146,6 +146,9 @@ namespace UnitTestsProject
                     int[] inputVector = encoder.Encode(digit);
                     sp.compute(inputVector, activeArray, true);
 
+                    int[] activeCols = ArrayUtils.IndexWhere(activeArray, el => el == 1);
+                    sdrs[digit.ToString()] = activeCols;
+
 
                 }
 
