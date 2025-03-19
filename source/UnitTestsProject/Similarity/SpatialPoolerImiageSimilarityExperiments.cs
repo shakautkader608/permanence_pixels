@@ -137,7 +137,8 @@ namespace UnitTestsProject
 
             using (StreamWriter swHam = new StreamWriter(outputHamDistFile))
             {
-                
+                int cycle = 0;
+                var sdrs = new Dictionary<string, int[]>();
 
             }
 
