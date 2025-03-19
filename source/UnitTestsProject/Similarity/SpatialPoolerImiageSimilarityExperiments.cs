@@ -21,11 +21,11 @@ namespace UnitTestsProject
     {
         private const int OutImgSize = 1024;
         private const string TestOutputFolder = "Output-ImageSimilarityExperiment";
-    }
+    
     private HtmConfig CreateConfig(int imgSize, int numOfCols, int[] colDims, double minOctOverlapCycles, double maxBoost)
         {
             return new HtmConfig(new int[] { imgSize, imgSize }, new int[] { numOfCols });
-        }
+        
         private HtmConfig CreateConfig(int imgSize, int numOfCols, int[] colDims, double minOctOverlapCycles, double maxBoost)
         {
             return new HtmConfig(new int[] { imgSize, imgSize }, new int[] { numOfCols })
@@ -48,3 +48,16 @@ namespace UnitTestsProject
             };
         }
     }
+}
+
+//Image Similarity Experiment
+
+[TestMethod]
+[TestCategory("LongRunning")]
+[DataRow("Vertical")]
+public void ImageSimilarityExperiment(string inputPrefix)
+{
+    int imgSize = 28;
+    var colDims = new int[] { 64, 64 };
+    int numOfCols = colDims[0] * colDims[1];
+}
