@@ -60,4 +60,7 @@ public void ImageSimilarityExperiment(string inputPrefix)
     int imgSize = 28;
     var colDims = new int[] { 64, 64 };
     int numOfCols = colDims[0] * colDims[1];
+    string trainingFolder = "Similarity\\TestFiles";
+    string outFolder = $"{TestOutputFolder}\\{inputPrefix}";
+    Directory.CreateDirectory(outFolder);
 }
