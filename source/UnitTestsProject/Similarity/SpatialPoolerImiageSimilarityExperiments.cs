@@ -48,10 +48,10 @@ namespace UnitTestsProject
                 StimulusThreshold = 10
             };
         }
-    
-    //Image Similarity Experiment
 
-[TestMethod]
+        //Image Similarity Experiment
+
+        [TestMethod]
         [TestCategory("LongRunning")]
         [DataRow("Vertical")]
         public void ImageSimilarityExperiment(string inputPrefix)
@@ -79,10 +79,12 @@ namespace UnitTestsProject
                 {
                     int[] activeArray = new int[numOfCols];
                     int[] oldArray = new int[activeArray.Length];
+                    int[] inputVector = NeoCortexUtils.ReadCsvIntegers(inputBinaryImageFile).ToArray();
+
                 }
             }
-        }
 
+        }
     }
 }
 
