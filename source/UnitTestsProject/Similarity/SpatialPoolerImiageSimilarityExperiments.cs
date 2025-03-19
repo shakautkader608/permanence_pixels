@@ -63,4 +63,8 @@ public void ImageSimilarityExperiment(string inputPrefix)
     string trainingFolder = "Similarity\\TestFiles";
     string outFolder = $"{TestOutputFolder}\\{inputPrefix}";
     Directory.CreateDirectory(outFolder);
+    var trainingImages = Directory.GetFiles(trainingFolder, $"{inputPrefix}*.png");
+    HtmConfig cfg = CreateConfig(imgSize, numOfCols, colDims, 1.0, 10.0);
+    var mem = new Connections(cfg);
+    var sp = new SpatialPoolerMT(new HomeostaticPlasticityController(mem, trainingImages.Length * 50;
 }
