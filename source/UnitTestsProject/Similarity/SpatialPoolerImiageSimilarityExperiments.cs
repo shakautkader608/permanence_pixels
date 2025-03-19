@@ -85,6 +85,8 @@ namespace UnitTestsProject
                     int distance = MathHelpers.GetHammingDistance(oldArray, activeArray, true);
                     sdrs[trainingImage] = activeCols;
                     inputVectors[trainingImage] = inputVector;
+                    swHam.WriteLine($"{counter++}|{distance} ");
+                    swActCol.WriteLine("Active Array: " + Helpers.StringifyVector(activeArray));
 
                 }
             }
