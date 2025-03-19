@@ -149,8 +149,7 @@ namespace UnitTestsProject
                     int[] activeCols = ArrayUtils.IndexWhere(activeArray, el => el == 1);
                     sdrs[digit.ToString()] = activeCols;
 
-
-                }
+                    swHam.WriteLine($"Cycle: {cycle++}, Digit: {digit}, ActiveCols: {Helpers.StringifyVector(activeCols)}");
 
             }
 
