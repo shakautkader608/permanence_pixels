@@ -140,15 +140,23 @@ namespace UnitTestsProject
                 int cycle = 0;
                 var sdrs = new Dictionary<string, int[]>();
 
+                foreach (var digit in inputs)
+                {
+
+
+                }
+
             }
 
 
+
+        }
 
 
     }
 
 
-    
 }
+
 
 
