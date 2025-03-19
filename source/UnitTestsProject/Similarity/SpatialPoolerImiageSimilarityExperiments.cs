@@ -108,7 +108,8 @@ namespace UnitTestsProject
         {
             int inputBits = 100;
             int imgSize = 28;
-            
+            var colDims = new int[] { 64 * 64 };
+            int numOfActCols = colDims[0];
 
 
         }
