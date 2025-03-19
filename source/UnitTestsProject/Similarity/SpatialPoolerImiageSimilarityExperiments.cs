@@ -22,4 +22,8 @@ namespace UnitTestsProject
         private const int OutImgSize = 1024;
         private const string TestOutputFolder = "Output-ImageSimilarityExperiment";
     }
-}
+    private HtmConfig CreateConfig(int imgSize, int numOfCols, int[] colDims, double minOctOverlapCycles, double maxBoost)
+        {
+            return new HtmConfig(new int[] { imgSize, imgSize }, new int[] { numOfCols });
+        }
+    }
