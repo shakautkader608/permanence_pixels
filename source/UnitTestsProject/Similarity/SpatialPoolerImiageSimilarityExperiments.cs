@@ -13,6 +13,12 @@ using System.Diagnostics;
 using System.Drawing;
 using System.IO;
 using System.Linq;
+
+
+
+
+
+
 namespace UnitTestsProject
 {
     [TestClass]
@@ -92,9 +98,28 @@ namespace UnitTestsProject
                 CalculateSimilarity(sdrs, inputVectors);
 
             }
+        }
+
+        //SimilarityExperimentWithEncoder
+
+        [TestMethod]
+        [TestCategory("LongRunning")]
+        public void SimilarityExperimentWithEncoder()
+        {
+            int inputBits = 100;
+            int imgSize = 28;
+            
+
 
         }
+
+
+
+
     }
+
+
+    
 }
 
 
