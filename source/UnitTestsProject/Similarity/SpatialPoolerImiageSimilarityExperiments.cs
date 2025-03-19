@@ -112,6 +112,18 @@ namespace UnitTestsProject
             int numOfActCols = colDims[0];
 
             var mem = new Connections(CreateConfig(imgSize, numOfActCols, colDims, 1.0, 10.0));
+            var encoder = new ScalarEncoder(new Dictionary<string, object>
+            {
+                { "W", 15 },
+                { "N", inputBits },
+                { "Radius", -1.0 },
+                { "MinVal", 0.0 },
+                { "Periodic", false },
+                { "Name", "scalar" },
+                { "ClipInput", false },
+                { "MaxVal", 20 }
+
+            });
 
         }
 
