@@ -142,6 +142,9 @@ namespace UnitTestsProject
 
                 foreach (var digit in inputs)
                 {
+                    int[] activeArray = new int[numOfActCols];
+                    int[] inputVector = encoder.Encode(digit);
+                    sp.compute(inputVector, activeArray, true);
 
 
                 }
