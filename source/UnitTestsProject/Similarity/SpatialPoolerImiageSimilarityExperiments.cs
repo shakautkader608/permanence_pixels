@@ -111,6 +111,7 @@ namespace UnitTestsProject
             var colDims = new int[] { 64 * 64 };
             int numOfActCols = colDims[0];
 
+            var mem = new Connections(CreateConfig(imgSize, numOfActCols, colDims, 1.0, 10.0));
 
         }
 
