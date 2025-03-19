@@ -8,11 +8,13 @@ using NeoCortexApi.Encoders;
 using NeoCortexApi.Entities;
 using NeoCortexApi.Utility;
 using System;
+using System.Buffers.Text;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Drawing;
 using System.IO;
 using System.Linq;
+using System.Text;
 
 
 
@@ -132,7 +134,12 @@ namespace UnitTestsProject
             Directory.CreateDirectory(outFolder);
             string outputHamDistFile = $"{outFolder}\\hamming.txt";
 
-        }
+
+            using (StreamWriter swHam = new StreamWriter(outputHamDistFile))
+            {
+                
+
+            }
 
 
 
