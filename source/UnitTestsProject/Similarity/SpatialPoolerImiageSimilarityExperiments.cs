@@ -26,4 +26,17 @@ namespace UnitTestsProject
         {
             return new HtmConfig(new int[] { imgSize, imgSize }, new int[] { numOfCols });
         }
+        private HtmConfig CreateConfig(int imgSize, int numOfCols, int[] colDims, double minOctOverlapCycles, double maxBoost)
+        {
+            return new HtmConfig(new int[] { imgSize, imgSize }, new int[] { numOfCols })
+            {
+                CellsPerColumn = 10,
+                InputDimensions = new int[] { imgSize, imgSize },
+                NumInputs = imgSize * imgSize,
+                ColumnDimensions = colDims,
+                MaxBoost = maxBoost,
+                DutyCyclePeriod = 100,
+                MinPctOverlapDutyCycles = minOctOverlapCycles
+            };
+        }
     }
