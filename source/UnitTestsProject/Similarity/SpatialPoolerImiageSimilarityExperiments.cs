@@ -77,7 +77,8 @@ namespace UnitTestsProject
                 foreach (var trainingImage in trainingImages)
 
                 {
-
+                    int[] activeArray = new int[numOfCols];
+                    int[] oldArray = new int[activeArray.Length];
                 }
             }
         }
