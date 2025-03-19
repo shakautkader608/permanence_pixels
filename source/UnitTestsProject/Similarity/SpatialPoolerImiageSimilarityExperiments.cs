@@ -80,6 +80,9 @@ namespace UnitTestsProject
                     int[] activeArray = new int[numOfCols];
                     int[] oldArray = new int[activeArray.Length];
                     int[] inputVector = NeoCortexUtils.ReadCsvIntegers(inputBinaryImageFile).ToArray();
+                    sp.compute(inputVector, activeArray, true);
+                    int[] activeCols = ArrayUtils.IndexWhere(activeArray, el => el == 1);
+                    int distance = MathHelpers.GetHammingDistance(oldArray, activeArray, true);
 
                 }
             }
