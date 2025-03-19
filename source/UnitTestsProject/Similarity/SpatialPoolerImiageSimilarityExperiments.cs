@@ -150,7 +150,9 @@ namespace UnitTestsProject
                     sdrs[digit.ToString()] = activeCols;
 
                     swHam.WriteLine($"Cycle: {cycle++}, Digit: {digit}, ActiveCols: {Helpers.StringifyVector(activeCols)}");
+                }
 
+                CalculateSimilarity(sdrs, null);
             }
 
 
