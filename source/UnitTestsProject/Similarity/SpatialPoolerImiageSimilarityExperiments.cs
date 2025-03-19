@@ -36,7 +36,11 @@ namespace UnitTestsProject
                 ColumnDimensions = colDims,
                 MaxBoost = maxBoost,
                 DutyCyclePeriod = 100,
-                MinPctOverlapDutyCycles = minOctOverlapCycles
+                MinPctOverlapDutyCycles = minOctOverlapCycles,
+                GlobalInhibition = false,
+                NumActiveColumnsPerInhArea = 0.02 * numOfCols,
+                PotentialRadius = (int)(0.15 * imgSize * imgSize),
+                LocalAreaDensity = -1
             };
         }
     }
