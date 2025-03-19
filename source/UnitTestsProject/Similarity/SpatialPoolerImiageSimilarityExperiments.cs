@@ -21,11 +21,12 @@ namespace UnitTestsProject
     {
         private const int OutImgSize = 1024;
         private const string TestOutputFolder = "Output-ImageSimilarityExperiment";
-    
-    private HtmConfig CreateConfig(int imgSize, int numOfCols, int[] colDims, double minOctOverlapCycles, double maxBoost)
+
+        private HtmConfig CreateConfig(int imgSize, int numOfCols, int[] colDims, double minOctOverlapCycles, double maxBoost)
         {
             return new HtmConfig(new int[] { imgSize, imgSize }, new int[] { numOfCols });
-        
+
+
         private HtmConfig CreateConfig(int imgSize, int numOfCols, int[] colDims, double minOctOverlapCycles, double maxBoost)
         {
             return new HtmConfig(new int[] { imgSize, imgSize }, new int[] { numOfCols })
@@ -47,24 +48,41 @@ namespace UnitTestsProject
                 StimulusThreshold = 10
             };
         }
+    
+    //Image Similarity Experiment
+
+[TestMethod]
+        [TestCategory("LongRunning")]
+        [DataRow("Vertical")]
+        public void ImageSimilarityExperiment(string inputPrefix)
+        {
+            int imgSize = 28;
+            var colDims = new int[] { 64, 64 };
+            int numOfCols = colDims[0] * colDims[1];
+            string trainingFolder = "Similarity\\TestFiles";
+            string outFolder = $"{TestOutputFolder}\\{inputPrefix}";
+            Directory.CreateDirectory(outFolder);
+            var trainingImages = Directory.GetFiles(trainingFolder, $"{inputPrefix}*.png");
+            HtmConfig cfg = CreateConfig(imgSize, numOfCols, colDims, 1.0, 10.0);
+            var mem = new Connections(cfg);
+            var sp = new SpatialPoolerMT(new HomeostaticPlasticityController(mem, trainingImages.Length * 50);
+            string outputHamDistFile = $"{outFolder}\\hamming.txt";
+            string outputActColFile = $"{outFolder}\\activeCol.txt";
+            using (StreamWriter swHam = new StreamWriter(outputHamDistFile))
+            using (StreamWriter swActCol = new StreamWriter(outputActColFile))
+            {
+                int counter = 0;
+                var sdrs = new Dictionary<string, int[]>();
+                var inputVectors = new Dictionary<string, int[]>();
+                foreach (var trainingImage in trainingImages)
+
+                {
+
+                }
+            }
+        }
+
     }
 }
 
-//Image Similarity Experiment
 
-[TestMethod]
-[TestCategory("LongRunning")]
-[DataRow("Vertical")]
-public void ImageSimilarityExperiment(string inputPrefix)
-{
-    int imgSize = 28;
-    var colDims = new int[] { 64, 64 };
-    int numOfCols = colDims[0] * colDims[1];
-    string trainingFolder = "Similarity\\TestFiles";
-    string outFolder = $"{TestOutputFolder}\\{inputPrefix}";
-    Directory.CreateDirectory(outFolder);
-    var trainingImages = Directory.GetFiles(trainingFolder, $"{inputPrefix}*.png");
-    HtmConfig cfg = CreateConfig(imgSize, numOfCols, colDims, 1.0, 10.0);
-    var mem = new Connections(cfg);
-    var sp = new SpatialPoolerMT(new HomeostaticPlasticityController(mem, trainingImages.Length * 50;
-}
