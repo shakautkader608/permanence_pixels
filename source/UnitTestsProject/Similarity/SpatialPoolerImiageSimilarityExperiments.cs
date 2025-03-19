@@ -40,7 +40,11 @@ namespace UnitTestsProject
                 GlobalInhibition = false,
                 NumActiveColumnsPerInhArea = 0.02 * numOfCols,
                 PotentialRadius = (int)(0.15 * imgSize * imgSize),
-                LocalAreaDensity = -1
+                LocalAreaDensity = -1,
+                ActivationThreshold = 10,
+                MaxSynapsesPerSegment = (int)(0.01 * numOfCols),
+                Random = new ThreadSafeRandom(42),
+                StimulusThreshold = 10
             };
         }
     }
