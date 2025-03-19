@@ -89,6 +89,8 @@ namespace UnitTestsProject
                     swActCol.WriteLine("Active Array: " + Helpers.StringifyVector(activeArray));
 
                 }
+                CalculateSimilarity(sdrs, inputVectors);
+
             }
 
         }
