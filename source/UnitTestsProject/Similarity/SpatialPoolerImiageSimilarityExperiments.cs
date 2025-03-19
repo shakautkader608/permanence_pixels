@@ -125,6 +125,9 @@ namespace UnitTestsProject
 
             });
 
+            var sp = new SpatialPoolerMT(new HomeostaticPlasticityController(mem, 150));
+            var inputs = new int[] { 0, 1, 2, 3, 4, 5 };
+
         }
 
 
