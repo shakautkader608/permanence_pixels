@@ -83,6 +83,8 @@ namespace UnitTestsProject
                     sp.compute(inputVector, activeArray, true);
                     int[] activeCols = ArrayUtils.IndexWhere(activeArray, el => el == 1);
                     int distance = MathHelpers.GetHammingDistance(oldArray, activeArray, true);
+                    sdrs[trainingImage] = activeCols;
+                    inputVectors[trainingImage] = inputVector;
 
                 }
             }
