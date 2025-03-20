@@ -171,7 +171,7 @@ namespace UnitTestsProject
                         streamWriter.Write(key1);
                         foreach (var key2 in keyArray)
                         {
-
+                            int[] sdr1 = sdrs[key1];
                         }
                     }
                         
