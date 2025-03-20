@@ -177,7 +177,7 @@ namespace UnitTestsProject
                             double inputSimilarity = inputVectors != null
                                 ? MathHelpers.CalcArraySimilarity(inputVectors[key1], inputVectors[key2])
                                 : 0;
-
+                            streamWriter.Write($" | {inputSimilarity:0.0} {outputSimilarity:0.0} ");
 
 
                         }
