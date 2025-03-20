@@ -169,6 +169,10 @@ namespace UnitTestsProject
                     {
                         streamWriter.WriteLine();
                         streamWriter.Write(key1);
+                        foreach (var key2 in keyArray)
+                        {
+
+                        }
                     }
                         
                 }
