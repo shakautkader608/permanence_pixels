@@ -162,6 +162,10 @@ namespace UnitTestsProject
             private void CalculateSimilarity(Dictionary<string, int[]> sdrs, Dictionary<string, int[]> inputVectors, string output = "Correlation.csv")
             {
                 using (StreamWriter streamWriter = new StreamWriter(output))
+                {
+                    var keyArray = sdrs.Keys.ToArray();
+                    streamWriter.Write("," + string.Join(",", keyArray));
+                }
             }
 
 
