@@ -172,6 +172,8 @@ namespace UnitTestsProject
                         foreach (var key2 in keyArray)
                         {
                             int[] sdr1 = sdrs[key1];
+                            int[] sdr2 = sdrs[key2];
+
                         }
                     }
                         
