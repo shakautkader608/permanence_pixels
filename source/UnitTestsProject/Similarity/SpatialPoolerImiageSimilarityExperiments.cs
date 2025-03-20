@@ -159,6 +159,11 @@ namespace UnitTestsProject
 
             }
             //Similarity Calculation and Utilities
+            private void CalculateSimilarity(Dictionary<string, int[]> sdrs, Dictionary<string, int[]> inputVectors, string output = "Correlation.csv")
+            {
+
+            }
+
 
 
 
