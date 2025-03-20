@@ -175,6 +175,9 @@ namespace UnitTestsProject
                             int[] sdr2 = sdrs[key2];
                             double outputSimilarity = MathHelpers.CalcArraySimilarity(sdr1, sdr2);
                             double inputSimilarity = inputVectors != null
+                                ? MathHelpers.CalcArraySimilarity(inputVectors[key1], inputVectors[key2])
+                                : 0;
+
 
 
                         }
