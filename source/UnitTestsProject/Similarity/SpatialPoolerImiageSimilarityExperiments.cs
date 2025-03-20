@@ -173,6 +173,7 @@ namespace UnitTestsProject
                         {
                             int[] sdr1 = sdrs[key1];
                             int[] sdr2 = sdrs[key2];
+                            double outputSimilarity = MathHelpers.CalcArraySimilarity(sdr1, sdr2);
 
                         }
                     }
