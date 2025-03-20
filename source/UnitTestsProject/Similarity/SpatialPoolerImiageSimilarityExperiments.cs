@@ -165,6 +165,7 @@ namespace UnitTestsProject
                 {
                     var keyArray = sdrs.Keys.ToArray();
                     streamWriter.Write("," + string.Join(",", keyArray));
+                    foreach (var key1 in keyArray)
                 }
             }
 
