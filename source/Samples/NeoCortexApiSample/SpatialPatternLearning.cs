@@ -153,8 +153,29 @@ namespace NeoCortexApiSample
         }
 
         /// <summary>
-        /// Runs the restructuring experiment to analyze Spatial Pooler behavior and visualize results.
+        /// Runs a restructuring experiment using a Spatial Pooler (SP) and an Encoder.  
+        /// This function processes a list of numerical input values by encoding them,  
+        /// computing active columns, reconstructing permanence values, normalizing them,  
+        /// and measuring similarity between encoded inputs and normalized permanence values.  
+        /// Additionally, it generates and saves heatmaps for visualization of permanence distributions  
+        /// and the relationship between encoded inputs and reconstructed permanence.
+        ///
+        /// The function performs the following steps for each input value:  
+        /// 1. Encodes the input value into a Sparse Distributed Representation (SDR).  
+        /// 2. Computes the active columns from the SP without learning.  
+        /// 3. Reconstructs permanence values from the active columns.  
+        /// 4. Ensures all input indices have corresponding permanence values, setting missing ones to zero.  
+        /// 5. Sorts and stores permanence values for visualization.  
+        /// 6. Normalizes permanence values using a thresholding method.  
+        /// 7. Measures similarity between the encoded input and normalized permanence.  
+        /// 8. Generates and saves heatmaps for permanence values and encoded vs reconstructed permanence.  
+        /// 9. Generates similarity plots at the end.  
+        ///
+        /// <param name="sp">The Spatial Pooler instance responsible for computing active columns.</param>  
+        /// <param name="encoder">The encoder used to convert numerical input values into SDRs.</param>  
+        /// <param name="inputValues">A list of numerical input values to be processed.</param>  
         /// </summary>
+
         private void RunRustructuringExperiment(SpatialPooler sp, EncoderBase encoder, List<double> inputValues)
         {
             // Store heatmap data, normalized permanence, and similarities
