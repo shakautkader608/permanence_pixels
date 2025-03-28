@@ -1,198 +1,371 @@
-﻿
- // Copyright (c) Damir Dobric. All rights reserved.
- // Licensed under the Apache License, Version 2.0. See LICENSE in the project root for license info
- using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿// Copyright (c) Damir Dobric. All rights reserved.
+// Licensed under the Apache License, Version 2.0. See LICENSE in the project root for license information.
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 using NeoCortex;
 using NeoCortexApi;
 using NeoCortexApi.Encoders;
 using NeoCortexApi.Entities;
 using NeoCortexApi.Utility;
 using System;
-using System.Buffers.Text;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Drawing;
 using System.IO;
 using System.Linq;
-using System.Text;
-
-
-
-
-
 
 namespace UnitTestsProject
 {
     [TestClass]
     [TestCategory("Experiment")]
-    public class SpatialPoolerImageSimilarityExperiments
+    public class SpatialPoolerImiageSimilarityExperiments
     {
         private const int OutImgSize = 1024;
-        private const string TestOutputFolder = "Output-ImageSimilarityExperiment";
 
-        private HtmConfig CreateConfig(int imgSize, int numOfCols, int[] colDims, double minOctOverlapCycles, double maxBoost)
+        /// <summary>
+        /// This test do spatial pooling and save hamming distance, active columns 
+        /// and speed of processing in text files in Output directory.
+        /// </summary>
+        /// <param name="inputPrefix"></param>
+        [TestMethod]
+        [TestCategory("LongRunning")]
+        //[DataRow("digit7")]
+        //[DataRow("digit5")]
+        [DataRow("Vertical")]
+        //[DataRow("Box")]
+        //[DataRow("Horizontal")]
+        public void ImageSimilarityExperiment(string inputPrefix)
         {
-            return new HtmConfig(new int[] { imgSize, imgSize }, new int[] { numOfCols });
+            //int stableStateCnt = 100;
+            double minOctOverlapCycles = 1.0;
+            double maxBoost = 10.0;
+            //int inputBits = 100;
+            var colDims = new int[] { 64, 64 };
+            int numOfCols = 64 * 64;
+            //int numColumns = colDims[0];
+
+            string trainingFolder = "Similarity\\TestFiles";
+            int imgSize = 28;
+            //var colDims = new int[] { 64, 64 };
+            //int numOfActCols = colDims[0] * colDims[1];
+
+            string TestOutputFolder = $"Output-{nameof(ImageSimilarityExperiment)}";
+
+            var trainingImages = Directory.GetFiles(trainingFolder, $"{inputPrefix}*.png");
+
+            Directory.CreateDirectory($"{nameof(ImageSimilarityExperiment)}");
+
+            int counter = 0;
 
 
-            private HtmConfig CreateConfig(int imgSize, int numOfCols, int[] colDims, double minOctOverlapCycles, double maxBoost)
+            HtmConfig cfg = new HtmConfig(new int[] { imgSize, imgSize }, new int[] { numOfCols })
             {
-                return new HtmConfig(new int[] { imgSize, imgSize }, new int[] { numOfCols })
-                {
-                    CellsPerColumn = 10,
-                    InputDimensions = new int[] { imgSize, imgSize },
-                    NumInputs = imgSize * imgSize,
-                    ColumnDimensions = colDims,
-                    MaxBoost = maxBoost,
-                    DutyCyclePeriod = 100,
-                    MinPctOverlapDutyCycles = minOctOverlapCycles,
-                    GlobalInhibition = false,
-                    NumActiveColumnsPerInhArea = 0.02 * numOfCols,
-                    PotentialRadius = (int)(0.15 * imgSize * imgSize),
-                    LocalAreaDensity = -1,
-                    ActivationThreshold = 10,
-                    MaxSynapsesPerSegment = (int)(0.01 * numOfCols),
-                    Random = new ThreadSafeRandom(42),
-                    StimulusThreshold = 10
-                };
-            }
+                CellsPerColumn = 10,
+                InputDimensions = new int[] { imgSize, imgSize },
+                NumInputs = imgSize * imgSize,
+                ColumnDimensions = colDims,
+                MaxBoost = maxBoost,
+                DutyCyclePeriod = 100,
+                MinPctOverlapDutyCycles = minOctOverlapCycles,
+                GlobalInhibition = false,
+                NumActiveColumnsPerInhArea = 0.02 * numOfCols,
+                PotentialRadius = (int)(0.15 * imgSize * imgSize),
+                LocalAreaDensity = -1,
+                ActivationThreshold = 10,
+                MaxSynapsesPerSegment = (int)(0.01 * numOfCols),
+                Random = new ThreadSafeRandom(42),
+                StimulusThreshold = 10,
+            };
 
-            //Image Similarity Experiment
+            bool isInStableState = false;
 
-            [TestMethod]
-            [TestCategory("LongRunning")]
-            [DataRow("Vertical")]
-            public void ImageSimilarityExperiment(string inputPrefix)
+            var mem = new Connections(cfg);
+
+            HomeostaticPlasticityController hpa = new HomeostaticPlasticityController(mem, trainingImages.Length * 50, (isStable, numPatterns, actColAvg, seenInputs) =>
             {
-                int imgSize = 28;
-                var colDims = new int[] { 64, 64 };
-                int numOfCols = colDims[0] * colDims[1];
-                string trainingFolder = "Similarity\\TestFiles";
-                string outFolder = $"{TestOutputFolder}\\{inputPrefix}";
-                Directory.CreateDirectory(outFolder);
-                var trainingImages = Directory.GetFiles(trainingFolder, $"{inputPrefix}*.png");
-                HtmConfig cfg = CreateConfig(imgSize, numOfCols, colDims, 1.0, 10.0);
-                var mem = new Connections(cfg);
-                var sp = new SpatialPoolerMT(new HomeostaticPlasticityController(mem, trainingImages.Length * 50);
-                string outputHamDistFile = $"{outFolder}\\hamming.txt";
-                string outputActColFile = $"{outFolder}\\activeCol.txt";
-                using (StreamWriter swHam = new StreamWriter(outputHamDistFile))
+                // Event should only be fired when entering the stable state.
+                // Ideal SP should never enter unstable state after stable state.
+                Assert.IsTrue(isStable);
+                Assert.IsTrue(numPatterns == trainingImages.Length);
+                isInStableState = true;
+                Debug.WriteLine($"Entered STABLE state: Patterns: {numPatterns}, Inputs: {seenInputs}, iteration: {seenInputs / numPatterns}");
+            }, requiredSimilarityThreshold: 0.975);
+
+            SpatialPooler sp = new SpatialPoolerMT(hpa);
+
+            sp.Init(mem, UnitTestHelpers.GetMemory());
+
+            string outFolder = $"{TestOutputFolder}\\{inputPrefix}";
+
+            Directory.CreateDirectory(outFolder);
+
+            string outputHamDistFile = $"{outFolder}\\digit{inputPrefix}_hamming.txt";
+
+            string outputActColFile = $"{outFolder}\\digit{inputPrefix}_activeCol.txt";
+
+            using (StreamWriter swHam = new StreamWriter(outputHamDistFile))
+            {
                 using (StreamWriter swActCol = new StreamWriter(outputActColFile))
                 {
-                    int counter = 0;
-                    var sdrs = new Dictionary<string, int[]>();
-                    var inputVectors = new Dictionary<string, int[]>();
-                    foreach (var trainingImage in trainingImages)
-
-                    {
-                        int[] activeArray = new int[numOfCols];
-                        int[] oldArray = new int[activeArray.Length];
-                        int[] inputVector = NeoCortexUtils.ReadCsvIntegers(inputBinaryImageFile).ToArray();
-                        sp.compute(inputVector, activeArray, true);
-                        int[] activeCols = ArrayUtils.IndexWhere(activeArray, el => el == 1);
-                        int distance = MathHelpers.GetHammingDistance(oldArray, activeArray, true);
-                        sdrs[trainingImage] = activeCols;
-                        inputVectors[trainingImage] = inputVector;
-                        swHam.WriteLine($"{counter++}|{distance} ");
-                        swActCol.WriteLine("Active Array: " + Helpers.StringifyVector(activeArray));
-
-                    }
-                    CalculateSimilarity(sdrs, inputVectors);
-
-                }
-            }
-
-            //SimilarityExperimentWithEncoder
-
-            [TestMethod]
-            [TestCategory("LongRunning")]
-            public void SimilarityExperimentWithEncoder()
-            {
-                int inputBits = 100;
-                int imgSize = 28;
-                var colDims = new int[] { 64 * 64 };
-                int numOfActCols = colDims[0];
-
-                var mem = new Connections(CreateConfig(imgSize, numOfActCols, colDims, 1.0, 10.0));
-                var encoder = new ScalarEncoder(new Dictionary<string, object>
-            {
-                { "W", 15 },
-                { "N", inputBits },
-                { "Radius", -1.0 },
-                { "MinVal", 0.0 },
-                { "Periodic", false },
-                { "Name", "scalar" },
-                { "ClipInput", false },
-                { "MaxVal", 20 }
-
-            });
-
-                var sp = new SpatialPoolerMT(new HomeostaticPlasticityController(mem, 150));
-                var inputs = new int[] { 0, 1, 2, 3, 4, 5 };
-
-                string outFolder = $"{TestOutputFolder}";
-                Directory.CreateDirectory(outFolder);
-                string outputHamDistFile = $"{outFolder}\\hamming.txt";
-
-
-                using (StreamWriter swHam = new StreamWriter(outputHamDistFile))
-                {
                     int cycle = 0;
-                    var sdrs = new Dictionary<string, int[]>();
 
-                    foreach (var digit in inputs)
+                    Dictionary<string, int[]> sdrs = new Dictionary<string, int[]>();
+                    Dictionary<string, int[]> inputVectors = new Dictionary<string, int[]>();
+
+                    while (true)
                     {
-                        int[] activeArray = new int[numOfActCols];
-                        int[] inputVector = encoder.Encode(digit);
-                        sp.compute(inputVector, activeArray, true);
-
-                        int[] activeCols = ArrayUtils.IndexWhere(activeArray, el => el == 1);
-                        sdrs[digit.ToString()] = activeCols;
-
-                        swHam.WriteLine($"Cycle: {cycle++}, Digit: {digit}, ActiveCols: {Helpers.StringifyVector(activeCols)}");
-                    }
-
-                    CalculateSimilarity(sdrs, null);
-                }
-
-
-
-            }
-            //Similarity Calculation and Utilities
-            private void CalculateSimilarity(Dictionary<string, int[]> sdrs, Dictionary<string, int[]> inputVectors, string output = "Correlation.csv")
-            {
-                using (StreamWriter streamWriter = new StreamWriter(output))
-                {
-                    var keyArray = sdrs.Keys.ToArray();
-                    streamWriter.Write("," + string.Join(",", keyArray));
-                    foreach (var key1 in keyArray)
-                    {
-                        streamWriter.WriteLine();
-                        streamWriter.Write(key1);
-                        foreach (var key2 in keyArray)
+                        foreach (var trainingImage in trainingImages)
                         {
-                            int[] sdr1 = sdrs[key1];
-                            int[] sdr2 = sdrs[key2];
-                            double outputSimilarity = MathHelpers.CalcArraySimilarity(sdr1, sdr2);
-                            double inputSimilarity = inputVectors != null
-                                ? MathHelpers.CalcArraySimilarity(inputVectors[key1], inputVectors[key2])
-                                : 0;
-                            streamWriter.Write($" | {inputSimilarity:0.0} {outputSimilarity:0.0} ");
+                            int[] activeArray = new int[numOfCols];
 
+                            FileInfo fI = new FileInfo(trainingImage);
 
+                            string outputImage = $"{outFolder}\\{inputPrefix}cycle{counter}_{fI.Name}";
+
+                            string testName = $"{outFolder}\\{inputPrefix}_{fI.Name}";
+
+                            string inputBinaryImageFile = NeoCortexUtils.BinarizeImage($"{trainingImage}", imgSize, testName);
+
+                            // Read input csv file into array
+                            int[] inputVector = NeoCortexUtils.ReadCsvIntegers(inputBinaryImageFile).ToArray();
+
+                            int[] oldArray = new int[activeArray.Length];
+                            List<double[,]> overlapArrays = new List<double[,]>();
+                            List<double[,]> bostArrays = new List<double[,]>();
+
+                            sp.compute(inputVector, activeArray, true);
+
+                            var activeCols = ArrayUtils.IndexWhere(activeArray, (el) => el == 1);
+
+                            Debug.WriteLine($"Cycle: {cycle++} - Input: {trainingImage}");
+                            Debug.WriteLine($"{Helpers.StringifyVector(activeCols)}\n");
+
+                            if (isInStableState)
+                            {
+                                if (sdrs.Count == trainingImages.Length)
+                                {
+                                    CalculateSimilarity(sdrs, inputVectors);
+                                    return;
+                                }
+
+                                var distance = MathHelpers.GetHammingDistance(oldArray, activeArray, true);
+                                //var similarity = MathHelpers.CalcArraySimilarity(oldArray, activeArray, true);
+                                sdrs.Add(trainingImage, activeCols);
+                                inputVectors.Add(trainingImage, inputVector);
+
+                                swHam.WriteLine($"{counter++}|{distance} ");
+
+                                oldArray = new int[numOfCols];
+                                activeArray.CopyTo(oldArray, 0);
+
+                                overlapArrays.Add(ArrayUtils.Make2DArray<double>(ArrayUtils.ToDoubleArray(mem.Overlaps), colDims[0], colDims[1]));
+                                bostArrays.Add(ArrayUtils.Make2DArray<double>(mem.BoostedOverlaps, colDims[0], colDims[1]));
+
+                                var activeStr = Helpers.StringifyVector(activeArray);
+                                swActCol.WriteLine("Active Array: " + activeStr);
+
+                                int[,] twoDimenArray = ArrayUtils.Make2DArray<int>(activeArray, colDims[0], colDims[1]);
+                                twoDimenArray = ArrayUtils.Transpose(twoDimenArray);
+                                List<int[,]> arrays = new List<int[,]>();
+                                arrays.Add(twoDimenArray);
+                                arrays.Add(ArrayUtils.Transpose(ArrayUtils.Make2DArray<int>(inputVector, (int)Math.Sqrt(inputVector.Length), (int)Math.Sqrt(inputVector.Length))));
+
+                                NeoCortexUtils.DrawBitmaps(arrays, outputImage, Color.Yellow, Color.Gray, OutImgSize, OutImgSize);
+                                NeoCortexUtils.DrawHeatmaps(overlapArrays, $"{outputImage}_overlap.png", 1024, 1024, 150, 50, 5);
+                                NeoCortexUtils.DrawHeatmaps(bostArrays, $"{outputImage}_boost.png", 1024, 1024, 150, 50, 5);
+                            }
                         }
                     }
-                        
                 }
             }
+        }
+
+        /// <summary>
+        /// This is the original code that will be worked out in the thesis.
+        /// https://github.com/UniversityOfAppliedSciencesFrankfurt/thesis-htm-imgclassification-dasu/blob/67d1b65e3d13cb28c5be196b87a24ad5a7ecaa47/ImageClassification/Image_Classification_Console/Classification.cs#L237
+        /// This experimental code will be replaced.
+        /// This test do spatial pooling and save hamming distance, active columns 
+        /// and speed of processing in text files in Output directory.
+        /// </summary>
+        /// <param name="digit"></param>
+        [TestMethod]
+        [TestCategory("LongRunning")]
+        public void SimilarityExperimentWithEncoder()
+        {
+            int stableStateCnt = 100;
+            double minOctOverlapCycles = 1.0;
+            double maxBoost = 10.0;
+            int inputBits = 100;
+            int imgSize = 28;
+            var colDims = new int[] { 64 * 64 };
+            int numOfActCols = colDims[0];
+            int numColumns = colDims[0];
+            string TestOutputFolder = $"Output-{nameof(ImageSimilarityExperiment)}";
+
+            Directory.CreateDirectory($"{nameof(ImageSimilarityExperiment)}");
 
 
 
+            HtmConfig cfg = new HtmConfig(new int[] { imgSize, imgSize }, new int[] { numColumns })
+            {
+                CellsPerColumn = 10,
+                InputDimensions = new int[] { imgSize, imgSize },
+                NumInputs = imgSize * imgSize,
+                ColumnDimensions = colDims,
+                MaxBoost = maxBoost,
+                DutyCyclePeriod = 100,
+                MinPctOverlapDutyCycles = minOctOverlapCycles,
+                GlobalInhibition = false,
+                NumActiveColumnsPerInhArea = 0.02 * numColumns,
+                PotentialRadius = (int)(0.15 * imgSize * imgSize),
+                LocalAreaDensity = -1,
+                ActivationThreshold = 10,
+                MaxSynapsesPerSegment = (int)(0.01 * numColumns),
+                Random = new ThreadSafeRandom(42),
+                StimulusThreshold = 10,
+            };
+            double max = 20;
 
+            Dictionary<string, object> settings = new Dictionary<string, object>()
+            {
+                { "W", 15},
+                { "N", inputBits},
+                { "Radius", -1.0},
+                { "MinVal", 0.0},
+                { "Periodic", false},
+                { "Name", "scalar"},
+                { "ClipInput", false},
+                { "MaxVal", max}
+            };
+
+            var encoder = new ScalarEncoder(settings);
+
+            bool isInStableState = false;
+
+            var mem = new Connections(cfg);
+
+            var inputs = new int[] { 0, 1, 2, 3, 4, 5 };
+
+            HomeostaticPlasticityController hpa = new HomeostaticPlasticityController(mem, inputs.Length * 150, (isStable, numPatterns, actColAvg, seenInputs) =>
+            {
+                // Event should only be fired when entering the stable state.
+                // Ideal SP should never enter unstable state after stable state.
+                Assert.IsTrue(isStable);
+                //Assert.IsTrue(numPatterns == inputs.Length);
+                isInStableState = true;
+                Debug.WriteLine($"Entered STABLE state: Patterns: {numPatterns}, Inputs: {seenInputs}, iteration: {seenInputs / numPatterns}");
+            });
+
+            SpatialPooler sp = new SpatialPoolerMT(hpa);
+
+            sp.Init(mem, UnitTestHelpers.GetMemory());
+
+            string outFolder = $"{TestOutputFolder}";
+
+            Directory.CreateDirectory(outFolder);
+
+            string outputHamDistFile = $"{outFolder}\\hamming.txt";
+
+            string outputActColFile = $"{outFolder}\\activeCol.txt";
+
+            using (StreamWriter swHam = new StreamWriter(outputHamDistFile))
+            {
+                using (StreamWriter swActCol = new StreamWriter(outputActColFile))
+                {
+                    int cycle = 0;
+
+                    Dictionary<string, int[]> sdrs = new Dictionary<string, int[]>();
+
+                    while (!isInStableState)
+                    {
+                        foreach (var digit in inputs)
+                        {
+                            int[] activeArray = new int[numOfActCols];
+                            int[] oldArray = new int[activeArray.Length];
+                            List<double[,]> overlapArrays = new List<double[,]>();
+                            List<double[,]> bostArrays = new List<double[,]>();
+
+                            var inputVector = encoder.Encode(digit);
+
+                            sp.compute(inputVector, activeArray, true);
+
+                            string actColFileName = Path.Combine(outFolder, $"{digit}.actcols.txt");
+
+                            if (cycle == 0 && File.Exists(actColFileName))
+                                File.Delete(actColFileName);
+
+                            var activeCols = ArrayUtils.IndexWhere(activeArray, (el) => el == 1);
+
+                            using (StreamWriter swCols = new StreamWriter(actColFileName, true))
+                            {
+                                swCols.WriteLine(Helpers.StringifyVector(activeCols));
+                            }
+
+                            Debug.WriteLine($"'Cycle: {cycle} - {digit}'");
+                            Debug.WriteLine($"IN :{Helpers.StringifyVector(inputVector)}");
+                            Debug.WriteLine($"OUT:{Helpers.StringifyVector(activeCols)}\n");
+
+                            if (isInStableState)
+                            {
+                                if (--stableStateCnt <= 0)
+                                    return;
+                            }
+
+                        }
+
+                        cycle++;
+                    }
+
+                    CalculateSimilarity(sdrs, null);//todo
+                }
+            }
         }
 
 
+        /// <summary>
+        /// Calculates the similarity matrix . 
+        /// It takes all output SDRs and compares all of them.
+        /// Save the correlation coefficient in csv file.
+        /// </summary>
+        /// <param name="sdrs">Dictionary of all output SDRs fro every input.</param>
+        /// <param name="inputVectors">The dictionary of corresponding inputs.</param>        
+        private void CalculateSimilarity(Dictionary<string, int[]> sdrs, Dictionary<string, int[]> inputVectors, string output = "Correlation.csv")
+        {
+            var keyArray = sdrs.Keys.ToArray();
+
+            StreamWriter streamWriter = new StreamWriter(output);
+
+            for (int i = 0; i < keyArray.Length; i++)
+            {
+                var key1 = keyArray[i];
+
+                streamWriter.Write("," + key1);
+            }
+
+            for (int i = 0; i < keyArray.Length; i++)
+            {
+                var key1 = keyArray[i];
+                streamWriter.WriteLine();
+                streamWriter.Write(key1);
+                for (int j = 0; j < keyArray.Length; j++)
+                {
+                    var key2 = keyArray[j];
+                    int[] sdr1 = sdrs.GetValueOrDefault<string, int[]>(key1);
+                    int[] sdr2 = sdrs.GetValueOrDefault<string, int[]>(key2);
+
+                    double outputSimilarity = MathHelpers.CalcArraySimilarity(sdr1, sdr2);
+
+                    int[] inp1 = inputVectors.GetValueOrDefault<string, int[]>(key1);
+                    int[] inp2 = inputVectors.GetValueOrDefault<string, int[]>(key2);
+                    double inputSimilarity = MathHelpers.CalcArraySimilarity(inp1, inp2);
+
+                    streamWriter.Write($" | {inputSimilarity.ToString("0.0")} {outputSimilarity.ToString("0.0")} ");
+                }
+            }
+
+            streamWriter.Close();
+
+            return;
+        }
+
     }
-
-
-
+}

@@ -636,5 +636,35 @@ namespace NeoCortexApi
             return resultList;
         }
 
+        /// <summary>
+        /// Thresholds the input values based on the specified threshold. Values greater than the threshold are set to 1, and others are set to 0.
+        /// </summary>
+        /// <param name="values">An IEnumerable of double values to be thresholded.</param>
+        /// <param name="threshold">The threshold value. All values greater than this threshold will be set to 1; others will be set to 0.</param>
+        /// <returns>A list of integers where each value is 1 if the corresponding input value is greater than the threshold, otherwise 0.</returns>
+        public static List<int> ThresholdingforResetImg(IEnumerable<double> values, double threshold)
+        {
+            // Check if the input values are null
+            if (values == null)
+            {
+                return null;
+            }
+
+            // List to hold the thresholded values (0 or 1)
+            List<int> resultList = new List<int>();
+
+            // Iterate through each value in the input collection
+            foreach (var numericValue in values)
+            {
+                // Apply thresholding: values greater than the threshold become 1, others become 0
+                int thresholdedValue = (numericValue > threshold) ? 1 : 0; // Changed '>=' to '>'
+                resultList.Add(thresholdedValue);
+            }
+
+            // Return the list of thresholded values
+            return resultList;
+        }
+
+
     }
 }

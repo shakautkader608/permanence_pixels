@@ -5,14 +5,13 @@ using Daenet.ImageBinarizerLib.Entities;
 using SkiaSharp;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Drawing;
+using System.Drawing.Drawing2D;
 using System.Drawing.Imaging;
+using System.Drawing.Text;
 using System.IO;
 using System.Linq;
-using static System.Net.Mime.MediaTypeNames.Font;
-using System.Numerics;
-using static System.Runtime.InteropServices.JavaScript.JSType;
-using static System.Net.Mime.MediaTypeNames;
 
 namespace NeoCortex
 {
@@ -44,6 +43,7 @@ namespace NeoCortex
             return binaryImage;
         }
 
+
         /// <summary>
         /// Draws the bitmap from array of active columns.
         /// </summary>
@@ -52,7 +52,7 @@ namespace NeoCortex
         /// <param name="height">Output height.</param>
         /// <param name="filePath">The bitmap PNG filename.</param>
         /// <param name="text">Text to be written.</param>
-        public static void DrawBitmap(int[,] twoDimArray, int width, int height, System.String filePath, string text = null)
+        public static void DrawBitmap(int[,] twoDimArray, int width, int height, String filePath, string text = null)
         {
             DrawBitmap(twoDimArray, width, height, filePath, Color.Black, Color.Green, text);
         }
@@ -66,8 +66,7 @@ namespace NeoCortex
         /// <param name="filePath">The bitmap PNG filename.</param>
         /// <param name="inactiveCellColor"></param>
         /// <param name="activeCellColor"></param>
-        /// <param name="text"></param>
-        /// <Text to be written.></param>
+        /// <param name="text">Text to be written.</param>
         public static void DrawBitmap(int[,] twoDimArray, int width, int height, String filePath, Color inactiveCellColor, Color activeCellColor, string text = null)
         {
             int w = twoDimArray.GetLength(0);
@@ -85,7 +84,6 @@ namespace NeoCortex
 
         }
 
-
         /// <summary>
         /// Draws the bitmap from array of active columns.
         /// </summary>
@@ -95,7 +93,7 @@ namespace NeoCortex
         /// <param name="activeCellColor"></param>
         /// <param name="inactiveCellColor"></param>
         /// <param name="text">Text to be written.</param>
-        public static void DrawBitmap(int[,] twoDimArray, int scale, System.String filePath, Color inactiveCellColor, Color activeCellColor, string text = null)
+        public static void DrawBitmap(int[,] twoDimArray, int scale, String filePath, Color inactiveCellColor, Color activeCellColor, string text = null)
         {
             int w = twoDimArray.GetLength(0);
             int h = twoDimArray.GetLength(1);
@@ -127,14 +125,12 @@ namespace NeoCortex
                 }
             }
 
-
             Graphics g = Graphics.FromImage(myBitmap);
             var fontFamily = new FontFamily(System.Drawing.Text.GenericFontFamilies.SansSerif);
-            g.DrawString(text, new System.Drawing.Font(fontFamily, 32), SystemBrushes.Control, new PointF(0, 0));
+            g.DrawString(text, new Font(fontFamily, 32), SystemBrushes.Control, new PointF(0, 0));
 
             myBitmap.Save(filePath, ImageFormat.Png);
         }
-
 
         /// <summary>
         /// TODO: add comment
@@ -145,78 +141,8 @@ namespace NeoCortex
         /// <param name="bmpHeight"></param>
         public static void DrawBitmaps(List<int[,]> twoDimArrays, String filePath, int bmpWidth = 1024, int bmpHeight = 1024)
         {
-            DrawBitmaps(twoDimArrays, filePath, /*Color.DarkGray, Color.Yellow,*/
-                                                bmpWidth, bmpHeight);
+            DrawBitmaps(twoDimArrays, filePath, Color.DarkGray, Color.Yellow, bmpWidth, bmpHeight);
         }
-
-
-        public static void DrawPermanenceBitmapWithText(List<List<double>> heatmapData, List<string> inputNames, string filePath,
-                                         int bmpWidth = 2048, int bmpHeight = 2048, int gridSize = 64,
-                                         int enlargementFactor = 2)
-        {
-            // Adjust the bitmap size based on the enlargement factor for better zooming
-            bmpWidth *= enlargementFactor;
-            bmpHeight *= enlargementFactor;
-
-            // Initialize a Bitmap object with the adjusted size
-            Bitmap myBitmap = new Bitmap(bmpWidth, bmpHeight);
-
-            // Create a Graphics object to draw text on the bitmap
-            Graphics graphics = Graphics.FromImage(myBitmap);
-            graphics.Clear(Color.White); // Set background to white
-
-            // Set font and brush for drawing text with a scaled font size
-            Font font = new Font("Arial", 5 * enlargementFactor, FontStyle.Regular);
-            Brush textBrush = Brushes.White;
-
-            // Calculate scale factor to fit data into the enlarged bitmap
-            int gridWidth = bmpWidth / gridSize;
-            int gridHeight = bmpHeight / gridSize;
-
-            // Iterate over the heatmap data
-            for (int idx = 0; idx < heatmapData.Count; idx++)
-            {
-                var permanenceValues = heatmapData[idx];
-
-                for (int i = 0; i < permanenceValues.Count; i++)
-                {
-                    double permanence = permanenceValues[i];
-
-                    // Color intensity based on permanence value
-                    int red = Math.Min(255, (int)(255 * (permanence / permanenceValues.Max()))); // Scale red based on permanence (hotter)
-                    int blue = Math.Min(255, (int)(255 * (1 - permanence / permanenceValues.Max()))); // Inverse scaling for blue (colder)
-                    int green = 0; // Green stays constant
-
-                    // Construct the color based on the permanence value
-                    Color pixelColor = Color.FromArgb(red, green, blue);
-
-                    // Convert 1D index to 2D grid coordinates (using gridSize)
-                    int x = i % gridSize;
-                    int y = i / gridSize;
-
-                    // Calculate pixel position with scaling factor (for each grid cell)
-                    int scaleX = gridWidth;
-                    int scaleY = gridHeight;
-
-                    // Plot the pixel in the bitmap, scaling it according to the grid size and enlargement factor
-                    for (int j = 0; j < scaleX; j++)
-                    {
-                        for (int k = 0; k < scaleY; k++)
-                        {
-                            // Set the pixel at the correct location on the bitmap
-                            myBitmap.SetPixel(x * scaleX + j, y * scaleY + k, pixelColor);
-                        }
-                    }
-
-                    // Draw the permanence value and input name (index) on top of the grid cell
-                    string label = $"{inputNames[idx]}: {permanence:F2}"; // Format to 2 decimal places
-                    graphics.DrawString(label, font, textBrush, x * scaleX + 5, y * scaleY + 5); // Offset the text for better visibility
-                }
-            }
-
-           
-        }
-
 
 
         /// <summary>
@@ -228,215 +154,464 @@ namespace NeoCortex
         /// <param name="activeCellColor">Color of active bit.</param>
         /// <param name="bmpWidth">The width of the bitmap.</param>
         /// <param name="bmpHeight">The height of the bitmap.</param>
-
-        public static void DrawPermanenceBitmapWithText2(List<List<double>> heatmapData, List<string> inputNames, string filePath,
-                                         int bmpWidth = 2048, int bmpHeight = 2048, int gridSize = 64,
-                                         int enlargementFactor = 2)
+        public static void DrawBitmaps(List<int[,]> twoDimArrays, String filePath, Color inactiveCellColor, Color activeCellColor, int bmpWidth = 1024, int bmpHeight = 1024)
         {
-            // Adjust the bitmap size based on the enlargement factor for better zooming
+            int widthOfAll = 0, heightOfAll = 0;
+
+            foreach (var arr in twoDimArrays)
+            {
+                widthOfAll += arr.GetLength(0);
+                heightOfAll += arr.GetLength(1);
+            }
+
+            if (widthOfAll > bmpWidth || heightOfAll > bmpHeight)
+                throw new ArgumentException("Size of all included arrays must be less than specified 'bmpWidth' and 'bmpHeight'");
+
+            System.Drawing.Bitmap myBitmap = new System.Drawing.Bitmap(bmpWidth, bmpHeight);
+            int k = 0;
+
+            for (int n = 0; n < twoDimArrays.Count; n++)
+            {
+                var arr = twoDimArrays[n];
+
+                int w = arr.GetLength(0);
+                int h = arr.GetLength(1);
+
+                var scale = ((bmpWidth) / twoDimArrays.Count) / (w + 1);// +1 is for offset between pictures in X dim.
+
+                //if (scale * (w + 1) < (bmpWidth))
+                //    scale++;
+
+                for (int Xcount = 0; Xcount < w; Xcount++)
+                {
+                    for (int Ycount = 0; Ycount < h; Ycount++)
+                    {
+                        for (int padX = 0; padX < scale; padX++)
+                        {
+                            for (int padY = 0; padY < scale; padY++)
+                            {
+                                if (arr[Xcount, Ycount] == 1)
+                                {
+                                    myBitmap.SetPixel(n * (bmpWidth / twoDimArrays.Count) + Xcount * scale + padX, Ycount * scale + padY, activeCellColor); // HERE IS YOUR LOGIC
+                                    k++;
+                                }
+                                else
+                                {
+                                    myBitmap.SetPixel(n * (bmpWidth / twoDimArrays.Count) + Xcount * scale + padX, Ycount * scale + padY, inactiveCellColor); // HERE IS YOUR LOGIC
+                                    k++;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+
+            myBitmap.Save(filePath, ImageFormat.Png);
+        }
+
+
+        /// <summary>
+        /// Draws combined heatmaps from a list of heatmap data with scaling options.
+        /// </summary>
+        /// <param name="heatmapData">List of heatmap data, where each heatmap is a list of double values representing permanence values.</param>
+        /// <param name="outputFolder">The folder path where the generated heatmap images will be saved.</param>
+        /// <param name="bmpWidth">The width of the bitmap image (default is 2048 pixels).</param>
+        /// <param name="enlargementFactor">Factor by which the bitmap width will be enlarged (default is 2).</param>
+        public static void DrawCombinedHeatmapsScalerInputs(List<List<double>> heatmapData, string outputFolder, int bmpWidth = 2048, int enlargementFactor = 2)
+        {
+            // Ensure output folder exists
+            Directory.CreateDirectory(outputFolder);
+
+            // Apply enlargement factor
             bmpWidth *= enlargementFactor;
-            bmpHeight *= enlargementFactor;
 
-            // Initialize a Bitmap object with the adjusted size
-            Bitmap myBitmap = new Bitmap(bmpWidth, bmpHeight);
+            int titlePadding = 40; // Space for the title
 
-            // Create a Graphics object to draw text on the bitmap
-            Graphics graphics = Graphics.FromImage(myBitmap);
-            graphics.Clear(Color.White); // Set background to white
-
-            // Set font and brush for drawing text with a scaled font size
-            Font font = new Font("Arial", 5 * enlargementFactor, FontStyle.Regular);
-            Brush textBrush = Brushes.White;
-
-            // Calculate scale factor to fit data into the enlarged bitmap
-            int gridWidth = bmpWidth / gridSize;
-            int gridHeight = bmpHeight / gridSize;
-
-            // Iterate over the heatmap data
-            for (int idx = 0; idx < heatmapData.Count; idx++)
+            for (int heatmapIndex = 0; heatmapIndex < heatmapData.Count; heatmapIndex++)
             {
-                var permanenceValues = heatmapData[idx];
+                var permanenceValues = heatmapData[heatmapIndex];
+
+                // Determine the best square shape for grid size
+                int gridSize = (int)Math.Ceiling(Math.Sqrt(permanenceValues.Count));
+
+                // Adjust grid dimensions
+                int gridWidth = bmpWidth / gridSize;
+                int gridHeight = gridWidth;
+                int totalHeatmapHeight = gridSize * gridHeight;
+
+                // Create bitmaps
+                Bitmap coloredBitmap = new Bitmap(bmpWidth, totalHeatmapHeight + titlePadding);
+                Graphics graphics = Graphics.FromImage(coloredBitmap);
+
+                // Set fonts
+                Font titleFont = new Font("Arial", 20, FontStyle.Bold);
+                Font font = new Font("Arial", 30, FontStyle.Bold);
+                Brush textBrush = Brushes.White;
+                Pen outlinePen = Pens.Black;
+
+                // Draw title
+                string title = $"Permanence Heatmap {heatmapIndex + 1}";
+                graphics.DrawString(title, titleFont, Brushes.Black, new PointF(bmpWidth / 3, 10));
+
+                double maxPermanence = permanenceValues.Max();
 
                 for (int i = 0; i < permanenceValues.Count; i++)
                 {
                     double permanence = permanenceValues[i];
 
-                    // Color intensity based on permanence value
-                    int red = Math.Min(255, (int)(255 * (permanence / permanenceValues.Max()))); // Scale red based on permanence (hotter)
-                    int blue = Math.Min(255, (int)(255 * (1 - permanence / permanenceValues.Max()))); // Inverse scaling for blue (colder)
-                    int green = 0; // Green stays constant
-
-                    // Construct the color based on the permanence value
-                    Color pixelColor = Color.FromArgb(red, green, blue);
-
-                    // Convert 1D index to 2D grid coordinates (using gridSize)
+                    // Convert 1D index to 2D coordinates
                     int x = i % gridSize;
                     int y = i / gridSize;
 
-                    // Calculate pixel position with scaling factor (for each grid cell)
-                    int scaleX = gridWidth;
-                    int scaleY = gridHeight;
+                    // Calculate color (Red for high permanence, Blue for low)
+                    int red = (int)(255 * (permanence / maxPermanence));
+                    int blue = (int)(255 * (1 - permanence / maxPermanence));
+                    Color pixelColor = Color.FromArgb(red, 0, blue);
 
-                    // Plot the pixel in the bitmap, scaling it according to the grid size and enlargement factor
-                    for (int j = 0; j < scaleX; j++)
+                    // Draw heatmap block
+                    using (SolidBrush brush = new SolidBrush(pixelColor))
                     {
-                        for (int k = 0; k < scaleY; k++)
-                        {
-                            // Set the pixel at the correct location on the bitmap
-                            myBitmap.SetPixel(x * scaleX + j, y * scaleY + k, pixelColor);
-                        }
+                        graphics.FillRectangle(brush, x * gridWidth, y * gridHeight + titlePadding, gridWidth, gridHeight);
                     }
+                    graphics.DrawRectangle(outlinePen, x * gridWidth, y * gridHeight + titlePadding, gridWidth, gridHeight);
 
-                    // Draw the permanence value and input name (index) on top of the grid cell
-                    string label = $"{inputNames[idx]}: {permanence:F2}"; // Format to 2 decimal places
-                    graphics.DrawString(label, font, textBrush, x * scaleX + 5, y * scaleY + 5); // Offset the text for better visibility
+                    // Draw permanence value
+                    string valueText = $"{permanence:F1}";
+                    float textX = x * gridWidth + (gridWidth / 4);
+                    float textY = y * gridHeight + titlePadding + (gridHeight / 4);
+                    graphics.DrawString(valueText, font, textBrush, textX, textY);
                 }
-            }
 
-            // Save the enlarged bitmap to a file
-            myBitmap.Save(filePath, ImageFormat.Png);
-            Console.WriteLine($"Permanence heatmap with enlargement factor {enlargementFactor} saved to {filePath}");
+                // Save each heatmap separately
+                string filePath = Path.Combine(outputFolder, $"heatmap_{heatmapIndex + 1}.png");
+                coloredBitmap.Save(filePath, ImageFormat.Png);
+                Console.WriteLine($"Heatmap {heatmapIndex + 1} saved to {filePath}");
+            }
         }
 
-        public static void DrawPermanenceBitmap(List<List<double>> heatmapData, string filePath, int bmpWidth = 2048, int bmpHeight = 2048, int gridSize = 64, int enlargementFactor = 1)
+
+        /// <summary>
+        /// Draws a heatmap comparing encoded and reconstructed inputs.
+        /// </summary>
+        /// <param name="encodedInput">The encoded input values to be compared.</param>
+        /// <param name="reconstructed">The reconstructed input values to be compared against the encoded ones.</param>
+        /// <param name="filePath">The file path where the resulting heatmap will be saved.</param>
+        public static void DrawEncodedVsReconstructedHeatmap(int[] encodedInput, int[] reconstructed, string filePath)
         {
-          
+            int width = (int)Math.Sqrt(encodedInput.Length);
+            int height = encodedInput.Length / width;
 
-            // Adjust bitmap size based on enlargement factor
-            bmpWidth *= enlargementFactor;
-            bmpHeight *= enlargementFactor;
-
-            // Initialize a Bitmap object with the specified size
-            Bitmap myBitmap = new Bitmap(bmpWidth, bmpHeight);
-
-            // Calculate scale factor to fit data into the enlarged bitmap
-            int scaleX = bmpWidth / gridSize;
-            int scaleY = bmpHeight / gridSize;
-
-            // Ensure heatmap data is valid before processing
-            if (heatmapData == null || heatmapData.Count == 0)
+            while (width * height < encodedInput.Length)
             {
-                throw new ArgumentException("Heatmap data is empty or null.");
+                height++;
             }
 
-            for (int idx = 0; idx < heatmapData.Count; idx++)
+            int scaleFactor = 50; // Cell size for better readability
+            Bitmap heatmap = new Bitmap(width * scaleFactor, height * scaleFactor);
+
+            using (Graphics g = Graphics.FromImage(heatmap))
             {
-                var permanenceValues = heatmapData[idx];
+                g.InterpolationMode = InterpolationMode.NearestNeighbor;
+                g.PixelOffsetMode = PixelOffsetMode.Half;
+                g.TextRenderingHint = TextRenderingHint.ClearTypeGridFit;
 
-                if (permanenceValues == null || permanenceValues.Count == 0)
+                using (Font font = new Font("Arial", scaleFactor / 3, FontStyle.Bold))
                 {
-                    Console.WriteLine($"Warning: Empty permanence values at index {idx}");
-                    continue;
-                }
-
-                for (int i = 0; i < permanenceValues.Count; i++)
-                {
-                    double permanence = permanenceValues[i];
-
-                    // Normalize permanence value between 0 and 1
-                    double normalizedPermanence = Math.Max(0, Math.Min(1, permanence / permanenceValues.Max()));
-
-                    // Calculate color intensity based on normalized permanence
-                    int red = Convert.ToInt32(255 * normalizedPermanence);  // Higher permanence → More red
-                    int blue = Convert.ToInt32(255 * (1 - normalizedPermanence)); // Lower permanence → More blue
-                    int green = 0; // Green remains constant
-
-
-                    // Set color based on permanence value
-                    Color pixelColor = Color.FromArgb(red, green, blue);
-
-                    // Convert 1D index to 2D grid coordinates
-                    int x = i % gridSize;
-                    int y = i / gridSize;
-
-                    // Plot enlarged pixels
-                    for (int j = 0; j < scaleX; j++)
+                    for (int i = 0; i < encodedInput.Length; i++)
                     {
-                        for (int k = 0; k < scaleY; k++)
+                        int x = (i % width) * scaleFactor;
+                        int y = (i / width) * scaleFactor;
+
+                        if (y >= height * scaleFactor) continue;
+
+                        // Check if values match
+                        bool isMismatch = encodedInput[i] != reconstructed[i];
+
+                        // Set colors
+                        Color fillColor = isMismatch ? Color.Red : Color.Green;
+                        Color textColor = isMismatch ? Color.White : Color.Black; // High contrast
+
+                        // Fill the cell with color
+                        using (SolidBrush brush = new SolidBrush(fillColor))
                         {
-                            myBitmap.SetPixel(x * scaleX + j, y * scaleY + k, pixelColor);
+                            g.FillRectangle(brush, x, y, scaleFactor, scaleFactor);
                         }
+
+                        // Draw a border for clarity
+                        g.DrawRectangle(Pens.Black, x, y, scaleFactor, scaleFactor);
+
+                        // Display values as "E,R"
+                        string text = $"{encodedInput[i]},{reconstructed[i]}";
+                        DrawCenteredText(g, text, font, textColor, x, y, scaleFactor);
                     }
                 }
             }
 
-            // Save the bitmap to a file
-            myBitmap.Save(filePath, ImageFormat.Png);
-            Console.WriteLine($"Permanence heatmap saved to {filePath}");
+            heatmap.Save(filePath, ImageFormat.Png);
         }
 
 
-
-
-
-
-
-
-        ///Permanence Bitmap with text value.
-        public static void DrawPermanenceBitmapWithText(List<List<double>> heatmapData, List<string> inputNames, string filePath, int bmpWidth = 2048, int bmpHeight = 2048, int gridSize = 64)
+        private static void DrawCenteredText(Graphics g, string text, Font font, Color textColor, int x, int y, int cellSize)
         {
-            // Initialize a Bitmap object with the specified size (2048x2048 for better readability)
-            Bitmap myBitmap = new Bitmap(bmpWidth, bmpHeight);
+            SizeF textSize = g.MeasureString(text, font);
+            float textX = x + (cellSize - textSize.Width) / 2;
+            float textY = y + (cellSize - textSize.Height) / 2;
 
-            // Create a Graphics object to draw text on the bitmap
-            Graphics graphics = Graphics.FromImage(myBitmap);
-            graphics.Clear(Color.White); // Set background to white
+            using (SolidBrush textBrush = new SolidBrush(textColor))
+            {
+                g.DrawString(text, font, textBrush, textX, textY);
+            }
+        }
 
-            // Set font and brush for drawing text
-            Font font = new Font("Arial", 8, FontStyle.Bold);
-            Brush textBrush = Brushes.Black;
 
-            // Calculate scale factor to fit data into the bitmap
-            int gridWidth = bmpWidth / gridSize;
-            int gridHeight = bmpHeight / gridSize;
 
-            // Iterate over the heatmap data
+        /// <summary>
+        /// Draws heatmaps for a list of heatmap data, saving them as images for each cycle.
+        /// </summary>
+        /// <param name="heatmapData">List of lists of double values representing the permanence values for each cycle's heatmap.</param>
+        /// <param name="imageName">The base name to be used for the generated image files.</param>
+        /// <param name="gridSize">The size of the grid (default is 52). This determines the number of cells along one side of the heatmap.</param>
+        /// <param name="rescalingFactor">The size of each grid cell in pixels (default is 40). This determines how large each cell will appear in the output image.</param>
+        public static void DrawHeatmapsforImg(List<List<double>> heatmapData, string imageName, int gridSize = 52, int rescalingFactor = 40)
+        {
+            // Define folder path to save heatmaps
+            string folderPath = Path.Combine(Environment.CurrentDirectory, "PermanenceHeatmaps");
+            Directory.CreateDirectory(folderPath); // Ensure folder exists
+
+            // Set the width and height of the image
+            int imgWidth = gridSize * rescalingFactor;
+            int imgHeight = gridSize * rescalingFactor;
+
+            // Set the font and brush for text rendering
+            Font font = new Font("Arial", rescalingFactor / 3, FontStyle.Bold); // Adjusted text size if needed
+            Brush textBrush = Brushes.White; // Changed to white
+            Pen outlinePen = Pens.Black;
+
+            // Loop through each cycle's heatmap data
             for (int idx = 0; idx < heatmapData.Count; idx++)
             {
                 var permanenceValues = heatmapData[idx];
+                double maxPermanence = permanenceValues.Max();
 
-                for (int i = 0; i < permanenceValues.Count; i++)
+                // Define the file path for saving the heatmap image
+                string filePath = Path.Combine(folderPath, $"{imageName}cycle{idx}.png");
+
+                using (Bitmap bmp = new Bitmap(imgWidth, imgHeight))
+                using (Graphics g = Graphics.FromImage(bmp))
                 {
-                    double permanence = permanenceValues[i];
+                    g.Clear(Color.White); // Set background to white
 
-                    // Color intensity based on permanence value
-                    int red = Math.Min(255, (int)(255 * (permanence / permanenceValues.Max()))); // Scale red based on permanence (hotter)
-                    int blue = Math.Min(255, (int)(255 * (1 - permanence / permanenceValues.Max()))); // Inverse scaling for blue (colder)
-                    int green = 0; // Green stays constant
-
-                    // Construct the color based on the permanence value
-                    Color pixelColor = Color.FromArgb(red, green, blue);
-
-                    // Convert 1D index to 2D grid coordinates (using gridSize)
-                    int x = i % gridSize;
-                    int y = i / gridSize;
-
-                    // Calculate pixel position with scaling factor (for each grid cell)
-                    int scaleX = bmpWidth / gridSize;  // Scaling for the width
-                    int scaleY = bmpHeight / gridSize; // Scaling for the height
-
-                    // Plot the pixel in the bitmap, scaling it according to the grid size
-                    for (int j = 0; j < scaleX; j++)
+                    // Loop through the grid and plot each cell's value
+                    for (int y = 0; y < gridSize; y++)
                     {
-                        for (int k = 0; k < scaleY; k++)
+                        for (int x = 0; x < gridSize; x++)
                         {
-                            // Set the pixel at the correct location on the bitmap
-                            myBitmap.SetPixel(x * scaleX + j, y * scaleY + k, pixelColor);
+                            int pixelIndex = y * gridSize + x;
+                            if (pixelIndex >= permanenceValues.Count) continue;
+
+                            double permanence = permanenceValues[pixelIndex];
+
+                            // *Color Scaling* - Set color based on permanence value
+                            int red = Math.Min(255, (int)(255 * (permanence / maxPermanence)));
+                            int blue = Math.Min(255, (int)(255 * (1 - permanence / maxPermanence)));
+                            Color pixelColor = Color.FromArgb(red, 0, blue);
+
+                            float xPos = x * rescalingFactor;
+                            float yPos = y * rescalingFactor;
+
+                            // *Draw heatmap cell* - Draw the colored rectangle for the cell
+                            using (SolidBrush brush = new SolidBrush(pixelColor))
+                            {
+                                g.FillRectangle(brush, xPos, yPos, rescalingFactor, rescalingFactor);
+                            }
+                            g.DrawRectangle(outlinePen, xPos, yPos, rescalingFactor, rescalingFactor);
+
+                            // *Draw permanence value inside cell* - Render the permanence value in the center of each cell
+                            string valueText = $"{permanence:F1}"; // Only one decimal place
+                            SizeF textSize = g.MeasureString(valueText, font);
+                            float textX = xPos + (rescalingFactor - textSize.Width) / 2;
+                            float textY = yPos + (rescalingFactor - textSize.Height) / 2;
+                            g.DrawString(valueText, font, textBrush, textX, textY);
                         }
                     }
 
-                    // Draw the permanence value and input name (index) on top of the grid cell
-                    string label = $"{inputNames[idx]}: {permanence:F2}"; // Format to 2 decimal places
-                    graphics.DrawString(label, font, textBrush, x * scaleX + 2, y * scaleY + 2); // Offset the text slightly to avoid overlap with the grid lines
+                    // Save the image to the specified path
+                    bmp.Save(filePath, ImageFormat.Png);
                 }
 
+                // Log the saved heatmap for debugging purposes
+                Debug.WriteLine($"Saved heatmap for cycle {idx}: {filePath}");
             }
-            // Save the bitmap to a file
-            myBitmap.Save(filePath, ImageFormat.Png);
-            Console.WriteLine($"Permanence heatmap with text saved to {filePath}");
-
         }
 
+        /// <summary>
+        /// Saves a reconstructed binary image from a binary array, with each element displayed as a "0" or "1" in a grid of cells.
+        /// </summary>
+        /// <param name="inputVector">An array of integers representing binary values (0 or 1) that will be displayed in the image.</param>
+        /// <param name="imageName">The name of the image file to be saved (without extension).</param>
+        /// <param name="width">The number of columns in the binary grid (default is 52).</param>
+        /// <param name="height">The number of rows in the binary grid (default is 52).</param>
+        /// <param name="rescalingFactor">The pixel size of each grid cell (default is 30). This determines the size of each cell in the output image.</param>
+        public static void SaveReconstrucetedBinarizedImageFromBinaryArray(int[] inputVector, string imageName, int width = 52, int height = 52, int rescalingFactor = 30)
+        {
+            // Define the folder path where the reconstructed image will be saved
+            string folderPath = Path.Combine(Environment.CurrentDirectory, "ReconstructedBinaryImage");
+
+            // Ensure the folder exists
+            Directory.CreateDirectory(folderPath);
+
+            // Define the filename and path to save the image
+            string filename = Path.Combine(folderPath, $"{imageName}.png");
+
+            // Set the width and height of the image based on grid size and rescaling factor
+            int imgWidth = width * rescalingFactor;
+            int imgHeight = height * rescalingFactor;
+
+            // Create a new Bitmap for the rescaled image
+            using (Bitmap bmp = new Bitmap(imgWidth, imgHeight))
+            {
+                using (Graphics g = Graphics.FromImage(bmp))
+                {
+                    g.Clear(Color.White); // Set background to white
+
+                    // Use a fixed font size
+                    float fontSize = rescalingFactor; // Ensuring text fills each grid cell properly
+                    using (Font font = new Font("Arial", fontSize, FontStyle.Bold))
+                    using (Brush brush = new SolidBrush(Color.Black))
+                    {
+                        // Loop through the grid and place text based on input array values
+                        for (int y = 0; y < height; y++)
+                        {
+                            for (int x = 0; x < width; x++)
+                            {
+                                int pixelIndex = y * width + x;
+                                string text = inputVector[pixelIndex].ToString(); // "0" or "1"
+
+                                // Position the text in the center of each grid cell
+                                float xPos = x * rescalingFactor;
+                                float yPos = y * rescalingFactor;
+
+                                // Draw the text inside the grid cell
+                                g.DrawString(text, font, brush, xPos, yPos);
+                            }
+                        }
+                    }
+                }
+
+                // Save the image to the file system in PNG format
+                bmp.Save(filename, ImageFormat.Png);
+            }
+
+            // Log the saved image path for debugging
+            Console.WriteLine($"Image saved to: {filename}");
+        }
+
+        /// <summary>
+        /// Saves a binarized image with "0" or "1" text from a binary array, with each element displayed as text in a grid of cells.
+        /// </summary>
+        /// <param name="inputVector">An array of integers representing binary values (0 or 1) that will be displayed as text in the image.</param>
+        /// <param name="imageName">The name of the image file to be saved (without extension).</param>
+        public static void SaveBinarizedImageWithText(int[] inputVector, string imageName)
+        {
+            int width = 52, height = 52;
+
+            // Define the folder path where the binarized image will be saved
+            string folderPath = Path.Combine(Environment.CurrentDirectory, "BinaryImages");
+
+            // Ensure the folder exists
+            Directory.CreateDirectory(folderPath);
+
+            // Define the filename and path to save the image
+            string filename = Path.Combine(folderPath, $"{imageName}.png");
+
+            // Create a new Bitmap with scaled-up size for better visibility (each grid cell is scaled by 10)
+            using (Bitmap bmp = new Bitmap(width * 10, height * 10))
+            using (Graphics g = Graphics.FromImage(bmp))
+            {
+                g.Clear(Color.White); // Set background to white
+
+                // Use a fixed font size for drawing text
+                using (Font font = new Font("Arial", 10, FontStyle.Bold)) // Adjust font size for better visibility
+                using (Brush brush = new SolidBrush(Color.Black))
+                {
+                    // Loop through each grid cell and place "0" or "1" based on the input binary array
+                    for (int y = 0; y < height; y++)
+                    {
+                        for (int x = 0; x < width; x++)
+                        {
+                            int pixelIndex = y * width + x; // Calculate the 1D index from 2D grid
+                            string text = inputVector[pixelIndex].ToString(); // "0" or "1"
+
+                            // Draw the text at the corresponding position on the image (scaled by 10)
+                            g.DrawString(text, font, brush, x * 10, y * 10); // Position based on scale
+                        }
+                    }
+                }
+
+                // Save the image to the file system in PNG format
+                bmp.Save(filename, ImageFormat.Png);
+            }
+
+            // Log the saved image path for debugging or confirmation
+            Console.WriteLine($"Binary image with text saved to {filename}");
+        }
+
+
+        /// <summary>
+        /// Draws a heatmap from a list of encoded inputs and permanence values, saving the result as an image.
+        /// Each "1" in the encoded input will be drawn as a colored square with its color determined by the corresponding permanence value.
+        /// </summary>
+        /// <param name="encodedInputs">A list of binary values (1s and 0s) representing encoded inputs.</param>
+        /// <param name="permanenceValues">A list of permanence values corresponding to the encoded inputs, used to determine the color intensity.</param>
+        /// <param name="filePath">The file path where the heatmap image will be saved.</param>
+        /// <param name="bmpWidth">The width of the generated bitmap (default is 2048 pixels).</param>
+        /// <exception cref="ArgumentException">Thrown when the lengths of encodedInputs and permanenceValues don't match.</exception>
+        public static void DrawEncodedHeatmap(List<int> encodedInputs, List<double> permanenceValues, string filePath, int bmpWidth = 2048)
+        {
+            // Ensure both lists are of the same length
+            if (encodedInputs.Count != permanenceValues.Count)
+            {
+                throw new ArgumentException("Encoded input and permanence lists must have the same length.");
+            }
+
+            // Calculate the grid size (square grid based on the total number of encoded inputs)
+            int gridSize = (int)Math.Ceiling(Math.Sqrt(encodedInputs.Count));
+            int gridCellSize = bmpWidth / gridSize; // Size of each cell in the grid
+
+            // Create a new bitmap and graphics object for drawing
+            Bitmap bitmap = new Bitmap(bmpWidth, bmpWidth);
+            Graphics graphics = Graphics.FromImage(bitmap);
+            Pen outlinePen = Pens.Black; // Used for drawing the border of each cell
+
+            // Loop through each encoded input to draw corresponding cells
+            for (int i = 0; i < encodedInputs.Count; i++)
+            {
+                int x = i % gridSize;  // Calculate the x position (column)
+                int y = i / gridSize;  // Calculate the y position (row)
+
+                // Only draw if the encoded input is 1
+                if (encodedInputs[i] == 1)
+                {
+                    // Scale permanence value to get the red and blue color intensity
+                    int red = (int)(255 * permanenceValues[i]);
+                    int blue = (int)(255 * (1 - permanenceValues[i]));
+                    Color pixelColor = Color.FromArgb(red, 0, blue);
+
+                    // Draw the cell with the corresponding color
+                    using (SolidBrush brush = new SolidBrush(pixelColor))
+                    {
+                        graphics.FillRectangle(brush, x * gridCellSize, y * gridCellSize, gridCellSize, gridCellSize);
+                    }
+
+                    // Draw the border of the cell
+                    graphics.DrawRectangle(outlinePen, x * gridCellSize, y * gridCellSize, gridCellSize, gridCellSize);
+                }
+            }
+
+            // Save the bitmap to the specified file path in PNG format
+            bitmap.Save(filePath, ImageFormat.Png);
+            Console.WriteLine($"Encoded heatmap saved to {filePath}");
+        }
 
 
         /// <summary>
@@ -580,17 +755,49 @@ namespace NeoCortex
                 }
             }
 
-
             // Save the combined image with heatmap and text row
             myBitmap.Save(filePath, ImageFormat.Png);
-
-
         }
 
+        public static void SaveHeatmapforImage(int[] inputVector, string filePath, int width = 28, int height = 28)
+        {
+            if (inputVector.Length != width * height)
+                throw new ArgumentException($"Input vector size {inputVector.Length} does not match expected dimensions {width}x{height}.");
 
+            using (Bitmap bmp = new Bitmap(width, height))
+            {
+                int maxVal = int.MinValue;
+                int minVal = int.MaxValue;
 
+                // Find min and max values for normalization
+                foreach (int value in inputVector)
+                {
+                    if (value > maxVal) maxVal = value;
+                    if (value < minVal) minVal = value;
+                }
 
+                // Draw each pixel in the heatmap
+                for (int y = 0; y < height; y++)
+                {
+                    for (int x = 0; x < width; x++)
+                    {
+                        int index = y * width + x;
+                        int pixelValue = inputVector[index];
 
+                        // Normalize the value to range [0, 255] for color mapping
+                        int normalizedValue = (int)((pixelValue - minVal) / (double)(maxVal - minVal) * 255);
+                        Color heatmapColor = Color.FromArgb(255, normalizedValue, 0, 255 - normalizedValue); // Red to Blue gradient
+
+                        bmp.SetPixel(x, y, heatmapColor);
+                    }
+                }
+
+                // Save image as PNG
+                bmp.Save(filePath, ImageFormat.Png);
+            }
+
+            Console.WriteLine($"Heatmap saved: {filePath}");
+        }
 
 
         /// <summary>
@@ -651,8 +858,6 @@ namespace NeoCortex
 
             myBitmap.Save(filePath, ImageFormat.Png);
         }
-
-
 
         /// <summary>
         /// Draws a combined similarity plot based on the given list of similarity values.
@@ -743,17 +948,17 @@ namespace NeoCortex
                     graphics.DrawString($"{i + 1}", font, Brushes.Black, x + (barWidth - labelSize.Width) / 2, imageHeight - 50);
                 }
                 // Add axis labels
-                System.Drawing.Font axisFont = new Font(FontFamily.GenericSansSerif, 14, FontStyle.Bold);
+                Font axisFont = new Font(FontFamily.GenericSansSerif, 14, FontStyle.Bold);
                 graphics.DrawString("X - Axis (Input) Index", axisFont, Brushes.Black, scaleWidth + (imageWidth - scaleWidth) / 2, imageHeight - 20);
                 // Add a title
                 string title = "Similarity Graph";
-                System.Drawing.Font titleFont = new Font(FontFamily.GenericSansSerif, 18, FontStyle.Bold);
+                Font titleFont = new Font(FontFamily.GenericSansSerif, 18, FontStyle.Bold);
                 SizeF titleSize = graphics.MeasureString(title, titleFont);
                 // Adjusted title position
                 graphics.DrawString(title, titleFont, Brushes.Black, (imageWidth - titleSize.Width) / 2, 20);
 
                 // Add a scale indicating values from 0 to 1
-                System.Drawing.Font scaleFont = new Font(FontFamily.GenericSansSerif, 12, FontStyle.Bold);
+                Font scaleFont = new Font(FontFamily.GenericSansSerif, 12, FontStyle.Bold);
                 // Draw 11 tick marks
                 for (int i = 0; i <= 10; i++)
                 {
@@ -769,7 +974,7 @@ namespace NeoCortex
                 // Add text indicating the similarity test
                 string similarityText = "Y axis-Similarity Range";
                 // Larger and bold font for similarity text
-                System.Drawing.Font similarityFont = new System.Drawing.Font(FontFamily.GenericSansSerif, 14, FontStyle.Bold);
+                Font similarityFont = new Font(FontFamily.GenericSansSerif, 14, FontStyle.Bold);
                 SizeF similaritySize = graphics.MeasureString(similarityText, similarityFont);
                 graphics.DrawString(similarityText, similarityFont, Brushes.Black, 50, imageHeight / 2 - similaritySize.Height / 2, new StringFormat { FormatFlags = StringFormatFlags.DirectionVertical });
             }
@@ -777,7 +982,6 @@ namespace NeoCortex
             // Save the bitmap to a file as PNG format
             bitmap.Save(filePath, ImageFormat.Png);
         }
-
 
         /// <summary>
         /// Determines the color based on the given similarity level.
@@ -789,7 +993,7 @@ namespace NeoCortex
         {
             // Define the color range
             // Light gray
-            int minColorValue = 200;
+            int minColorValue = 100;
             // Dark orange
             int maxColorValue = 255;
 
@@ -905,7 +1109,7 @@ namespace NeoCortex
         {
             // Assign color based on similarity level
             // High similarity (90% or higher)
-            if (similarity >= 0.7)
+            if (similarity >= 0.9)
                 return Color.DarkOrange;
             // Medium similarity (70% or higher)
             else if (similarity >= 0.7)
@@ -930,7 +1134,7 @@ namespace NeoCortex
             List<int> intList = new List<int>();
             for (int n = 0; n < integerStrings.Length; n++)
             {
-                System.String s = integerStrings[n];
+                String s = integerStrings[n];
                 char[] sub = s.ToCharArray();
                 for (int j = 0; j < sub.Length; j++)
                 {
@@ -961,7 +1165,6 @@ namespace NeoCortex
 
             return inputVector;
         }
-
 
         /// <summary>
         /// Calculate mean value of array of numbers. 
@@ -1021,8 +1224,6 @@ namespace NeoCortex
 
             return corr;
         }
-
-
 
         /// <summary>
         /// 
@@ -1120,7 +1321,6 @@ namespace NeoCortex
         }
 
 
-
         /// <summary>
         /// Calculates the softmax function.
         /// </summary>
@@ -1151,167 +1351,5 @@ namespace NeoCortex
 
             return exponentials.Select(x => x / sum).ToArray();
         }
-
-
-        // Function DrawCombinedHeatmaps2
-        
-
-        public static void DrawCombinedHeatmaps2(List<List<double>> heatmapData, string filePath, int bmpWidth = 784, int gridSize = 52, int enlargementFactor = 2)
-        {
-
-            //Bitmap creation, title drawing, and initial setup
-
-            bmpWidth *= enlargementFactor;
-            int titlePadding = 50;
-            int gridHeight = bmpWidth / gridSize;
-            int totalHeatmapHeight = gridHeight * gridSize;
-
-            Bitmap coloredBitmap = new Bitmap(bmpWidth, totalHeatmapHeight + titlePadding);
-            Bitmap transparentBitmap = new Bitmap(bmpWidth, totalHeatmapHeight + titlePadding);
-
-            Graphics coloredGraphics = Graphics.FromImage(coloredBitmap);
-            Graphics transparentGraphics = Graphics.FromImage(transparentBitmap);
-
-            System.Drawing.Font titleFont = new Font("Arial", 20, FontStyle.Bold);
-
-            coloredGraphics.DrawString("Permanence Heatmap (Colored)", titleFont, Brushes.Black, new PointF(bmpWidth / 3, 10));
-
-            transparentGraphics.DrawString("Permanence Heatmap (Transparent)", titleFont, Brushes.Black, new PointF(bmpWidth / 3, 10));
-
-            int gridWidth = bmpWidth / gridSize;
-
-
-            // Processing heatmap data and applying color mapping
-
-            for (int idx = 0; idx < heatmapData.Count; idx++)
-            {
-                var permanenceValues = heatmapData[idx];
-                double maxPermanence = permanenceValues.Max();
-
-                for (int i = 0; i < permanenceValues.Count; i++)
-                {
-
-                    double permanence = permanenceValues[i];
-                    int red = Math.Min(255, (int)(255 * (permanence / maxPermanence)));
-                    int blue = Math.Min(255, (int)(255 * (1 - permanence / maxPermanence)));
-                    Color coloredPixelColor = Color.FromArgb(red, 0, blue);
-                    
-                    int x = i % gridSize;
-                    int y = i / gridSize;
-                    int scaleX = gridWidth;
-                    int scaleY = gridHeight;
-                    
-                    using (SolidBrush brush = new SolidBrush(coloredPixelColor))
-                    {
-                        coloredGraphics.FillRectangle(brush, x * scaleX, y * scaleY +titlePadding, scaleX, scaleY);
-                    }
-                }
-            }
-
-
-
-            //Rendering text and drawing grid rectangles
-
-            
-            System.Drawing.Font font = new System.Drawing.Font("Arial", 10, FontStyle.Bold);
-            Brush textBrush = Brushes.Black;
-            Pen outlinePen = Pens.Black;
-
-            for (int idx = 0; idx < heatmapData.Count; idx++)
-            {
-                var permanenceValues = heatmapData[idx];
-
-                for (int i = 0; i < permanenceValues.Count; i++)
-                {
-                    int x = i % gridSize;
-                    int y = i / gridSize;
-                    int scaleX = gridWidth;
-                    int scaleY = gridHeight;
-
-                    string valueText = $"{permanenceValues[i]:F1}";
-                    float textX = x * scaleX + (scaleX / 4);
-                    float textY = y * scaleY + titlePadding + (scaleY / 4);
-                
-                    coloredGraphics.DrawString(valueText, font, textBrush, textX, textY);
-                    transparentGraphics.DrawRectangle(outlinePen, x * scaleX, y * scaleY +titlePadding, scaleX, scaleY);
-                    transparentGraphics.DrawString(valueText, font, textBrush, textX,textY);
-                }
-            }
-
-
-
-            //Combining the heatmaps and saving the final image
-            Bitmap combinedBitmap = new Bitmap(bmpWidth, (totalHeatmapHeight + titlePadding) * 2);
-            Graphics combinedGraphics = Graphics.FromImage(combinedBitmap);
-
-            combinedGraphics.DrawImage(coloredBitmap, 0, 0);
-            combinedGraphics.DrawImage(transparentBitmap, 0, totalHeatmapHeight + titlePadding);
-
-            combinedBitmap.Save(filePath, ImageFormat.Png);
-            Console.WriteLine($"Combined heatmap saved to {filePath}");
-
-        }
-
-
-        //Function SaveBinarizedImageWithText
-        public static void SaveBinarizedImageWithText(int[] inputVector, string imageName)
-        {
-            int width = 54, height = 54;
-
-            // Ensure inputVector has the correct size
-            if (inputVector.Length != width * height)
-            {
-                throw new ArgumentException("inputVector must have exactly width * height elements.");
-            }
-
-            string folderPath = Path.Combine(Environment.CurrentDirectory, "BinaryImages");
-
-
-            Directory.CreateDirectory(folderPath);
-            string filename = Path.Combine(folderPath, $"{imageName}.png");
-
-
-            using (Bitmap bmp = new Bitmap(width * 10, height * 10))
-            using (Graphics g = Graphics.FromImage(bmp))
-
-            {
-
-                g.Clear(Color.White);
-               
-
-                using (var font = new System.Drawing.Font("Arial", 10, FontStyle.Bold))
-                using (Brush brush = new SolidBrush(Color.Black))
-                {
-                    //Iterating through the binary vector and processing data
-
-
-                    for (int y = 0; y < height; y++)
-                    {
-                        for (int x = 0; x < width; x++)
-                        {
-                            int pixelIndex = y * width + x;
-                            string text = inputVector[pixelIndex].ToString();
-
-                            //Rendering the binary values as text on the image
-
-                            g.DrawString(text, font, brush, x * 10, y * 10);
-
-                     
-                        }
-                    }
-
-
-                }
-
-
-                //Saving the final image and handling output
-                
-                bmp.Save(filename, ImageFormat.Png);
-
-            }
-
-            Console.WriteLine($"Binary image with text saved to {filename}");
-        }
-
     }
 }
