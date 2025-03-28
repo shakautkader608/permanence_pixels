@@ -4,7 +4,7 @@ In this documentation, we will outline our contributions to this project
 
 #### Instruction for Running the Project
 
--   Clone the Repository and Run
+-   Clone the Repository
 -   You will get the project here
     [permanence_pixels](https://github.com/shakautkader608/permanence_pixels)
 
@@ -19,7 +19,9 @@ In this documentation, we will outline our contributions to this project
 
 ###### The uploaded image input sets are already available here to use
 
--   Project\permanence_pixels\source\Samples\NeoCortexApiSample\bin\Debug\net9.0\Sample
+-   [Test Data Link](https://github.com/shakautkader608/permanence_pixels/tree/master/source/Documentation_Permanence_pixels) Download from here and follow below steps.
+-   Download the dataset sample folder from the above link then Copy the "Sample" dataset folder to the root folder of the project
+-   Example C:\Users\Project\permanence_pixels\source\Samples\NeoCortexApiSample\bin\Debug\net9.0
 
 ###### Just modify the active commands here
 
@@ -44,7 +46,7 @@ For the numerical values, the process starts by providing data ranging from 0 to
 For the image input method, visual data is extracted from images and preprocessed for compatibility with HTM. The images are converted into numerical format, typically as pixel value arrays, and these pixel arrays are then encoded to fit the HTM framework. The encoded image representations are used as input in the experiment, enabling us to explore how the Reconstruct() function within HTM's Spatial Pooler can be applied to reconstruct image sequences.
 
 **Fig: Methodology Flowchart**
-![Methodology Flowchart](https://raw.githubusercontent.com//neocortexapi_team.bji/master/source/Docomentation%20neocortexapi_Team.bji/Flowchart.jpg)
+![Methodology Flowchart](https://raw.githubusercontent.com/shakautkader608/permanence_pixels/refs/heads/master/source/Documentation_Permanence_pixels/Diagrams/Workflow.png)
 
 ## Hierarchical Temporal Memory (HTM) Spatial Pooler
 
@@ -174,7 +176,7 @@ Using the Reconstruct() method from the NeocortexAPI, we carefully reverse the t
 
 ```
 
-[Running Reconstruct Method for Numeric Data](https://github.com/shakautkader608/permanence_pixels/blob/master/source/Samples/NeoCortexApiSample/SpatialPatternLearning.cs#L158-226) Lines (158 to 226)
+[Running Reconstruct Method for Numeric Data](https://github.com/shakautkader608/permanence_pixels/blob/master/source/Samples/NeoCortexApiSample/SpatialPatternLearning.cs#L179-L247) Lines (179 to 247)
 
 # Running Reconstruct Method for Image Inputs
 
@@ -277,7 +279,7 @@ Using the Reconstruct() method from the NeocortexAPI, we carefully reverse the t
 
 ```
 
-[Running Reconstruct Method for Image Data](https://github.com/shakautkader608/permanence_pixels/blob/master/source/Samples/NeoCortexApiSample/ImageBinarizerSpatialPattern.cs#L157-L269) Lines (158 to 226)
+[Running Reconstruct Method for Image Data](https://github.com/shakautkader608/permanence_pixels/blob/master/source/Samples/NeoCortexApiSample/ImageBinarizerSpatialPattern.cs#L155-L249) Lines (155 to 249)
 
 # Implementation specifics for both input Type():
 
@@ -469,7 +471,7 @@ The function returns a list of integers (`List<int>`), where each element repres
 
 Here is the Function
 [Helpers.cs
-](https://github.com/shakautkader608/permanence_pixels/blob/master/source/NeoCortexApi/Helpers.cs) - Lines (620 to 637)
+](https://github.com/shakautkader608/permanence_pixels/blob/master/source/NeoCortexApi/Helpers.cs#L645-L670) - Lines (645 to 670)
 
 ## Generate DrawCombinedHeatmapsScalerInputs Function for Numeric Input types
 
@@ -547,7 +549,7 @@ public static void DrawCombinedHeatmapsScalerInputs(List<List<double>> heatmapDa
 }
 ```
 
-[GenarateHeatmap Function For Numeric Data](https://github.com/shakautkader608/permanence_pixels/blob/master/source/NeoCortexUtils/NeoCortexUtils.cs) - Lines (220 to 290)
+[GenarateHeatmap Function For Numeric Data](https://github.com/shakautkader608/permanence_pixels/blob/master/source/NeoCortexUtils/NeoCortexUtils.cs#L220-L290) - Lines (220 to 290)
 The DrawCombinedHeatmapsScalerInputs method generates and saves heatmaps representing permanence values. Each heatmap visualizes a list of values on a grid, where colors range from blue (low values) to red (high values). The generated images are saved as .png files in the specified output folder.
 
 ###### Parameters
@@ -617,7 +619,8 @@ Creates Bitmap Graphics for Heatmap
 
 We Applied this Function to DrawCombinedHeatmapsScalerInputs
 Click Below for More Details
-[Draw1dHeatmap](https://github.com/BidhanPaul/neocortexapi_team.bji/blob/master/source/NeoCortexUtils/NeoCortexUtils.cs#L222-L351) - Lines (222 to 351)
+[DrawCombinedHeatmapsScalerInputs](https://github.com/shakautkader608/permanence_pixels/blob/master/source/NeoCortexUtils/NeoCortexUtils.cs#L220-L290) - Lines (222 to 351)
+
 **Outcomes:**
 
 -   HeatMap Image for all inputs as Image Visualization.
@@ -625,7 +628,7 @@ Click Below for More Details
 
 **Results Example:**
 **Fig: Final Outcome**
-![Final Outcome](https://raw.githubusercontent.com/BidhanPaul/neocortexapi_team.bji/master/source/Docomentation%20neocortexapi_Team.bji/Final_Outcome_Example_heatmap_1.png)
+![Final Outcome](https://raw.githubusercontent.com/shakautkader608/permanence_pixels/refs/heads/master/source/Documentation_Permanence_pixels/Sample%20Output/heatmap_1.png)
 
 ## Generate DrawHeatmapsforImg Function for Image Input types
 
@@ -703,10 +706,10 @@ Click Below for More Details
  }
 ```
 
-[GenarateHeatmap Function For Image Data](https://github.com/shakautkader608/permanence_pixels/blob/master/source/NeoCortexUtils/NeoCortexUtils.cs) - Lines (220 to 290)
+[DrawHeatmapsforImg](https://github.com/shakautkader608/permanence_pixels/blob/master/source/NeoCortexUtils/NeoCortexUtils.cs#L375-L445) - Lines (375 to 445)
 The DrawCombinedHeatmapsScalerInputs method generates and saves heatmaps representing permanence values. Each heatmap visualizes a list of values on a grid, where colors range from blue (low values) to red (high values). The generated images are saved as .png files in the specified output folder.
 
-# **Implementation Details: `DrawHeatmapsforImg` Function**
+## **Implementation Details: `DrawHeatmapsforImg` Function**
 
 ## **Function Overview**
 
@@ -784,7 +787,7 @@ DrawHeatmapsforImg(sampleData, "TestHeatmap");
 
 We Applied this Function to DrawHeatmapsforImg
 Click Below for More Details
-[DrawHeatmapsforImg](https://github.com/BidhanPaul/neocortexapi_team.bji/blob/master/source/NeoCortexUtils/NeoCortexUtils.cs#L222-L351) - Lines (222 to 351)
+[DrawHeatmapsforImg](https://github.com/shakautkader608/permanence_pixels/blob/master/source/NeoCortexUtils/NeoCortexUtils.cs#L375-L445) - Lines (375 to 445)
 **Outcomes:**
 
 -   HeatMap Image for all inputs as Image Visualization.
@@ -792,7 +795,7 @@ Click Below for More Details
 
 **Results Example:**
 **Fig: Final Outcome**
-![Final Outcome](https://raw.githubusercontent.com/BidhanPaul/neocortexapi_team.bji/master/source/Docomentation%20neocortexapi_Team.bji/Final_Outcome_Example_heatmap_1.png)
+![Final Outcome](https://raw.githubusercontent.com/shakautkader608/permanence_pixels/refs/heads/master/source/Documentation_Permanence_pixels/Sample%20Output/Heatmap_0.pngcycle0.png)
 
 ## Calculating similarity with the Jaccard similarity Coefficient
 
@@ -826,7 +829,42 @@ This function calculates the Jaccard Similarity between two binary arrays. The J
 ```
 
 Here is the Function
-[MathHelpers.cs](https://github.com/shakautkader608/permanence_pixels/blob/master/source/NeoCortexApi/Utility/MathHelpers.cs#L182-L205) - Lines (182 to 205)
+[MathHelpers.cs](https://github.com/shakautkader608/permanence_pixels/blob/master/source/NeoCortexApi/Utility/MathHelpers.cs#L182-L206) - Lines (182 to 206)
+
+# DrawEncodedVsReconstructedHeatmap Function
+
+## Description
+
+The `DrawEncodedVsReconstructedHeatmap` function generates a heatmap comparing encoded input values to reconstructed values. It visually highlights mismatches in red and matches in green, then saves the heatmap as a PNG file.
+
+## Parameters
+
+-   **`encodedInput (int[])`**: The array representing the encoded input values.
+-   **`reconstructed (int[])`**: The array representing the reconstructed values.
+-   **`filePath (string)`**: The output file path where the heatmap image will be saved.
+
+## Functionality
+
+1. Determines the grid dimensions (width and height) based on the length of `encodedInput`.
+2. Initializes a `Bitmap` object with a scale factor for better readability.
+3. Uses `Graphics` to render the heatmap:
+    - Each cell represents an entry in `encodedInput`.
+    - Cells are filled with **green** if the value matches the corresponding `reconstructed` value, otherwise **red**.
+    - Values are displayed inside each cell in the format **E,R** (Encoded, Reconstructed).
+4. Saves the final heatmap image to the specified `filePath`.
+
+## Visual Representation
+
+-   **Green cells**: Indicate correct matches.
+-   **Red cells**: Indicate mismatches.
+-   **Black borders**: Improve clarity between cells.
+-   **Text labels**: Show the encoded and reconstructed values.
+    **Outcomes:**
+-   A Difference of Heatmap (E,R)--->(Encoded,Reconstructed)--->(1,1)
+
+**Only for numeric Numeric Data to compare with original Encoded vs Reconstructed:**
+**Fig: Encoded vs Reconstructed**
+![Final Outcome](https://raw.githubusercontent.com/shakautkader608/permanence_pixels/refs/heads/master/source/Documentation_Permanence_pixels/Sample%20Output/heatmap_0.png)
 
 ## Create a graph of similarities
 
@@ -851,12 +889,16 @@ This method generates a similarity plot visualizing a list of similarity values 
 -   Adds titles, axis labels, and a color scale for better visualization.
 
 We used this function to generate the Combined Similarity Plot. Click below for more details.
-[DrawSimilarityPlot](https://github.com/shakautkader608/permanence_pixels/blob/master/source/NeoCortexUtils/NeoCortexUtils.cs#L671-L779) - Lines (671 to 779)
+[DrawSimilarityPlot](https://github.com/shakautkader608/permanence_pixels/blob/master/source/NeoCortexUtils/NeoCortexUtils.cs#L876-L984) - Lines (876 to 984)
 
 **Outcomes:**
 
 -   Bar charts representing the similarity for each input.
 
-**Results Example:**
+**Results Example For Numeric Data:**
+**Fig: Final Outcome for Numeric input**
+![Final Outcome](https://raw.githubusercontent.com/shakautkader608/permanence_pixels/refs/heads/master/source/Documentation_Permanence_pixels/Sample%20Output/combined_similarity_plot.png)
+
+**Results Example for Image Data:**
 **Fig: Final Outcome for Image input**
-![Final Outcome](https://raw.githubusercontent.com/BidhanPaul/neocortexapi_team.bji/master/source/Docomentation%20neocortexapi_Team.bji/FinalOutcomeExamplecombined_similarity_plot_Image_Inputs.png)
+![Final Outcome](https://raw.githubusercontent.com/shakautkader608/permanence_pixels/refs/heads/master/source/Documentation_Permanence_pixels/Sample%20Output/highest_similarity_plot.png)
