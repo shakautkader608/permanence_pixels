@@ -76,8 +76,14 @@ namespace NeoCortexApiSample
         }
 
         /// <summary>
-        ///
+        /// This method runs a complete experiment for training a spatial pooler (SP) and temporal memory (TM)
+        /// using a given encoder and input sequences. It includes a newborn stage where the SP is trained to
+        /// reach a stable state, followed by sequence learning using TM and a classifier.
+        /// The experiment measures prediction accuracy over time and considers learning complete once
+        /// 100% accuracy is reached over a series of iterations. The process and results are logged to the
+        /// debug output, so you must run this code in the debugger to follow the trace. 
         /// </summary>
+
         private Predictor RunExperiment(int inputBits, HtmConfig cfg, EncoderBase encoder, Dictionary<string, List<double>> sequences)
         {
             Stopwatch sw = new Stopwatch();

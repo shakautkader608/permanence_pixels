@@ -18,14 +18,22 @@ namespace NeoCortexApiSample
         /// <param name="args"></param>
         static void Main(string[] args)
         {
-            //
-            //// Starts experiment that demonstrates how to learn spatial patterns.
+            /// <summary>
+            /// This sample shows how to start an experiment for numerical input processing,
+            /// This sample demonstrates how to initialize and run a spatial pattern learning experiment.
+            /// You must start this code in the debugger to follow the execution trace.
+            /// </summary>
             SpatialPatternLearning experiment = new SpatialPatternLearning();
             experiment.Run();
 
-            // Starts experiment For the Image Inputs how to learn spatial patterns.
-            //ImageBinarizerSpatialPattern experiment = new ImageBinarizerSpatialPattern();
-            //experiment.Run();
+
+            /// <summary>
+            /// This sample shows how to start an experiment for image input processing,
+            /// demonstrating how spatial patterns are learned using image binarization.
+            /// You must start this code in the debugger to follow the execution trace.
+            /// </summary>
+            // ImageBinarizerSpatialPattern experiment = new ImageBinarizerSpatialPattern();
+            // experiment.Run();
 
 
             //
@@ -108,6 +116,12 @@ namespace NeoCortexApiSample
             PredictNextElement(predictor, list3);
         }
 
+        /// <summary>
+        /// This method demonstrates how to use a Predictor to make predictions on a sequence of inputs.
+        /// For each element in the provided list, it attempts to predict the next input based on learned patterns.
+        /// The results, including predicted sequences and their similarity scores, are written to the debug output.
+        /// You must start this code in the debugger to follow the prediction trace.
+        /// </summary>
         private static void PredictNextElement(Predictor predictor, double[] list)
         {
             Debug.WriteLine("------------------------------");
